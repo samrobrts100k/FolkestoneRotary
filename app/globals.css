@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white font-sans text-navy antialiased; }
+  h1, h2, h3 { @apply font-bold tracking-tight text-navy; }
+  :focus-visible { @apply outline-none ring-2 ring-rotary ring-offset-2; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+@layer components {
+  .prose-club p { @apply mb-4 leading-relaxed text-slate-700; }
+  .prose-club h2 { @apply mb-3 mt-8 text-2xl; }
+}
