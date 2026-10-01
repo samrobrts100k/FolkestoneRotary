@@ -17,7 +17,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         <div className="mx-auto max-w-md rounded-card border border-slate-200 p-6 shadow-soft sm:p-8">
           {error === "pending" && <p role="alert" className="mb-5 rounded-xl bg-gold-light p-3 text-sm">Your account is waiting for approval by a club administrator.</p>}
           <LoginForm next={next} />
-          <p className="mt-5 text-sm text-slate-blue">Forgotten your password or need an account? Ask a club administrator to invite you.</p>
+          <p className="mt-5 text-sm"><a href="/forgot-password" className="font-semibold text-rotary underline">Forgot your password?</a></p>
+          <p className="mt-2 text-sm text-slate-blue">Need an account? Ask a club administrator.</p>
         </div>
       </Section>
     </>

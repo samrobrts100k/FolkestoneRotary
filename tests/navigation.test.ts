@@ -11,7 +11,7 @@ describe("navigation", () => {
     expect(nav.map((n) => n.label)).toEqual(["Home", "About Us", "Our Impact", "Events", "News", "Join Rotary", "Apply for Funding", "Contact"]);
   });
   it("points every nav and footer link at a real page", () => {
-    for (const l of [...nav, ...footerLegal, { href: "/donate" }, { href: "/sponsors" }, { href: "/login" }]) expect(routeExists(l.href), l.href).toBe(true);
+    for (const l of [...nav, ...footerLegal, { href: "/donate" }, { href: "/sponsors" }, { href: "/login" }, { href: "/forgot-password" }, { href: "/reset-password" }]) expect(routeExists(l.href), l.href).toBe(true);
   });
   it("has no placeholder href=\"#\" links anywhere in the source", () => {
     const hits: string[] = [];
