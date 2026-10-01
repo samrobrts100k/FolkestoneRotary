@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useState } from "react";
+import { startTransition, useActionState, useState } from "react";
 import { saveRecord } from "@/app/admin/actions";
 import type { Resource } from "@/lib/admin/resources";
 import { Field, Input, Select, Textarea } from "@/components/ui/fields";
@@ -15,7 +15,7 @@ export function RecordForm({ resource, id, record }: { resource: Resource; id: s
   const e = state.errors ?? {};
   const val = (n: string) => record?.[n];
   return (
-    <form action={action} className="space-y-5">
+    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => action(fd)); }} className="space-y-5">
       {resource.fields.map((f) => {
         const v = val(f.name);
         if (f.type === "image" || f.type === "file") return <ImageField key={f.name} name={f.name} label={f.label} defaultValue={v as string} accept={f.type === "image" ? "image" : "file"} help={f.help} />;

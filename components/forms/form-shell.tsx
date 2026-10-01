@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
@@ -28,8 +28,9 @@ export function FormShell({ action, children, submitLabel, successTitle = "Thank
       </div>
     );
   }
+  // Submitted via onSubmit (not action=) so React does not wipe the fields when the server returns an error.
   return (
-    <form action={formAction} noValidate={false} className={className ?? "space-y-5"} aria-busy={pending}>
+    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => formAction(fd)); }} className={className ?? "space-y-5"} aria-busy={pending}>
       <input type="hidden" name="_t" value={t} />
       {/* Honeypot: hidden from people and assistive tech, bots fill it in */}
       <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Leave blank<input type="text" name="website_url" tabIndex={-1} autoComplete="off" /></label></div>

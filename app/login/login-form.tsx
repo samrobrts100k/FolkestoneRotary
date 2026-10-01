@@ -1,5 +1,5 @@
 "use client";
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
 import { signIn } from "./actions";
 import { Field, Input } from "@/components/ui/fields";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 export function LoginForm({ next }: { next: string }) {
   const [state, action, pending] = useActionState(signIn, {});
   return (
-    <form action={action} className="space-y-5">
+    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => action(fd)); }} className="space-y-5">
       <input type="hidden" name="next" value={next} />
       <Field label="Email" name="email" required>{(a) => <Input {...a} type="email" autoComplete="username" />}</Field>
       <Field label="Password" name="password" required>{(a) => <Input {...a} type="password" autoComplete="current-password" />}</Field>
