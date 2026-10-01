@@ -1,9 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase/env";
 
 /** Refreshes the Supabase session cookie and blocks anonymous access to /members and /admin. Roles are enforced again server-side. */
 export async function middleware(req: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = supabaseUrl, key = supabaseAnonKey;
   let res = NextResponse.next({ request: req });
   let signedIn = false;
   if (url && key) {

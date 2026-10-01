@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
-const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
-  : "placeholder.supabase.co";
+// Never let a mistyped env var break the build: fall back to a placeholder host.
+let supabaseHost = "placeholder.supabase.co";
+try {
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) supabaseHost = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL.trim()).hostname;
+} catch {
+  console.warn("NEXT_PUBLIC_SUPABASE_URL is not a valid URL (it should look like https://abcdxyz.supabase.co)");
+}
 
 const nextConfig = {
   reactStrictMode: true,
