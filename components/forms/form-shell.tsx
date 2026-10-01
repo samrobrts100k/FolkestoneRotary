@@ -1,5 +1,5 @@
 "use client";
-import { startTransition, useActionState, useEffect, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
@@ -17,9 +17,21 @@ export function FormShell({ action, children, submitLabel, successTitle = "Thank
   useEffect(() => setT(String(Date.now())), [state]);
   useEffect(() => { if (state.ok && trackAs) track(trackAs); }, [state.ok, trackAs]);
 
+  // After a response, bring the result into view: the thank-you box on success, the first problem field on error.
+  const done = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (!state.ok && !state.message && !state.errors) return;
+    const behavior: ScrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    if (state.ok) { done.current?.scrollIntoView({ behavior, block: "start" }); done.current?.focus({ preventScroll: true }); return; }
+    const bad = formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]');
+    if (bad) { bad.scrollIntoView({ behavior, block: "center" }); bad.focus({ preventScroll: true }); }
+    else formRef.current?.scrollIntoView({ behavior, block: "start" });
+  }, [state]);
+
   if (state.ok) {
     return (
-      <div role="status" className="rounded-card bg-rotary-light p-6 text-center">
+      <div ref={done} tabIndex={-1} role="status" className="scroll-mt-28 rounded-card bg-rotary-light p-6 text-center outline-none">
         <CheckCircle2 aria-hidden className="mx-auto h-10 w-10 text-rotary" />
         <h3 className="mt-3 text-xl font-bold">{successTitle}</h3>
         <p className="mt-1 text-slate-700">{state.message}</p>
@@ -30,7 +42,7 @@ export function FormShell({ action, children, submitLabel, successTitle = "Thank
   }
   // Submitted via onSubmit (not action=) so React does not wipe the fields when the server returns an error.
   return (
-    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => formAction(fd)); }} className={className ?? "space-y-5"} aria-busy={pending}>
+    <form ref={formRef} onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => formAction(fd)); }} className={className ?? "space-y-5"} aria-busy={pending}>
       <input type="hidden" name="_t" value={t} />
       {/* Honeypot: hidden from people and assistive tech, bots fill it in */}
       <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Leave blank<input type="text" name="website_url" tabIndex={-1} autoComplete="off" /></label></div>
