@@ -51,6 +51,31 @@ dd a{color:var(--blue);font-weight:700;text-underline-offset:4px;white-space:now
 .join .btn{background:var(--navy);color:#fff}
 footer{background:var(--navy);color:#b9cce2;padding:48px 0;font-size:15px}footer .wrap{display:flex;flex-wrap:wrap;gap:24px 60px;justify-content:space-between}footer a{text-underline-offset:4px}
 @media(max-width:1020px){nav{display:none}}@media(max-width:860px){.hbtn .line{display:none}.hero .wrap,.two,.join .wrap{grid-template-columns:1fr;gap:36px}.row{grid-template-columns:62px 1fr}.row .chip{display:none}section{padding:56px 0}}
+
+.hero{padding:56px 0 64px;background:linear-gradient(180deg,var(--blue) 0,var(--blue) 62%,var(--blue-d) 100%)}
+.hero .wrap{display:block}
+.hero-top{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end;margin-bottom:38px}
+h1{animation:rise .8s .1s both}.lead{animation:rise .8s .25s both;margin:0}.acts{animation:rise .8s .4s both;margin-top:22px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.board{padding:0;border-radius:18px;overflow:hidden;background:#07142a;box-shadow:0 30px 60px -24px rgba(0,0,0,.65);border:1px solid #1d3558}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:linear-gradient(#0e2547,#0a1d3a);border-bottom:3px solid var(--gold)}
+.bar h2{margin:0;font:700 clamp(22px,3vw,34px)/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;display:flex;gap:14px;align-items:center;justify-content:flex-start}
+.bar h2 i{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.clock{font:600 clamp(26px,3.4vw,40px)/1 "Barlow Condensed",monospace;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.cols,.brow{display:grid;grid-template-columns:130px 1.45fr 1fr 170px;gap:0 14px;padding:0 24px}
+.cols{padding-top:12px;padding-bottom:8px;font:600 15px "Barlow Condensed",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6f8fb5}
+.brow{padding-top:11px;padding-bottom:11px;border-top:1px solid #12294a;text-decoration:none;align-items:center;transition:background .2s}
+a.brow:hover,a.brow:focus-visible{background:#0f2a50}
+.fl{display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden}
+.tl{width:.62em;height:1.12em;font:700 clamp(17px,1.9vw,26px)/1.12em "Barlow Condensed","Arial Narrow",monospace;text-align:center;color:#f5f1e6;background:linear-gradient(#17233a 49%,#050c18 50%,#101b30 51%);border-radius:3px;flex:none}
+.tl.g{color:var(--gold)}.tl.sp{background:linear-gradient(#111c31 49%,#050c18 50%,#0c1628 51%)}
+.tl.tick{animation:tick .07s}@keyframes tick{from{transform:scaleY(.15)}to{transform:none}}
+.brow.msg{background:#0b1f3d;border-top:2px solid var(--gold);grid-template-columns:1fr}
+.brow.msg .tl{color:var(--gold)}
+@media(max-width:1020px){.hero-top{grid-template-columns:1fr}.cols span:nth-child(3),.brow>.fl:nth-child(3){display:none}.cols,.brow{grid-template-columns:110px 1fr 140px}.tl{width:.58em}}
+@media(max-width:620px){.cols,.brow{grid-template-columns:78px 1fr;padding:0 14px}.cols span:nth-child(4),.brow>.fl:nth-child(4){display:none}.tl{font-size:15px;width:.56em}.fl{gap:2px}}
+@media(prefers-reduced-motion:reduce){h1,.lead,.acts,.bar h2 i{animation:none}.tl.tick{animation:none}}
 </style></head><body>
 <div class="demo">Design demo A of 3 · Departures board · sample content</div>
 <header><div class="wrap"><a class="logo" href="#"><i>F</i><span>Folkestone Rotary</span></a>
@@ -58,17 +83,33 @@ footer{background:var(--navy);color:#b9cce2;padding:48px 0;font-size:15px}footer
 <div class="hbtn"><a class="btn gold" href="#">Donate</a><a class="btn line" href="#">Member login</a></div></div></header>
 <main>
 <div class="hero"><div class="wrap">
- <div><h1>Making a difference in Folkestone</h1>
- <p class="lead">Local people, raising money and giving time for Folkestone’s charities, young people and community projects.</p>
- <div class="acts"><a class="btn gold" href="#">Come to a meeting</a><a class="t" href="#">See what’s on</a><a class="t" href="#">Apply for funding</a></div></div>
- <aside class="board" aria-label="Upcoming events"><h2>Coming up <span>sample dates</span></h2>
-  <a class="row" href="#"><span class="d">14 NOV</span><span><b>Race Night</b><small>Venue to be confirmed</small></span><span class="chip on">Tickets</span></a>
-  <a class="row" href="#"><span class="d">05 DEC</span><span><b>Christmas Collections</b><small>Around Folkestone</small></span><span class="chip">Volunteers</span></a>
-  <a class="row" href="#"><span class="d">19 FEB</span><span><b>Wine &amp; Wisdom</b><small>Venue to be confirmed</small></span><span class="chip on">Tickets</span></a>
-  <a class="row" href="#"><span class="d">24 MAR</span><span><b>Golf Day</b><small>Local golf club</small></span><span class="chip on">Book a team</span></a>
-  <a class="row" href="#"><span class="d">17 MAY</span><span><b>Half Marathon</b><small>Folkestone seafront</small></span><span class="chip on">Enter</span></a>
-  <a class="all" href="#">All events</a></aside></div></div>
-
+ <div class="hero-top"><div><h1>Making a difference in Folkestone</h1></div>
+ <div><p class="lead">Local people, raising money and giving time for Folkestone’s charities, young people and community projects.</p>
+ <div class="acts"><a class="btn gold" href="#">Come to a meeting</a><a href="#" style="color:#fff;font-weight:700;text-underline-offset:5px">See what’s on</a><a href="#" style="color:#fff;font-weight:700;text-underline-offset:5px">Apply for funding</a></div></div></div>
+ <section class="board" aria-label="Upcoming events (sample dates)" style="padding:0">
+  <div class="bar"><h2><i></i>Departures</h2><div class="clock" id="clock" aria-hidden="true">--:--</div></div>
+  <div class="cols" aria-hidden="true"><span>Date</span><span>Event</span><span>Where</span><span>Status</span></div>
+  <div id="rows"></div>
+  <div class="brow msg"><div class="fl" id="msg"></div></div>
+ </section>
+</div></div>
+<script>
+const EV=[["14 NOV","RACE NIGHT","VENUE TBC","TICKETS"],["05 DEC","CHRISTMAS COLLECTIONS","AROUND FOLKESTONE","VOLUNTEERS"],["19 FEB","WINE & WISDOM","VENUE TBC","TICKETS"],["24 MAR","GOLF DAY","LOCAL GOLF CLUB","BOOK A TEAM"],["17 MAY","HALF MARATHON","SEAFRONT","ENTER NOW"]];
+const MSG=["ALL WELCOME * NO OBLIGATION","WE MEET TUESDAYS AT 12:30","EVERY POUND STAYS IN FOLKESTONE","VISITORS BOARDING NOW"];
+const CH=" ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&*.";const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function flap(el,text,delay,cls){text=text.toUpperCase();el.setAttribute("aria-label",text);el.setAttribute("role","text");el.textContent="";
+ const w=Math.max(text.length,el.dataset.w?+el.dataset.w:0);
+ [...text.padEnd(w," ")].forEach((c,i)=>{const s=document.createElement("span");s.className="tl"+(cls?" "+cls:"")+(c===" "?" sp":"");s.setAttribute("aria-hidden","true");el.appendChild(s);
+  if(rm){s.textContent=c;return}
+  let cur=Math.floor(Math.random()*CH.length),n=0;const total=6+Math.floor(Math.random()*10)+i%5;
+  setTimeout(()=>{const iv=setInterval(()=>{n++;cur=n>=total?CH.indexOf(c):(cur+1)%CH.length;s.textContent=CH[cur]||c;s.classList.remove("tick");void s.offsetWidth;s.classList.add("tick");if(n>=total)clearInterval(iv)},55)},delay+i*38)});}
+const rows=document.getElementById("rows");
+EV.forEach((e,r)=>{const a=document.createElement("a");a.className="brow";a.href="#";a.setAttribute("aria-label",e.join(", "));
+ [0,1,2,3].forEach(k=>{const d=document.createElement("div");d.className="fl";d.dataset.w=[6,21,17,11][k];a.appendChild(d);flap(d,e[k],400+r*260,k===0||k===3?"g":"")});rows.appendChild(a)});
+const msg=document.getElementById("msg");msg.dataset.w=33;let mi=0;flap(msg,MSG[0],1900);
+if(!rm)setInterval(()=>{mi=(mi+1)%MSG.length;flap(msg,MSG[mi],0)},6500);
+const clk=document.getElementById("clock");const tick=()=>{clk.textContent=new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"})};tick();setInterval(tick,20000);
+</script>
 <section><div class="wrap two"><div><h2 class="s">What we do</h2><p style="color:var(--mute);max-width:32ch">Six ways to help, and one place to start: come to a meeting.</p></div>
 <dl><div><dt>Community projects</dt><dd>Practical help for local groups. <a href="#">See projects</a></dd></div>
 <div><dt>Youth support</dt><dd>Enterprise, sport and skills for young people. <a href="#">Read more</a></dd></div>

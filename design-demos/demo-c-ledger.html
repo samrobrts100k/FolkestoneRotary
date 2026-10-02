@@ -29,6 +29,22 @@ td a{color:var(--blue-d);font-weight:800;font-size:19px;text-decoration:none}td 
 .band h2{font:800 clamp(34px,4.6vw,58px)/1 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.03em;margin:0}.band p{margin:0 0 18px;font-size:19px}
 footer{background:var(--navy);color:#b9cce2;padding:40px 0;font-size:15px}footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px 56px}
 @media(max-width:1000px){nav{display:none}}@media(max-width:600px){.hl{display:none}}@media(max-width:900px){.hero .wrap,.band .wrap{grid-template-columns:1fr;gap:34px}.months{grid-template-columns:1fr 1fr;row-gap:24px}.months div:nth-child(3){border-left:0;padding-left:0}section{padding:48px 0}.hide-s{display:none}}
+
+.hero{padding:56px 0 64px;background:linear-gradient(180deg,#fff 0,#f4f8fc 100%)}
+.hero .wrap{grid-template-columns:.9fr 1.25fr;gap:44px;align-items:center}
+h1{animation:rise .8s .05s both}.lead,.acts{animation:rise .8s .25s both}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.flow{background:#fff;border:2px solid var(--navy);border-radius:10px;padding:22px 22px 14px;box-shadow:10px 10px 0 var(--blue);position:relative;min-width:0}
+.flow h2{margin:0;font:800 22px/1.2 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.01em}.flow p.n{margin:2px 0 6px;color:var(--mute);font-size:14.5px}
+.flow svg{display:block;width:100%;height:auto;overflow:visible}
+.node{cursor:pointer;outline:none}
+.rib{transition:opacity .25s;opacity:.95}.dim .rib{opacity:.14}.dim .rib.on{opacity:1}.dim .node:not(.on) text{opacity:.35}
+.node:focus-visible rect.nb{stroke:var(--gold);stroke-width:4}
+.rib{transform-origin:0 50%;transform-box:fill-box;animation:grow 1.1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes grow{from{transform:scaleX(0);opacity:0}to{transform:none}}
+.pulse{stroke-dasharray:3 16;animation:dash 1.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-19}}
+.tip{margin:6px 0 0;font-size:14.5px;color:var(--mute);min-height:1.6em}.tip b{color:var(--ink)}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){h1,.lead,.acts,.rib,.pulse{animation:none}}
 </style></head><body>
 <div class="demo">Design demo C of 3 · Ledger · sample content</div>
 <header><div class="wrap"><a class="logo" href="#"><i>F</i>Folkestone Rotary</a>
@@ -36,13 +52,37 @@ footer{background:var(--navy);color:#b9cce2;padding:40px 0;font-size:15px}footer
 <div style="display:flex;gap:10px"><a class="btn gold" href="#">Donate</a><a class="btn ol hl" href="#">Login</a></div></div></header>
 <main>
 <div class="hero"><div class="wrap"><div><h1>Making a difference in Folkestone</h1>
-<p class="lead">Every pound we raise stays in the town. Here’s how, and where it went last year.</p>
+<p class="lead">Every pound we raise stays in the town. Follow it from the collection tin to the people it helps.</p>
 <div class="acts"><a class="btn blue" href="#">Join the club</a><a class="t" href="#">What’s on</a><a class="t" href="#">Apply for funding</a></div></div>
-<aside class="ledger" aria-label="Where our money went"><h2>Where our money went</h2><p>Sample breakdown. Replace with your real figures.</p>
-<div class="bar" role="img" aria-label="Bar split: community charities 40%, schools 25%, youth 20%, Christmas support 15%"><i style="width:40%;background:#005DAA"></i><i style="width:25%;background:#4d93cc"></i><i style="width:20%;background:#F7A81B"></i><i style="width:15%;background:#0B1F3A"></i></div>
-<ul class="leg"><li><s style="background:#005DAA"></s>Community charities<b>£19,400</b></li><li><s style="background:#4d93cc"></s>Local schools<b>£12,125</b></li><li><s style="background:#F7A81B"></s>Youth programmes<b>£9,700</b></li><li><s style="background:#0B1F3A"></s>Christmas family support<b>£7,275</b></li></ul>
-<div class="tot"><span>Raised for local causes</span><span>£48,500</span></div></aside></div></div>
-
+<aside class="flow" aria-label="Where our money went"><h2>Follow the money</h2><p class="n">Sample breakdown. Hover, tap or tab through the causes. Replace with real figures in the admin.</p>
+<svg id="sk" viewBox="0 0 640 400" role="group" aria-label="Flow diagram from money raised to four causes"></svg>
+<p class="tip" id="tip" aria-live="polite">Hover or tab to a cause to follow its share.</p></aside></div></div>
+<script>
+const D=[{n:"Community charities",v:19400,c:"#005DAA"},{n:"Local schools",v:12125,c:"#4d93cc"},{n:"Youth programmes",v:9700,c:"#F7A81B"},{n:"Christmas family support",v:7275,c:"#0B1F3A"}];
+const T=D.reduce((s,d)=>s+d.v,0),H=330,GAP=16,TOPY=30,LX=0,LW=26,RX=330,RW=26,avail=H-GAP*(D.length-1),svg=document.getElementById("sk"),NS="http://www.w3.org/2000/svg";
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+const fmt=n=>"£"+n.toLocaleString("en-GB");
+let ly=TOPY,ry=TOPY;
+D.forEach(d=>{d.lh=d.v/T*H;d.rh=d.v/T*avail;d.ly=ly;d.ry=ry;ly+=d.lh;ry+=d.rh+GAP});
+const gR=el("g",{});
+D.forEach((d,i)=>{const x1=LX+LW,x2=RX,y1a=d.ly,y1b=d.ly+d.lh,y2a=d.ry,y2b=d.ry+d.rh,mx=(x1+x2)/2;
+ const g=el("g",{class:"rib","data-i":i,style:`animation-delay:${i*.12}s`},gR);
+ el("path",{d:`M${x1} ${y1a} C${mx} ${y1a} ${mx} ${y2a} ${x2} ${y2a} L${x2} ${y2b} C${mx} ${y2b} ${mx} ${y1b} ${x1} ${y1b}Z`,fill:d.c,"fill-opacity":.32},g);
+ el("path",{d:`M${x1} ${(y1a+y1b)/2} C${mx} ${(y1a+y1b)/2} ${mx} ${(y2a+y2b)/2} ${x2} ${(y2a+y2b)/2}`,fill:"none",stroke:d.c,"stroke-width":2.5,class:"pulse"},g)});
+const L=el("g",{},svg);el("rect",{x:LX,y:TOPY,width:LW,height:H,fill:"#0B1F3A",rx:3},L);
+el("text",{x:0,y:16,"font-size":15,"font-weight":700,fill:"#56677f"},L).textContent="RAISED";
+const bt=el("text",{x:LW+12,y:TOPY+34,"font-size":30,"font-weight":800,fill:"#0B1F3A"},L);bt.textContent="£0";
+const tip=document.getElementById("tip"),idle="Hover or tab to a cause to follow its share.";
+D.forEach((d,i)=>{const g=el("g",{class:"node",tabindex:0,"data-i":i,role:"img","aria-label":`${d.n}: ${fmt(d.v)}, ${Math.round(d.v/T*100)} percent`});
+ el("rect",{class:"nb",x:RX,y:d.ry,width:RW,height:d.rh,fill:d.c,rx:3},g);
+ el("text",{x:RX+RW+12,y:d.ry+d.rh/2-2,"font-size":17,"font-weight":700,fill:"#13243a"},g).textContent=d.n;
+ el("text",{x:RX+RW+12,y:d.ry+d.rh/2+19,"font-size":17,"font-weight":500,fill:"#56677f"},g).textContent=fmt(d.v)+" · "+Math.round(d.v/T*100)+"%";
+ const on=()=>{svg.classList.add("dim");svg.querySelectorAll("[data-i]").forEach(n=>n.classList.toggle("on",n.dataset.i==i));tip.innerHTML=`<b>${d.n}</b> took ${Math.round(d.v/T*100)}% of everything raised.`};
+ const off=()=>{svg.classList.remove("dim");svg.querySelectorAll(".on").forEach(n=>n.classList.remove("on"));tip.textContent=idle};
+ g.addEventListener("mouseenter",on);g.addEventListener("focus",on);g.addEventListener("mouseleave",off);g.addEventListener("blur",off);g.addEventListener("click",on)});
+const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+if(rm){bt.textContent=fmt(T)}else{const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1600),e=1-Math.pow(1-p,3);bt.textContent=fmt(Math.round(T*e));if(p<1)requestAnimationFrame(f)})(t0)}
+</script>
 <section><div class="wrap"><h2 class="s">What’s on</h2><p class="sub">Fundraising that’s actually fun.</p>
 <div class="months"><div><h3>November</h3><a href="#"><b>Race Night</b><span>Sat 14 · Venue to be confirmed</span></a></div>
 <div><h3>December</h3><a href="#"><b>Christmas Collections</b><span>Fri 5 · Around Folkestone</span></a></div>

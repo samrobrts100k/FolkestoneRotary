@@ -38,31 +38,87 @@ section{padding:72px 0}h2.s{font:700 clamp(30px,3.6vw,44px)/1.1 "Source Serif 4"
 .meet h2{font:700 clamp(30px,3.6vw,46px)/1.1 "Source Serif 4",Georgia,serif;margin:0}.meet .btn{background:var(--navy);color:#fff}
 footer{background:var(--navy);color:#b9cce2;padding:44px 0;font-size:15px;margin-top:72px}footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px 56px}
 @media(max-width:1000px){nav{display:none}}@media(max-width:600px){.hl{display:none}}@media(max-width:900px){.hero .wrap,.feature,.meet,.news{grid-template-columns:1fr}.tickets{grid-template-columns:1fr}.feature,.meet{padding:32px 26px;border-radius:28px}section{padding:52px 0}}
+
+.hero{position:relative;padding:0;background:#0B1F3A;overflow:hidden;isolation:isolate}
+.hero header .wrap{display:flex;position:static}
+.scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.heroin{position:relative;min-height:clamp(560px,88vh,820px);display:flex;flex-direction:column;justify-content:center;max-width:1180px;margin:0 auto;padding:60px 24px 190px}
+.hero h1{color:#fff;max-width:11em;text-shadow:0 2px 30px rgba(7,20,42,.5);animation:up .9s .15s both}
+.hero .lead{color:#dbe8f6;animation:up .9s .35s both}.hero .acts{animation:up .9s .55s both}
+.hero .acts a.t{color:#fff}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+header{position:absolute;left:0;right:0;z-index:5;background:transparent}
+header .logo,header nav a{color:#fff}header nav a:hover{color:var(--gold)}.logo i{box-shadow:0 0 0 3px #fff}
+header .ol{border-color:#fff;color:#fff}
+.sun{animation:sun 3.2s .2s cubic-bezier(.2,.7,.2,1) both}@keyframes sun{from{transform:translateY(130px)}to{transform:none}}
+.w1{animation:wave 14s linear infinite}.w2{animation:wave 10s linear infinite reverse}.w3{animation:wave 7s linear infinite}
+@keyframes wave{to{transform:translateX(-640px)}}
+.beam{transform-origin:518px 246px;animation:sweep 7s ease-in-out infinite alternate}
+@keyframes sweep{from{transform:rotate(-14deg)}to{transform:rotate(11deg)}}
+.cloud{animation:drift 70s linear infinite}.cloud.b{animation-duration:110s;animation-delay:-40s}
+@keyframes drift{from{transform:translateX(-300px)}to{transform:translateX(1500px)}}
+.gull{animation:glide 26s linear infinite}.gull.b{animation-duration:34s;animation-delay:-14s}
+@keyframes glide{from{transform:translate(-80px,0)}50%{transform:translate(700px,-24px)}to{transform:translate(1500px,6px)}}
+.win{animation:twk 4s ease-in-out infinite}.win:nth-child(3n){animation-delay:-1.4s}.win:nth-child(4n){animation-delay:-2.6s}@keyframes twk{50%{opacity:.35}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(7,20,42,.62) 0,rgba(7,20,42,.35) 45%,transparent 70%)}
+@media(max-width:700px){.hero::after{background:linear-gradient(180deg,rgba(7,20,42,.7) 0,rgba(7,20,42,.55) 55%,rgba(7,20,42,.1) 85%)}}
+.cap{position:absolute;right:20px;bottom:20px;background:rgba(7,20,42,.55);color:#cfe0f2;font-size:13px;padding:5px 12px;border-radius:8px;backdrop-filter:blur(6px)}
+.tickets{padding:0 0 4px}
+.ticket{transition:transform .35s cubic-bezier(.2,.8,.2,1);background:linear-gradient(#EEF3F8,#e4edf6)}
+.ticket .stub{margin-top:auto;padding-top:34px;transform-origin:left bottom;transition:transform .35s}
+.ticket:hover{transform:translateY(-6px) rotate(-.6deg)}.ticket:hover .stub{transform:rotate(3deg) translateY(4px)}
+.ticket .go{margin-top:0;padding-top:0}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.sun,.w1,.w2,.w3,.beam,.cloud,.gull,.win,.hero h1,.hero .lead,.hero .acts{animation:none}.rv{opacity:1;transform:none;transition:none}.ticket,.ticket .stub{transition:none}}
+@media(max-width:1000px){header nav{display:none}}
+@media(max-width:700px){.heroin{padding-bottom:150px}.cap{display:none}}
 </style></head><body>
 <div class="demo">Design demo B of 3 · Seafront · sample content</div>
-<header><div class="wrap"><a class="logo" href="#"><i>F</i>Folkestone Rotary</a>
+
+<main>
+<div class="hero"><header><div class="wrap"><a class="logo" href="#"><i>F</i>Folkestone Rotary</a>
 <nav aria-label="Main"><a href="#">About</a><a href="#">Our impact</a><a href="#">Events</a><a href="#">News</a><a href="#">Join</a><a href="#">Funding</a><a href="#">Contact</a></nav>
 <div style="display:flex;gap:10px"><a class="btn gold" href="#">Donate</a><a class="btn ol hl" href="#" style="padding:10px 20px">Login</a></div></div></header>
-<main>
-<div class="hero"><div class="wrap"><div><h1>Making a difference in Folkestone</h1>
+<svg class="scene" viewBox="0 0 1280 760" preserveAspectRatio="xMaxYMax slice" role="img" aria-label="Illustration of Folkestone harbour arm at dusk with a lighthouse beam sweeping across the water (placeholder for a real photograph)">
+<defs>
+<linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1F3A"/><stop offset=".55" stop-color="#004A88"/><stop offset=".86" stop-color="#e7913a"/><stop offset="1" stop-color="#F7A81B"/></linearGradient>
+<linearGradient id="bm" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d6" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></linearGradient>
+<radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".95"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+<pattern id="sea" width="640" height="40" patternUnits="userSpaceOnUse"><path d="M0 20 Q80 4 160 20 T320 20 T480 20 T640 20" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/></pattern>
+</defs>
+<rect width="1280" height="760" fill="url(#dusk)"/>
+<g fill="#fff" opacity=".85"><circle cx="140" cy="90" r="1.6"/><circle cx="330" cy="150" r="1.2"/><circle cx="560" cy="60" r="1.5"/><circle cx="760" cy="130" r="1.2"/><circle cx="980" cy="70" r="1.6"/><circle cx="1180" cy="160" r="1.2"/><circle cx="880" cy="200" r="1"/></g>
+<g class="sun"><circle cx="760" cy="490" r="150" fill="url(#glow)"/><circle cx="760" cy="490" r="52" fill="#ffd27a"/></g>
+<g class="cloud" opacity=".28"><ellipse cx="200" cy="180" rx="150" ry="16" fill="#fff"/><ellipse cx="260" cy="168" rx="90" ry="12" fill="#fff"/></g>
+<g class="cloud b" opacity=".2"><ellipse cx="200" cy="260" rx="190" ry="14" fill="#fff"/></g>
+<g class="gull" fill="none" stroke="#0B1F3A" stroke-width="2.4" stroke-linecap="round"><path d="M0 300 q10 -10 20 0 q10 -10 20 0"/><path d="M60 330 q8 -8 16 0 q8 -8 16 0"/></g>
+<g class="gull b" fill="none" stroke="#0B1F3A" stroke-width="2.4" stroke-linecap="round"><path d="M0 250 q10 -10 20 0 q10 -10 20 0"/></g>
+<path d="M0 470 L0 380 Q90 360 150 380 L230 362 L300 380 L360 440 L420 470Z" fill="#071a33"/>
+<g fill="#071a33"><rect x="30" y="352" width="46" height="30"/><rect x="92" y="340" width="38" height="42"/><rect x="150" y="356" width="52" height="26"/></g>
+<g fill="#ffd27a"><rect class="win" x="40" y="360" width="6" height="8"/><rect class="win" x="56" y="360" width="6" height="8"/><rect class="win" x="102" y="350" width="6" height="8"/><rect class="win" x="116" y="362" width="6" height="8"/><rect class="win" x="162" y="364" width="6" height="8"/><rect class="win" x="184" y="364" width="6" height="8"/></g>
+<g transform="translate(520 0)"><g class="beam"><polygon points="518,246 -400,170 -400,330" fill="url(#bm)" opacity=".5"/><polygon points="518,246 1700,170 1700,330" fill="url(#bm)" opacity=".4"/></g>
+<rect x="300" y="470" width="320" height="18" fill="#071a33"/><g stroke="#071a33" stroke-width="5"><path d="M330 470v-14M380 470v-14M430 470v-14M480 470v-14"/></g>
+<rect x="505" y="252" width="26" height="218" fill="#f3f7fb"/><rect x="505" y="300" width="26" height="14" fill="#0B1F3A"/><rect x="505" y="360" width="26" height="14" fill="#0B1F3A"/><rect x="498" y="240" width="40" height="12" fill="#0B1F3A"/><rect x="508" y="226" width="20" height="14" fill="#ffd27a"/><path d="M500 226 L518 204 L536 226Z" fill="#071a33"/>
+<circle cx="518" cy="233" r="26" fill="url(#glow)"/>
+</g>
+<g><path class="w1" d="M-640 520 Q-560 504 -480 520 T-320 520 T-160 520 T0 520 T160 520 T320 520 T480 520 T640 520 T800 520 T960 520 T1120 520 T1280 520 T1440 520 T1600 520 T1760 520 T1920 520 V760 H-640Z" fill="#1c5a98" opacity=".9"/></g>
+<g><path class="w2" d="M-640 580 Q-560 564 -480 580 T-320 580 T-160 580 T0 580 T160 580 T320 580 T480 580 T640 580 T800 580 T960 580 T1120 580 T1280 580 T1440 580 T1600 580 T1760 580 T1920 580 V760 H-640Z" fill="#00508f"/></g>
+<g><path class="w3" d="M-640 650 Q-560 634 -480 650 T-320 650 T-160 650 T0 650 T160 650 T320 650 T480 650 T640 650 T800 650 T960 650 T1120 650 T1280 650 T1440 650 T1600 650 T1760 650 T1920 650 V760 H-640Z" fill="#0B1F3A"/></g>
+<rect y="500" width="1280" height="260" fill="url(#sea)" opacity=".6"/>
+</svg>
+<div class="heroin"><h1>Making a difference in Folkestone</h1>
 <p class="lead">We’re local people who raise money, give time and back the charities, young people and projects that make this town work.</p>
 <div class="acts"><a class="btn gold" href="#">Join us</a><a class="t" href="#">View events</a><a class="t" href="#">Apply for funding</a></div></div>
-<figure><svg viewBox="0 0 640 520" role="img" aria-label="Illustration of Folkestone harbour arm and lighthouse (placeholder for a real photograph)">
-<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe3f5"/><stop offset="1" stop-color="#f3f7fb"/></linearGradient></defs>
-<rect width="640" height="520" fill="url(#sky)"/><circle cx="500" cy="120" r="46" fill="#F7A81B" opacity=".9"/>
-<path d="M0 300 Q160 280 320 300 T640 295 V520 H0Z" fill="#5d9bd1"/><path d="M0 345 Q160 325 320 345 T640 340 V520 H0Z" fill="#2f78bd"/><path d="M0 405 Q160 388 320 405 T640 400 V520 H0Z" fill="#005DAA"/><path d="M0 465 Q160 450 320 465 T640 460 V520 H0Z" fill="#0B1F3A"/>
-<path d="M60 316 H430 V334 H60Z" fill="#0B1F3A"/><rect x="396" y="236" width="26" height="80" fill="#fff"/><rect x="392" y="228" width="34" height="10" fill="#0B1F3A"/><path d="M394 228 L409 206 L424 228Z" fill="#F7A81B"/>
-<path d="M80 316 v-10 M120 316 v-10 M160 316 v-10 M200 316 v-10" stroke="#0B1F3A" stroke-width="4"/></svg>
-<figcaption>Harbour Arm · photo to be added</figcaption></figure></div></div>
+<span class="cap">Illustration · Harbour Arm photo to be added</span></div>
 
 <section style="padding-top:20px"><div class="wrap"><div class="feature"><blockquote class="serif">“Baby Basics gave us everything we needed when we had nothing ready for our daughter.”<cite>Sample quote · Baby Basics Folkestone family</cite></blockquote>
 <div class="facts"><div><b>£48,500+</b>raised for local causes</div><div><b>40+</b>local organisations supported</div><div><b>1,200+</b>volunteer hours given</div><span style="font-size:14px;color:#cfe3f7">Sample figures, editable in the admin.</span></div></div></div></section>
 
 <section style="padding-top:0"><div class="wrap"><h2 class="s">What’s on</h2><p class="sub">Come for the fun. The money stays in Folkestone.</p>
 <ul class="tickets">
-<li class="ticket"><time datetime="2026-11-14">Sat 14 Nov</time><h3>Race Night</h3><p>Friendly betting, supper and a lot of noise.</p><span class="go">Get tickets</span><a href="#" aria-label="Race Night"></a></li>
-<li class="ticket"><time>Fri 19 Feb</time><h3>Wine &amp; Wisdom</h3><p>A quiz and tasting evening.</p><span class="go">Get tickets</span><a href="#" aria-label="Wine and Wisdom"></a></li>
-<li class="ticket"><time>Sun 17 May</time><h3>Folkestone Half Marathon</h3><p>Seafront, the Leas and the coast.</p><span class="go">Enter the race</span><a href="#" aria-label="Half Marathon"></a></li></ul>
+<li class="ticket"><time datetime="2026-11-14">Sat 14 Nov</time><h3>Race Night</h3><p>Friendly betting, supper and a lot of noise.</p><span class="stub"><span class="go">Get tickets</span></span><a href="#" aria-label="Race Night"></a></li>
+<li class="ticket"><time>Fri 19 Feb</time><h3>Wine &amp; Wisdom</h3><p>A quiz and tasting evening.</p><span class="stub"><span class="go">Get tickets</span></span><a href="#" aria-label="Wine and Wisdom"></a></li>
+<li class="ticket"><time>Sun 17 May</time><h3>Folkestone Half Marathon</h3><p>Seafront, the Leas and the coast.</p><span class="stub"><span class="go">Enter the race</span></span><a href="#" aria-label="Half Marathon"></a></li></ul>
 <p style="margin-top:26px"><a href="#" style="font-weight:700;color:var(--blue);text-underline-offset:5px">See all events</a></p></div></section>
 
 <section style="padding-top:0"><div class="wrap"><h2 class="s">News from the club</h2><div class="news" style="margin-top:24px">
@@ -72,4 +128,7 @@ footer{background:var(--navy);color:#b9cce2;padding:44px 0;font-size:15px;margin
 <div class="wrap"><div class="meet"><h2>Come to a meeting as our guest</h2><div><p style="margin:0 0 16px">Tuesdays, 12:30. Venue to be confirmed. No obligation.</p><a class="btn" href="#">Ask to visit</a></div></div></div>
 </main>
 <footer><div class="wrap"><div><strong style="color:#fff">Folkestone Rotary</strong><br>info@folkestonerotary.org</div><div>Privacy · Cookies · Accessibility · Terms</div><div>© 2026</div></div></footer>
-</body></html>
+<script>
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".ticket,.feature,.news a,.meet").forEach((el,i)=>{el.classList.add("rv");el.style.transitionDelay=(i%3)*90+"ms";io.observe(el)})}
+</script></body></html>
