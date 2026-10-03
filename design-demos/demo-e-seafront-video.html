@@ -100,13 +100,49 @@ dialog{border:0;border-radius:18px;padding:0;max-width:min(960px,92vw);width:100
 @media(max-width:1000px){header nav{display:none}.soon{display:none}}
 @media(max-width:600px){.vb.demo{margin-left:0}.vin{padding-top:110px}}
 @media(prefers-reduced-motion:reduce){.vh h1,.vh .lead,.vh .acts,.poster::before{animation:none}.vid{transition:none}}
+
+/* ---- Motion system (from the "animate" skill): shared easing, 200-300ms, transform/opacity only, exits faster than enters ---- */
+:root{--ease-out-quint:cubic-bezier(.23,1,.32,1);--ease-in-out-cubic:cubic-bezier(.645,.045,.355,1);--ease-out-cubic:cubic-bezier(.33,1,.68,1)}
+.btn,.vb{transition:transform 100ms ease-out,background-color 150ms ease,color 150ms ease}.btn:active,.vb:active{transform:scale(.97)}
+header{transition:background-color .2s ease,box-shadow .2s ease}header .logo,header nav a{transition:color .2s ease}
+/* hero headline: words rise in one after another (text-reveal pattern) */
+.vh h1{animation:none}.vh h1 .w{display:inline-block;animation:wr .6s var(--ease-out-quint) backwards;animation-delay:calc(var(--i)*70ms + 120ms)}
+@keyframes wr{from{transform:translateY(.45em);opacity:0}to{transform:none;opacity:1}}
+.vh .lead{animation:up .5s .55s var(--ease-out-quint) backwards}.vh .acts{animation:up .5s .7s var(--ease-out-quint) backwards}.vh .vctl{animation:up .5s .85s var(--ease-out-quint) backwards}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* scroll reveals + ticket lift */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .35s var(--ease-out-quint),transform .35s var(--ease-out-quint)}.rv.in{opacity:1;transform:none}
+.ticket{transition:transform .2s var(--ease-out-quint),background-color .2s ease}.ticket .stub{transition:transform .2s var(--ease-out-quint)}
+.ticket:hover{transform:translateY(-4px)}.ticket:hover .stub{transform:rotate(2.5deg) translateY(3px)}.ticket:active{transform:translateY(-2px) scale(.985)}
+.news a strong{transition:color .15s ease}
+/* nav: one gold underline that slides between links */
+nav[aria-label="Main"]{position:relative}.ind{position:absolute;left:0;bottom:-6px;height:3px;width:var(--w,0);border-radius:2px;background:var(--gold);opacity:0;transform:translateX(var(--x,0));transition:transform .25s var(--ease-in-out-cubic),width .25s var(--ease-in-out-cubic),opacity .15s linear;pointer-events:none}
+.ind.show{opacity:1}
+/* mobile menu: enters ease-out 250ms, leaves ease-in 150ms */
+.burger{display:none;width:46px;height:46px;border:0;border-radius:50%;background:none;cursor:pointer;position:relative;color:#fff}
+.burger span{position:absolute;left:13px;right:13px;height:2px;background:currentColor;border-radius:1px;transition:transform .25s var(--ease-in-out-cubic),opacity .15s linear}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:22px}.burger span:nth-child(3){top:27px}
+.burger[aria-expanded=true] span:nth-child(1){transform:translateY(5px) rotate(45deg)}.burger[aria-expanded=true] span:nth-child(2){opacity:0}.burger[aria-expanded=true] span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+header.solid .burger{color:var(--navy)}.burger:focus-visible{outline:3px solid var(--gold)}
+.mm{position:absolute;top:100%;left:0;right:0;background:var(--navy);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .15s ease-in,transform .15s ease-in,visibility 0s .15s}
+.mm.open{visibility:visible;opacity:1;transform:none;transition:opacity .25s var(--ease-out-quint),transform .25s var(--ease-out-quint),visibility 0s}
+.mm a{display:block;color:#fff;text-decoration:none;font-weight:600;font-size:19px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.mm a:last-child{border:0}
+@media(max-width:1000px){.burger{display:block}}
+/* film window: scales in 220ms, out 150ms */
+dialog[open]{animation:dIn .22s var(--ease-out-cubic)}dialog[open]::backdrop{animation:fi .22s linear}
+dialog.closing{animation:dOut .15s ease-in forwards}dialog.closing::backdrop{animation:fo .15s linear forwards}
+@keyframes dIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}@keyframes dOut{to{opacity:0;transform:scale(.97) translateY(4px)}}
+@keyframes fi{from{opacity:0}}@keyframes fo{to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.vh h1 .w,.vh .lead,.vh .acts,.vh .vctl,dialog[open],dialog[open]::backdrop,dialog.closing,dialog.closing::backdrop{animation:none!important}
+ .rv,.ticket,.ticket .stub,.ind,.mm,.mm.open,.burger span,.btn,.vb{transition:none!important}.rv{opacity:1;transform:none}}
 </style></head><body>
 <div class="demo">Design demo E · Seafront with video background · sample content</div>
 
 <main>
 <header><div class="wrap"><a class="logo" href="#"><i>F</i>Folkestone Rotary</a>
-<nav aria-label="Main"><a href="#">About</a><a href="#">Our impact</a><a href="#">Events</a><a href="#">News</a><a href="#">Join</a><a href="#">Funding</a><a href="#">Contact</a></nav>
-<div style="display:flex;gap:10px"><a class="btn gold" href="#">Donate</a><a class="btn ol hl" href="#" style="padding:10px 20px">Login</a></div></div></header>
+<nav aria-label="Main"><span class="ind" aria-hidden="true"></span><a href="#">About</a><a href="#">Our impact</a><a href="#">Events</a><a href="#">News</a><a href="#">Join</a><a href="#">Funding</a><a href="#">Contact</a></nav>
+<div style="display:flex;gap:10px"><a class="btn gold" href="#">Donate</a><a class="btn ol hl" href="#" style="padding:10px 20px">Login</a><button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mm" aria-label="Open menu"><span></span><span></span><span></span></button></div></div><div class="mm" id="mm" role="region" aria-label="Mobile menu"><a href="#">About</a><a href="#">Our impact</a><a href="#">Events</a><a href="#">News</a><a href="#">Join</a><a href="#">Funding</a><a href="#">Contact</a></div></header>
 <div class="vh" id="vh"><div class="reel"><div class="poster" id="poster"></div>
 <video class="vid" id="v1" muted playsinline preload="metadata" aria-hidden="true"></video><video class="vid" id="v2" muted playsinline preload="none" aria-hidden="true"></video></div>
 <div class="soon" id="soon"><b>Your film plays here</b>A silent, looping montage of Rotary events fills this whole area.</div>
@@ -128,12 +164,12 @@ function next(){idx=(idx+1)%list.length;const o=act(),n=V[1-cur];n.src=list[idx]
 pick.onchange=e=>{list.forEach(u=>URL.revokeObjectURL(u));list=[...e.target.files].slice(0,6).map(f=>URL.createObjectURL(f));if(list.length){idx=0;begin()}};
 pp.textContent=paused?"Play film":"Pause film";pp.setAttribute("aria-pressed",paused);
 pp.onclick=()=>{paused=!paused;pp.textContent=paused?"Play film":"Pause film";pp.setAttribute("aria-pressed",paused);const a=act();if(a.src){paused?a.pause():(a.play().catch(()=>{}),t0=performance.now())}};
-document.getElementById("film").onclick=()=>dlg.showModal();document.getElementById("close").onclick=()=>dlg.close();dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+const shut=()=>{if(rm||!dlg.open){dlg.close();return}dlg.classList.add("closing");setTimeout(()=>{dlg.close();dlg.classList.remove("closing")},150)};document.getElementById("film").onclick=()=>dlg.showModal();document.getElementById("close").onclick=shut;dlg.addEventListener("click",e=>{if(e.target===dlg)shut()});dlg.addEventListener("cancel",e=>{e.preventDefault();shut()});
 const hd=document.querySelector("header"),vh=document.getElementById("vh");const on=()=>hd.classList.toggle("solid",scrollY>vh.offsetHeight-140);addEventListener("scroll",on,{passive:true});on();
 window.__film={begin:()=>{},state:()=>({list:list.length,idx,cur,paused})}})();
 </script>
 <section style="padding-top:20px"><div class="wrap"><div class="feature"><blockquote class="serif">“Baby Basics gave us everything we needed when we had nothing ready for our daughter.”<cite>Sample quote · Baby Basics Folkestone family</cite></blockquote>
-<div class="facts"><div><b>£48,500+</b>raised for local causes</div><div><b>40+</b>local organisations supported</div><div><b>1,200+</b>volunteer hours given</div><span style="font-size:14px;color:#cfe3f7">Sample figures, editable in the admin.</span></div></div></div></section>
+<div class="facts"><div><b data-to="48500" data-pre="£" data-suf="+">£48,500+</b>raised for local causes</div><div><b data-to="40" data-suf="+">40+</b>local organisations supported</div><div><b data-to="1200" data-suf="+">1,200+</b>volunteer hours given</div><span style="font-size:14px;color:#cfe3f7">Sample figures, editable in the admin.</span></div></div></div></section>
 
 <section style="padding-top:0"><div class="wrap"><h2 class="s">What’s on</h2><p class="sub">Come for the fun. The money stays in Folkestone.</p>
 <ul class="tickets">
@@ -151,5 +187,21 @@ window.__film={begin:()=>{},state:()=>({list:list.length,idx,cur,paused})}})();
 <footer><div class="wrap"><div><strong style="color:#fff">Folkestone Rotary</strong><br>info@folkestonerotary.org</div><div>Privacy · Cookies · Accessibility · Terms</div><div>© 2026</div></div></footer>
 <script>
 if(!matchMedia("(prefers-reduced-motion:reduce)").matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
-document.querySelectorAll(".ticket,.feature,.news a,.meet").forEach((el,i)=>{el.classList.add("rv");el.style.transitionDelay=(i%3)*90+"ms";io.observe(el)})}
-</script></body></html>
+document.querySelectorAll(".ticket,.feature,.news a,.meet").forEach((el,i)=>{el.classList.add("rv");io.observe(el)})}
+</script><script>
+(()=>{const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const h=document.querySelector(".vh h1");if(h&&!rm){const words=h.textContent.trim().split(/\s+/);h.textContent="";words.forEach((w,i)=>{const s=document.createElement("span");s.className="w";s.style.setProperty("--i",i);s.textContent=w;h.append(s,i<words.length-1?" ":"")})}
+const nav=document.querySelector('nav[aria-label="Main"]'),ind=nav.querySelector(".ind");
+const mv=a=>{const r=a.getBoundingClientRect(),n=nav.getBoundingClientRect();ind.style.setProperty("--x",(r.left-n.left)+"px");ind.style.setProperty("--w",r.width+"px");ind.classList.add("show")};
+nav.querySelectorAll("a").forEach(a=>{a.addEventListener("mouseenter",()=>mv(a));a.addEventListener("focus",()=>mv(a))});
+nav.addEventListener("mouseleave",()=>ind.classList.remove("show"));nav.addEventListener("focusout",e=>{if(!nav.contains(e.relatedTarget))ind.classList.remove("show")});
+const bg=document.getElementById("burger"),mm=document.getElementById("mm");
+const set=o=>{bg.setAttribute("aria-expanded",o);bg.setAttribute("aria-label",o?"Close menu":"Open menu");mm.classList.toggle("open",o)};
+bg.onclick=()=>set(bg.getAttribute("aria-expanded")!=="true");addEventListener("keydown",e=>{if(e.key==="Escape")set(false)});mm.addEventListener("click",e=>{if(e.target.tagName==="A")set(false)});
+const fmt=(n,p="",s="")=>p+Math.round(n).toLocaleString("en-GB")+s;
+const run=el=>{const to=+el.dataset.to,p=el.dataset.pre||"",s=el.dataset.suf||"";if(rm){el.textContent=fmt(to,p,s);return}const t0=performance.now(),D=1300;(function f(t){const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,5);el.textContent=fmt(to*e,p,s);if(k<1)requestAnimationFrame(f)})(t0)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target);io.unobserve(e.target)}}),{threshold:.6});document.querySelectorAll("[data-to]").forEach(el=>io.observe(el));
+document.querySelectorAll(".tickets,.news").forEach(g=>[...g.children].forEach((c,i)=>{c.style.transitionDelay=(i*60)+"ms"}));
+})();
+</script>
+</body></html>
