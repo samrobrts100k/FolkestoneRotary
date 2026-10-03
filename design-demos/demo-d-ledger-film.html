@@ -1,0 +1,189 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo D – Ledger with film hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#005DAA;--blue-d:#004A88;--navy:#0B1F3A;--gold:#F7A81B;--mist:#EEF3F8;--ink:#13243a;--mute:#56677f;--line:#cfdae6}
+*{box-sizing:border-box}a{color:inherit}body{margin:0;font:17px/1.6 "Hanken Grotesk",system-ui,sans-serif;color:var(--ink);background:#fff;font-variant-numeric:tabular-nums}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.demo{background:var(--navy);color:#cfe0f2;font-size:13px;text-align:center;padding:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+header{border-bottom:2px solid var(--navy)}header .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:18px}
+.logo{display:flex;gap:10px;align-items:center;text-decoration:none;font-weight:800;font-size:19px}.logo i{width:34px;height:34px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--blue);display:grid;place-items:center;font-style:normal;color:var(--blue-d)}
+nav{display:flex;gap:22px;font-weight:500;font-size:15.5px}nav a{text-decoration:none}nav a:hover{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:3px;text-underline-offset:6px}
+.btn{display:inline-block;white-space:nowrap;text-decoration:none;font-weight:700;border-radius:8px;padding:11px 22px}.gold{background:var(--gold);color:var(--navy)}.gold:hover{background:#e29a12}.blue{background:var(--blue);color:#fff!important}.blue:hover{background:var(--blue-d)}.ol{border:2px solid var(--navy);color:var(--navy)}
+.hero{padding:64px 0 70px}.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+h1{font:800 clamp(42px,5.4vw,72px)/1 "Hanken Grotesk",sans-serif;letter-spacing:-.035em;margin:0 0 20px;color:var(--navy)}
+.lead{font-size:20px;color:var(--mute);max-width:30em;margin:0 0 28px}.acts{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}.acts a.t{font-weight:700;color:var(--blue);text-underline-offset:5px}
+.ledger{border:2px solid var(--navy);border-radius:6px;padding:26px;background:#fff;box-shadow:8px 8px 0 var(--blue)}
+.ledger h2{margin:0;font:800 22px/1.2 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.01em}.ledger p{margin:4px 0 18px;color:var(--mute);font-size:15px}
+.bar{display:flex;height:34px;border-radius:4px;overflow:hidden;border:1px solid var(--navy)}.bar i{display:block;height:100%}
+.leg{list-style:none;margin:16px 0 0;padding:0}.leg li{display:grid;grid-template-columns:14px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}.leg s{width:14px;height:14px;border-radius:3px;display:block}.leg b{font-weight:800}
+.tot{display:flex;justify-content:space-between;border-top:2px solid var(--navy);margin-top:6px;padding-top:12px;font-weight:800;font-size:19px}
+section{padding:68px 0;border-top:2px solid var(--navy)}h2.s{font:800 clamp(28px,3.4vw,40px)/1.1 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.025em;margin:0 0 6px}.sub{color:var(--mute);margin:0 0 30px}
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:0}.months div{padding:0 22px 8px 0}.months div+div{border-left:1px solid var(--line);padding-left:22px}
+.months h3{font:700 15px "Hanken Grotesk",system-ui,sans-serif;color:var(--blue);margin:0 0 12px}.months a{display:block;text-decoration:none;padding:10px 0;border-top:1px solid var(--line)}
+.months a b{color:var(--ink);display:block;font-size:19px;line-height:1.2}.months a span{color:var(--mute);font-size:15px}.months a:hover b{color:var(--blue)}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:14px;color:var(--mute);font-weight:700;padding:0 0 8px;border-bottom:2px solid var(--navy)}td{padding:16px 12px 16px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child,th:last-child{text-align:right;padding-right:0}
+td a{color:var(--blue-d);font-weight:800;font-size:19px;text-decoration:none}td a:hover{color:var(--blue)}.mute{color:var(--mute)}
+.band{background:var(--blue);color:#fff;border-top:0}.band .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+.band h2{font:800 clamp(34px,4.6vw,58px)/1 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.03em;margin:0}.band p{margin:0 0 18px;font-size:19px}
+footer{background:var(--navy);color:#b9cce2;padding:40px 0;font-size:15px}footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px 56px}
+@media(max-width:1000px){nav{display:none}}@media(max-width:600px){.hl{display:none}}@media(max-width:900px){.hero .wrap,.band .wrap{grid-template-columns:1fr;gap:34px}.months{grid-template-columns:1fr 1fr;row-gap:24px}.months div:nth-child(3){border-left:0;padding-left:0}section{padding:48px 0}.hide-s{display:none}}
+
+.hero{padding:56px 0 64px;background:linear-gradient(180deg,#fff 0,#f4f8fc 100%)}
+.hero .wrap{grid-template-columns:.9fr 1.25fr;gap:44px;align-items:center}
+h1{animation:rise .8s .05s both}.lead,.acts{animation:rise .8s .25s both}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.flow{background:#fff;border:2px solid var(--navy);border-radius:10px;padding:22px 22px 14px;box-shadow:10px 10px 0 var(--blue);position:relative;min-width:0}
+.flow h2{margin:0;font:800 22px/1.2 "Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.01em}.flow p.n{margin:2px 0 6px;color:var(--mute);font-size:14.5px}
+.flow svg{display:block;width:100%;height:auto;overflow:visible}
+.node{cursor:pointer;outline:none}
+.rib{transition:opacity .25s;opacity:.95}.dim .rib{opacity:.14}.dim .rib.on{opacity:1}.dim .node:not(.on) text{opacity:.35}
+.node:focus-visible rect.nb{stroke:var(--gold);stroke-width:4}
+.rib{transform-origin:0 50%;transform-box:fill-box;animation:grow 1.1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes grow{from{transform:scaleX(0);opacity:0}to{transform:none}}
+.pulse{stroke-dasharray:3 16;animation:dash 1.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-19}}
+.tip{margin:6px 0 0;font-size:14.5px;color:var(--mute);min-height:1.6em}.tip b{color:var(--ink)}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){h1,.lead,.acts,.rib,.pulse{animation:none}}
+
+header{position:sticky;top:0;z-index:30;margin-bottom:-68px;background:transparent;border-bottom:2px solid transparent;transition:background .3s,border-color .3s}
+header .logo,header nav a{color:#fff;transition:color .3s}header nav a:hover{text-decoration-color:var(--gold)}
+header .ol{border-color:#fff;color:#fff}
+header.solid{background:#fff;border-bottom-color:var(--navy)}header.solid .logo,header.solid nav a{color:var(--ink)}header.solid .ol{border-color:var(--navy);color:var(--navy)}
+.vh{position:relative;min-height:clamp(620px,calc(100vh - 28px),900px);background:#0B1F3A;color:#fff;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end}
+.reel{position:absolute;inset:0;z-index:-2}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity 1.3s ease}.sc.on{opacity:1}
+.sc svg{width:100%;height:100%;display:block}
+.sc *{animation-play-state:paused}.sc.on *{animation-play-state:running}
+.vh::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,20,42,.6) 0,rgba(7,20,42,.35) 50%,transparent 80%),linear-gradient(180deg,rgba(7,20,42,.55) 0,rgba(7,20,42,.15) 30%,rgba(7,20,42,.55) 62%,rgba(7,20,42,.92) 100%)}
+.vin{width:100%;max-width:1140px;margin:0 auto;padding:130px 24px 40px}
+.vh h1{color:#fff;font-size:clamp(46px,7.4vw,104px);max-width:9.5em;margin:0 0 18px;text-shadow:0 4px 40px rgba(0,0,0,.45)}
+.vh .lead{color:#e1ecf8;max-width:34em;margin:0 0 26px}
+.vh .acts a.t{color:#fff}
+.vh .btn.blue{background:var(--gold);color:var(--navy)!important}.vh .btn.blue:hover{background:#e29a12}
+.vctl{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.28)}
+.cap{font-weight:700;min-width:15em}.cap small{display:block;font-weight:400;color:#b9cce2;font-size:13.5px}
+.pips{display:flex;gap:8px;margin-left:auto;align-items:center}
+.pip{width:44px;height:44px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.pip i{display:block;width:34px;height:4px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden;position:relative}
+.pip i::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left}
+.pip.on i::after{animation:fill 5.5s linear forwards}.paused .pip.on i::after{animation-play-state:paused}
+@keyframes fill{to{transform:none}}
+.vb{display:inline-flex;align-items:center;gap:8px;border:2px solid #fff;color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;font:700 15px "Hanken Grotesk",system-ui,sans-serif;cursor:pointer}
+.vb:hover{background:rgba(255,255,255,.2)}.vb:focus-visible,.pip:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.strip{background:#fff;border-bottom:2px solid var(--navy)}.strip .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.strip a{display:block;padding:24px 24px 24px 0;text-decoration:none;border-left:1px solid var(--line);padding-left:24px}.strip a:first-child{border-left:0;padding-left:0}
+.strip b{display:block;font-size:20px;letter-spacing:-.01em}.strip span{color:var(--mute);font-size:15px}.strip a:hover b{color:var(--blue)}
+.money{background:linear-gradient(180deg,#fff 0,#f4f8fc 100%);padding:72px 0}.money .wrap{display:grid;grid-template-columns:.8fr 1.3fr;gap:48px;align-items:center}
+.money h2.s{font-size:clamp(32px,4vw,52px)}
+dialog{border:0;border-radius:14px;padding:0;max-width:min(960px,92vw);width:100%;box-shadow:0 30px 80px rgba(0,0,0,.5)}dialog::backdrop{background:rgba(7,20,42,.8)}
+.film{aspect-ratio:16/9;background:#0B1F3A;color:#fff;display:grid;place-items:center;text-align:center;padding:24px}
+.film p{max-width:32em;color:#cfe0f2}.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-weight:800}
+.snow{animation:snow linear infinite}@keyframes snow{from{transform:translateY(-30px)}to{transform:translateY(800px)}}
+.bulb{animation:tw 2.2s ease-in-out infinite}@keyframes tw{50%{opacity:.25}}
+.rc{animation:run ease-in-out infinite}@keyframes run{from{transform:translateX(-120px)}to{transform:translateX(1420px)}}
+.bob{animation:bob .5s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(-6px)}}
+.ball{animation:arc 3.4s cubic-bezier(.3,.6,.4,1) infinite}@keyframes arc{0%{transform:translate(0,0)}45%{transform:translate(380px,-300px)}80%{transform:translate(760px,-10px)}100%{transform:translate(860px,0)}}
+.beam1{transform-origin:300px 0;animation:sw 6s ease-in-out infinite alternate}.beam2{transform-origin:900px 0;animation:sw 7s ease-in-out infinite alternate-reverse}
+@keyframes sw{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+.cloud2{animation:cl 60s linear infinite}@keyframes cl{from{transform:translateX(-300px)}to{transform:translateX(1500px)}}
+@media(max-width:900px){.strip .wrap{grid-template-columns:1fr 1fr}.strip a:nth-child(3){border-left:0;padding-left:0}.money .wrap{grid-template-columns:1fr}header nav{display:none}}
+@media(max-width:600px){.vin{padding-top:110px}.pips{margin-left:0}.cap{min-width:0;flex-basis:100%}.strip a{padding:16px 12px 16px 14px}.strip b{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.sc *{animation:none!important}.sc{transition:none}.pip.on i::after{animation:none;transform:none}}
+</style></head><body>
+<div class="demo">Design demo D · Ledger + film hero · sample content</div>
+<header><div class="wrap"><a class="logo" href="#"><i>F</i>Folkestone Rotary</a>
+<nav aria-label="Main"><a href="#">About</a><a href="#">Impact</a><a href="#">Events</a><a href="#">News</a><a href="#">Join</a><a href="#">Funding</a><a href="#">Contact</a></nav>
+<div style="display:flex;gap:10px"><a class="btn gold" href="#">Donate</a><a class="btn ol hl" href="#">Login</a></div></div></header>
+<main>
+<div class="vh" id="vh"><div class="reel"><div class="sc on" aria-hidden="true"><svg viewBox="0 0 1280 760" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07142a"/><stop offset="1" stop-color="#004A88"/></linearGradient><pattern id="chk" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#fff"/><rect x="12" y="12" width="12" height="12" fill="#fff"/></pattern></defs>
+<rect width="1280" height="760" fill="url(#g1)"/><g opacity=".35"><polygon class="beam1" points="300,0 120,760 480,760" fill="#fff6d6"/><polygon class="beam2" points="900,0 720,760 1080,760" fill="#fff6d6"/></g>
+<g stroke="#F7A81B" stroke-width="3" opacity=".8"><path d="M0 420H1280M0 490H1280M0 560H1280M0 630H1280M0 700H1280"/></g><rect x="1180" y="400" width="24" height="320" fill="url(#chk)"/>
+<g font-family="Arial,sans-serif" font-weight="700" font-size="22" text-anchor="middle" fill="#0B1F3A">
+<g class="rc" style="animation-duration:4.6s"><circle cx="0" cy="455" r="26" fill="#F7A81B"/><text x="0" y="463">1</text></g>
+<g class="rc" style="animation-duration:5.1s;animation-delay:-1s"><circle cx="0" cy="525" r="26" fill="#fff"/><text x="0" y="533">2</text></g>
+<g class="rc" style="animation-duration:4.3s;animation-delay:-2s"><circle cx="0" cy="595" r="26" fill="#4d93cc"/><text x="0" y="603">3</text></g>
+<g class="rc" style="animation-duration:4.9s;animation-delay:-.5s"><circle cx="0" cy="665" r="26" fill="#F7A81B"/><text x="0" y="673">4</text></g></g></svg></div><div class="sc" aria-hidden="true"><svg viewBox="0 0 1280 760" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050e1f"/><stop offset="1" stop-color="#0d2a52"/></linearGradient></defs>
+<rect width="1280" height="760" fill="url(#g2)"/><g id="snow"></g>
+<path d="M0 90 Q320 190 640 100 T1280 110" fill="none" stroke="#2c4566" stroke-width="3"/><g id="bulbs"></g>
+<path d="M0 760V620L120 560 240 620 240 540 380 470 520 540 520 600 700 520 880 600 880 560 1040 500 1200 580 1280 560V760Z" fill="#050e1f"/>
+<g fill="#F7A81B"><rect class="bulb" x="270" y="590" width="14" height="20"/><rect class="bulb" x="420" y="560" width="14" height="20" style="animation-delay:-.8s"/><rect class="bulb" x="620" y="620" width="14" height="20" style="animation-delay:-1.4s"/><rect class="bulb" x="940" y="590" width="14" height="20"/><rect class="bulb" x="1100" y="610" width="14" height="20" style="animation-delay:-.4s"/></g></svg></div><div class="sc" aria-hidden="true"><svg viewBox="0 0 1280 760" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f78bd"/><stop offset=".6" stop-color="#cfe3f5"/><stop offset="1" stop-color="#F7A81B"/></linearGradient></defs>
+<rect width="1280" height="760" fill="url(#g3)"/><g class="cloud2" opacity=".55"><ellipse cx="200" cy="140" rx="170" ry="18" fill="#fff"/><ellipse cx="300" cy="125" rx="90" ry="14" fill="#fff"/></g>
+<circle cx="1000" cy="430" r="60" fill="#ffd27a"/><path d="M0 470Q320 450 640 470T1280 465V760H0Z" fill="#5d9bd1"/><path d="M0 540Q320 520 640 540T1280 535V760H0Z" fill="#005DAA"/><rect y="610" width="1280" height="150" fill="#0B1F3A"/><rect y="604" width="1280" height="8" fill="#F7A81B"/><g id="runners"></g></svg></div><div class="sc" aria-hidden="true"><svg viewBox="0 0 1280 760" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d93cc"/><stop offset="1" stop-color="#e4eef8"/></linearGradient></defs>
+<rect width="1280" height="760" fill="url(#g4)"/><g class="cloud2" opacity=".8"><ellipse cx="300" cy="150" rx="150" ry="16" fill="#fff"/></g>
+<path d="M0 520Q300 430 620 500T1280 470V760H0Z" fill="#2a7f8a"/><path d="M0 590Q380 500 760 580T1280 560V760H0Z" fill="#1d6671"/><path d="M0 680Q420 610 800 670T1280 650V760H0Z" fill="#0f4c57"/>
+<g><rect x="980" y="360" width="5" height="160" fill="#fff"/><path d="M985 360l70 24-70 24z" fill="#F7A81B"/><ellipse cx="982" cy="522" rx="22" ry="7" fill="#0f4c57"/></g>
+<circle class="ball" cx="150" cy="640" r="11" fill="#fff"/></svg></div></div>
+<div class="vin"><h1>Making a difference in Folkestone</h1>
+<p class="lead">Racing, collecting, running and putting, all for Folkestone’s charities, young people and community projects. Come and be part of it.</p>
+<div class="acts"><a class="btn blue" href="#">Come to a meeting</a><a class="t" href="#">What’s on</a><a class="t" href="#">Apply for funding</a></div>
+<div class="vctl"><div class="cap" id="cap">Race Night<small>Sample scenes. Your own footage plays here.</small></div>
+<button class="vb" id="film" type="button">&#9654; Watch the film</button>
+<button class="vb" id="pp" type="button" aria-pressed="false">Pause</button>
+<div class="pips" id="pips" role="group" aria-label="Choose a scene"></div></div></div></div>
+<nav class="strip" aria-label="Quick links"><div class="wrap"><a href="#"><b>Join the club</b><span>Tuesdays at 12:30. Guests welcome.</span></a><a href="#"><b>What’s on</b><span>Race Night, Wine &amp; Wisdom and more</span></a><a href="#"><b>Apply for funding</b><span>For local groups and charities</span></a><a href="#"><b>Donate</b><span>Every pound stays in Folkestone</span></a></div></nav>
+<section class="money"><div class="wrap"><div><h2 class="s">Every pound stays in the town</h2><p class="sub" style="max-width:24em">From the collection tin to the people it helps. Hover over a cause to follow its share.</p></div><aside class="flow" aria-label="Where our money went"><h2>Follow the money</h2><p class="n">Sample breakdown. Hover, tap or tab through the causes. Replace with real figures in the admin.</p>
+<svg id="sk" viewBox="0 0 640 400" role="group" aria-label="Flow diagram from money raised to four causes"></svg>
+<p class="tip" id="tip" aria-live="polite">Hover or tab to a cause to follow its share.</p></aside></div></div>
+<script>
+const D=[{n:"Community charities",v:19400,c:"#005DAA"},{n:"Local schools",v:12125,c:"#4d93cc"},{n:"Youth programmes",v:9700,c:"#F7A81B"},{n:"Christmas family support",v:7275,c:"#0B1F3A"}];
+const T=D.reduce((s,d)=>s+d.v,0),H=330,GAP=16,TOPY=30,LX=0,LW=26,RX=330,RW=26,avail=H-GAP*(D.length-1),svg=document.getElementById("sk"),NS="http://www.w3.org/2000/svg";
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+const fmt=n=>"£"+n.toLocaleString("en-GB");
+let ly=TOPY,ry=TOPY;
+D.forEach(d=>{d.lh=d.v/T*H;d.rh=d.v/T*avail;d.ly=ly;d.ry=ry;ly+=d.lh;ry+=d.rh+GAP});
+const gR=el("g",{});
+D.forEach((d,i)=>{const x1=LX+LW,x2=RX,y1a=d.ly,y1b=d.ly+d.lh,y2a=d.ry,y2b=d.ry+d.rh,mx=(x1+x2)/2;
+ const g=el("g",{class:"rib","data-i":i,style:`animation-delay:${i*.12}s`},gR);
+ el("path",{d:`M${x1} ${y1a} C${mx} ${y1a} ${mx} ${y2a} ${x2} ${y2a} L${x2} ${y2b} C${mx} ${y2b} ${mx} ${y1b} ${x1} ${y1b}Z`,fill:d.c,"fill-opacity":.32},g);
+ el("path",{d:`M${x1} ${(y1a+y1b)/2} C${mx} ${(y1a+y1b)/2} ${mx} ${(y2a+y2b)/2} ${x2} ${(y2a+y2b)/2}`,fill:"none",stroke:d.c,"stroke-width":2.5,class:"pulse"},g)});
+const L=el("g",{},svg);el("rect",{x:LX,y:TOPY,width:LW,height:H,fill:"#0B1F3A",rx:3},L);
+el("text",{x:0,y:16,"font-size":15,"font-weight":700,fill:"#56677f"},L).textContent="RAISED";
+const bt=el("text",{x:LW+12,y:TOPY+34,"font-size":30,"font-weight":800,fill:"#0B1F3A"},L);bt.textContent="£0";
+const tip=document.getElementById("tip"),idle="Hover or tab to a cause to follow its share.";
+D.forEach((d,i)=>{const g=el("g",{class:"node",tabindex:0,"data-i":i,role:"img","aria-label":`${d.n}: ${fmt(d.v)}, ${Math.round(d.v/T*100)} percent`});
+ el("rect",{class:"nb",x:RX,y:d.ry,width:RW,height:d.rh,fill:d.c,rx:3},g);
+ el("text",{x:RX+RW+12,y:d.ry+d.rh/2-2,"font-size":17,"font-weight":700,fill:"#13243a"},g).textContent=d.n;
+ el("text",{x:RX+RW+12,y:d.ry+d.rh/2+19,"font-size":17,"font-weight":500,fill:"#56677f"},g).textContent=fmt(d.v)+" · "+Math.round(d.v/T*100)+"%";
+ const on=()=>{svg.classList.add("dim");svg.querySelectorAll("[data-i]").forEach(n=>n.classList.toggle("on",n.dataset.i==i));tip.innerHTML=`<b>${d.n}</b> took ${Math.round(d.v/T*100)}% of everything raised.`};
+ const off=()=>{svg.classList.remove("dim");svg.querySelectorAll(".on").forEach(n=>n.classList.remove("on"));tip.textContent=idle};
+ g.addEventListener("mouseenter",on);g.addEventListener("focus",on);g.addEventListener("mouseleave",off);g.addEventListener("blur",off);g.addEventListener("click",on)});
+const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+if(rm){bt.textContent=fmt(T)}else{const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1600),e=1-Math.pow(1-p,3);bt.textContent=fmt(Math.round(T*e));if(p<1)requestAnimationFrame(f)})(t0)}
+</script>
+</div></section>
+<dialog id="dlg" aria-label="Rotary film"><div class="dh"><span>Folkestone Rotary: our year in film</span><button class="vb" style="color:#0B1F3A;border-color:#0B1F3A;background:none" id="close" type="button">Close</button></div>
+<div class="film"><div><p><strong>Your full film plays here.</strong></p><p>Upload a short film (YouTube, Vimeo or an MP4) and the club’s story plays in this window with captions.</p></div></div></dialog>
+<script>
+(()=>{const NS="http://www.w3.org/2000/svg",rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const sn=document.getElementById("snow");for(let i=0;i<46;i++){const c=document.createElementNS(NS,"circle");c.setAttribute("cx",Math.random()*1280);c.setAttribute("cy",Math.random()*-700);c.setAttribute("r",1.5+Math.random()*3);c.setAttribute("fill","#fff");c.setAttribute("opacity",.5+Math.random()*.5);c.setAttribute("class","snow");c.style.animationDuration=(7+Math.random()*7)+"s";c.style.animationDelay=(-Math.random()*12)+"s";sn.appendChild(c)}
+const bu=document.getElementById("bulbs"),cols=["#F7A81B","#fff","#4d93cc"];for(let i=0;i<22;i++){const x=i*58+10,y=96+Math.sin(i/3.2)*26+ (i%2?10:0);const c=document.createElementNS(NS,"circle");c.setAttribute("cx",x);c.setAttribute("cy",y+(x>640?-8:6));c.setAttribute("r",8);c.setAttribute("fill",cols[i%3]);c.setAttribute("class","bulb");c.style.animationDelay=(-i*.23)+"s";bu.appendChild(c)}
+const ru=document.getElementById("runners"),pal=["#0B1F3A","#fff","#F7A81B","#005DAA"];for(let i=0;i<46;i++){const g=document.createElementNS(NS,"g");g.setAttribute("class","rc");g.style.animationDuration="9s";g.style.animationDelay=(-i*.19)+"s";const y=572+(i%4)*9;const b=document.createElementNS(NS,"g");b.setAttribute("class","bob");b.style.animationDelay=(-i*.11)+"s";const h=document.createElementNS(NS,"circle");h.setAttribute("cx",0);h.setAttribute("cy",y-30);h.setAttribute("r",7);h.setAttribute("fill","#f3d9bf");const t=document.createElementNS(NS,"rect");t.setAttribute("x",-8);t.setAttribute("y",y-22);t.setAttribute("width",16);t.setAttribute("height",30);t.setAttribute("rx",6);t.setAttribute("fill",pal[i%4]);b.append(h,t);g.appendChild(b);ru.appendChild(g)}
+const N=["Race Night","Christmas Collections","Half Marathon","Golf Day"],sc=[...document.querySelectorAll(".sc")],pips=document.getElementById("pips"),cap=document.getElementById("cap"),vh=document.getElementById("vh");let cur=0,tm,paused=rm;
+N.forEach((n,i)=>{const b=document.createElement("button");b.className="pip";b.type="button";b.setAttribute("aria-label","Show "+n);b.innerHTML="<i></i>";b.onclick=()=>{show(i);restart()};pips.appendChild(b)});
+function show(i){cur=i;sc.forEach((s,k)=>s.classList.toggle("on",k===i));[...pips.children].forEach((p,k)=>{p.classList.remove("on");void p.offsetWidth;if(k===i)p.classList.add("on")});cap.firstChild.textContent=N[i]}
+function restart(){clearTimeout(tm);if(!paused)tm=setTimeout(()=>{show((cur+1)%N.length);restart()},5500)}
+show(0);restart();
+const pp=document.getElementById("pp");if(rm){pp.textContent="Play";pp.setAttribute("aria-pressed","true");vh.classList.add("paused")}
+pp.onclick=()=>{paused=!paused;pp.textContent=paused?"Play":"Pause";pp.setAttribute("aria-pressed",paused);vh.classList.toggle("paused",paused);document.querySelectorAll(".sc.on *").forEach(e=>e.style.animationPlayState=paused?"paused":"");restart()};
+const dlg=document.getElementById("dlg");document.getElementById("film").onclick=()=>dlg.showModal();document.getElementById("close").onclick=()=>dlg.close();dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+const hd=document.querySelector("header");const on=()=>hd.classList.toggle("solid",scrollY>vh.offsetHeight-140);addEventListener("scroll",on,{passive:true});on();})();
+</script>
+<section><div class="wrap"><h2 class="s">What’s on</h2><p class="sub">Fundraising that’s actually fun.</p>
+<div class="months"><div><h3>November</h3><a href="#"><b>Race Night</b><span>Sat 14 · Venue to be confirmed</span></a></div>
+<div><h3>December</h3><a href="#"><b>Christmas Collections</b><span>Fri 5 · Around Folkestone</span></a></div>
+<div><h3>February</h3><a href="#"><b>Wine &amp; Wisdom</b><span>Fri 19 · Venue to be confirmed</span></a></div>
+<div><h3>March to May</h3><a href="#"><b>Golf Day</b><span>Tue 24 Mar</span></a><a href="#"><b>Half Marathon</b><span>Sun 17 May · Seafront</span></a></div></div></div></section>
+
+<section><div class="wrap"><h2 class="s">Recent grants</h2><p class="sub">Who we backed, and what happened next.</p>
+<table><thead><tr><th>Project</th><th class="hide-s">What changed</th><th>Awarded</th></tr></thead><tbody>
+<tr><td><a href="#">Baby Basics Folkestone</a></td><td class="mute hide-s">Families got starter packs when they needed them most.</td><td><b>£1,500</b></td></tr>
+<tr><td><a href="#">Local schools</a></td><td class="mute hide-s">More children took part in learning and enterprise days.</td><td><b>£2,000</b></td></tr>
+<tr><td><a href="#">Community charity grants</a></td><td class="mute hide-s">Small charities kept essential services running.</td><td><b>£5,000</b></td></tr>
+<tr><td><a href="#">Youth programmes</a></td><td class="mute hide-s">Young people gained confidence and new skills.</td><td><b>£1,000</b></td></tr></tbody></table>
+<p style="margin-top:22px"><a class="btn gold" href="#">Apply for a grant</a></p></div></section>
+
+<section class="band"><div class="wrap"><h2>Meet great people. Make a difference.</h2><div><p>We meet Tuesdays at 12:30. Come as a guest, with no obligation.</p><a class="btn gold" href="#">Visit as a guest</a></div></div></section>
+</main>
+<footer><div class="wrap"><div><strong style="color:#fff">Folkestone Rotary</strong><br>info@folkestonerotary.org</div><div>Privacy · Cookies · Accessibility · Terms</div><div>© 2026</div></div></footer>
+</body></html>
