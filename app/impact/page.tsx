@@ -20,7 +20,7 @@ export default async function ImpactPage() {
   return (
     <>
       <PageHero title="Our Impact" intro="Every pound and every hour goes back into our community." crumbs={[{ name: "Our Impact", path: "/impact" }]} />
-      <StatsBand stats={stats} />
+      <StatsBand stats={stats} limit={stats.length} />
       <Section id="projects">
         <SectionHeading eyebrow="Community projects" title="Where the money goes" intro={total ? `${gbp(total)} awarded across the projects below.` : undefined} />
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{stories.map((s) => <li key={s.id} id={s.slug} className="scroll-mt-24"><StoryCard story={s} /></li>)}</ul>
