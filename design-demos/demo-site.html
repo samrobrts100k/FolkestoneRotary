@@ -350,6 +350,40 @@ header nav a[aria-current=page]{font-weight:800}
 .jar{padding-top:0}
 .ph{--sw:max(100vw,960px);min-height:0;padding-top:140px;padding-bottom:calc(var(--sw)*.275*.98)}
 
+/* ===== v7 beach huts ===== */
+.jars.huts{display:grid;grid-template-columns:repeat(4,1fr);align-items:end;gap:clamp(12px,2.6vw,30px);max-width:1100px;position:relative;padding:70px 0 34px;margin-top:0}
+.jars.huts::after{content:"";position:absolute;left:-2%;right:-2%;bottom:0;height:46px;border-radius:14px;background:linear-gradient(180deg,#efd9a5,#e0c485);box-shadow:0 14px 0 -4px #4d93cc,0 24px 0 -8px #005DAA;z-index:0}
+.bunt{position:absolute;left:0;top:0;width:100%;height:60px;pointer-events:none;overflow:visible}
+.hut{position:relative;z-index:1;align-items:center;padding:0 0 0;transform:none!important;animation:none}
+.hut .roof{display:block;width:114%;height:clamp(34px,5vw,54px);background:linear-gradient(100deg,var(--dk),var(--c) 55%,var(--dk));clip-path:polygon(50% 0,100% 100%,0 100%);transition:transform .5s var(--ease-out-quint)}
+.hut .wall{position:relative;display:block;width:100%;height:calc(170px + var(--k)*190px);background:repeating-linear-gradient(180deg,var(--c) 0 23px,var(--ds) 23px 25px);border-radius:2px 2px 0 0;box-shadow:inset 0 0 0 5px rgba(255,255,255,.2),0 10px 24px -12px rgba(11,31,58,.5);transition:height .35s}
+.hut .inside,.hut .door{position:absolute;left:15%;right:15%;top:11%;bottom:0;border-radius:6px 6px 0 0}
+.hut .inside{overflow:hidden;background:radial-gradient(120% 80% at 50% 100%,#fff6d8,#f2dfa8);box-shadow:inset 0 6px 14px rgba(11,31,58,.35);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:12%;color:var(--navy)}
+.hut .lvl{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,var(--lt),var(--c));opacity:.9;transition:height .9s var(--ease-in-out-cubic)}
+.hut.fill .lvl{height:calc(var(--pct)*1.9);transition:height 1.4s var(--ease-out-quint) .15s}
+.hut .ic{position:relative;width:clamp(22px,3.4vw,34px);color:var(--dk)}
+.hut .pc{position:relative;font:700 clamp(30px,5vw,54px)/1 "Source Serif 4",Georgia,serif;margin-top:6px;color:var(--navy)}.hut .pc b{font:inherit}
+.hut .of{position:relative;font:700 clamp(9px,1.2vw,12px)/1.2 "Source Sans 3",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#566780}
+.hut .gbp{position:relative;margin-top:8px;font:700 clamp(13px,1.6vw,18px) "Source Sans 3",sans-serif;background:#fff;padding:3px 10px;border-radius:99px;color:var(--navy);box-shadow:0 2px 6px rgba(11,31,58,.2)}
+.hut .door{background:repeating-linear-gradient(90deg,#fff 0 10px,#f2ede0 10px 12px);border:4px solid #fff;border-bottom:0;transform-origin:left center;transition:transform .9s var(--ease-out-quint);display:flex;align-items:flex-start;justify-content:center;backface-visibility:hidden;box-shadow:2px 0 10px rgba(11,31,58,.25)}
+.hut.fill .door{transform:perspective(700px) rotateY(-118deg)}
+.hut .plate{margin-top:14%;padding:5px 6px;background:var(--dk);color:#fff;font:700 clamp(9px,1.25vw,13px)/1.15 "Source Sans 3",sans-serif;text-align:center;border-radius:4px;max-width:86%}
+.hut .knob{position:absolute;right:9%;top:55%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe29a,#c9780a)}
+.hut .step{display:block;width:118%;height:9px;background:#d5ccb4;border-radius:2px;margin-top:-1px;box-shadow:0 3px 0 #b8ae94}
+.hut .nm{margin-top:12px}.hut:hover .roof,.hut.fill .roof{transform:translateY(-5px)}
+.hut:focus-visible{outline:3px solid var(--gold);outline-offset:6px;border-radius:12px}
+@media(max-width:700px){.jars.huts{grid-template-columns:1fr 1fr;row-gap:44px;padding-top:30px}.bunt{display:none}.hut .wall{height:calc(150px + var(--k)*110px)}.jars.huts::after{display:none}}
+@media(prefers-reduced-motion:reduce){.hut .door,.hut .lvl,.hut .roof{transition:none}}
+.jars.huts{padding-bottom:112px}
+.jars.huts::after{height:100px;box-shadow:0 14px 0 -4px #4d93cc,0 24px 0 -8px #005DAA;bottom:6px}
+.hut.fill .lvl{height:calc(var(--pct)*1.05)}
+.hut .nm{margin-top:14px}
+.jars.huts+.tip{margin-top:34px}
+@media(max-width:700px){.jars.huts{padding-bottom:30px}.jars.huts::after{display:none}.hut .step{background:#e0c485;box-shadow:0 3px 0 #4d93cc}}
+.jars.huts::after{display:none}.jars.huts{padding-bottom:20px}
+@media(max-width:700px){.hut .roof{width:106%}.jars.huts{column-gap:22px}}
+@media(max-width:700px){.ph{--sw:100vw;padding-bottom:calc(100vw*.275*1.05)}.ph .sky{right:0}}
+
 [hidden]{display:none!important}
 </style></head><body>
 <div class="banner">Design demo F · whole-site preview · sample content</div>
@@ -421,9 +455,9 @@ window.__film={begin:()=>{},state:()=>({list:list.length,idx,cur,paused})}})();
 <use href="#l-mid" class="mid"/><use href="#l-near" class="near"/>
 <g class="glints" stroke="#fff" stroke-width="2" stroke-linecap="round"><path class="gl" d="M120 372h16"/><path class="gl g2" d="M300 392h20"/><path class="gl g3" d="M940 372h18"/><path class="gl" d="M1200 396h16"/><path class="gl g2" d="M480 414h14"/><path class="gl g3" d="M1380 376h18"/></g>
 <g class="gull" fill="none" stroke="#0B1F3A" stroke-width="2.6" stroke-linecap="round" opacity=".8"><path d="M0 130q9-9 18 0q9-9 18 0"/><path d="M52 154q7-7 14 0q7-7 14 0"/></g><g class="gull b" fill="none" stroke="#0B1F3A" stroke-width="2.6" stroke-linecap="round" opacity=".8"><path d="M0 96q9-9 18 0q9-9 18 0"/></g></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Our impact</p><h1 id="h-impact" tabindex="-1">What £48,500 did</h1><p class="lead">Every pound we raise stays in the town. Here’s where it went, and what happened next.</p></div><div class="glass"><small>Raised for local causes (sample)</small><b class="big" data-to="48500" data-pre="£" data-suf="+">£48,500+</b><div class="segs" aria-hidden="true"><i style="width:40%;background:#005DAA"></i><i style="width:25%;background:#4d93cc"></i><i style="width:20%;background:#F7A81B"></i><i style="width:15%;background:#fff"></i></div><p style="margin:10px 0 0;color:#cfe0f2">All of it stays in Folkestone.</p><button class="btn gold" type="button" data-scroll="#flowcard">See where it went</button></div></div></div>
-<section class="sec"><div class="wrap"><h2 class="s">Where every pound went</h2><p class="sub">Four jars, one town. Hover over a jar to fill it (tap on a phone). Sample figures, editable in the admin.</p>
-<p style="margin:0 0 18px"><button class="btn blue" type="button" id="fillall" aria-pressed="false">Fill all the jars</button></p>
-<div class="jars" id="flowcard" role="group" aria-label="Where the money went"></div><p class="tip" id="tip" aria-live="polite">Hover over a jar to fill it.</p></div></section>
+<section class="sec"><div class="wrap"><h2 class="s">Where every pound went</h2><p class="sub">Four beach huts, one town. Hover over a hut to open the door (tap on a phone). Sample figures, editable in the admin.</p>
+<p style="margin:0 0 18px"><button class="btn blue" type="button" id="fillall" aria-pressed="false">Open all the huts</button></p>
+<div class="jars huts" id="flowcard" role="group" aria-label="Where the money went"></div><p class="tip" id="tip" aria-live="polite">Hover over a hut to open its door.</p></div></section>
 <section class="sec grey"><div class="wrap"><h2 class="s">Stories behind the numbers</h2><p class="sub">Open any story to see what it paid for.</p><div class="bento">
 <button class="story s1" data-i="0" type="button"><span class="amt">£1,500</span><small>Baby Basics Folkestone</small><h3>Starter packs for new parents</h3><span class="more">Read the story</span></button>
 <button class="story s2" data-i="1" type="button"><span class="amt">£2,000</span><small>Local primary schools</small><h3>Books and enterprise days</h3><span class="more">Read the story</span></button>
@@ -584,90 +618,22 @@ function initImpact(){
  const D=[{n:"Community charities",v:19400,c:"#005DAA"},{n:"Local schools",v:12125,c:"#4d93cc"},{n:"Youth programmes",v:9700,c:"#F7A81B"},{n:"Christmas family support",v:7275,c:"#0B1F3A"}];
  const T=D.reduce((a,d)=>a+d.v,0),MAX=Math.max(...D.map(d=>d.v)),box=$("#flowcard"),tip=$("#tip"),idle=tip.textContent,fmt=n=>"£"+n.toLocaleString("en-GB");
  const shade=(hex,f)=>{const n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255,m=f<0?0:255,t=Math.abs(f);return "#"+[r,g,b].map(v=>Math.round(v+(m-v)*t).toString(16).padStart(2,"0")).join("")};
- /* Beaker geometry (svg units, viewBox 0 -44 200 364): inside x 42..158, y 38..274 */
- const IX0=42,IX1=158,IY0=38,IY1=274,IW=IX1-IX0,CAP=IY1-IY0,NC=44;
- function Sim(cv,col){
-  const ctx=cv.getContext("2d"),dpr=2,h=new Float32Array(NC),v=new Float32Array(NC);
-  let level=0,target=0,on=false,run=false,last=0,drops=[],bubs=[],foam=0,sw=0,t=0;
-  const lt=shade(col,.32),dk=shade(col,-.34),rnd=(a,b)=>a+Math.random()*(b-a);
-  const surfY=()=>IY1-level*CAP,colX=i=>IX0+IW*i/(NC-1);
-  function step(){ // damped spring surface with neighbour spreading
-   for(let i=0;i<NC;i++){v[i]+=-0.028*h[i]-0.022*v[i];h[i]+=v[i]}
-   const L=new Float32Array(NC),R=new Float32Array(NC);
-   for(let k=0;k<4;k++){for(let i=0;i<NC;i++){if(i>0){L[i]=0.2*(h[i]-h[i-1]);v[i-1]+=L[i]}if(i<NC-1){R[i]=0.2*(h[i]-h[i+1]);v[i+1]+=R[i]}}
-    for(let i=0;i<NC;i++){if(i>0)h[i-1]+=L[i];if(i<NC-1)h[i+1]+=R[i]}}
-  }
-  function hit(x,f){const i=Math.round((x-IX0)/IW*(NC-1));for(let d=-2;d<=2;d++){const j=i+d;if(j>=0&&j<NC)v[j]+=f*(1-Math.abs(d)*.3)}}
-  function update(dt){
-   t+=dt;const pouring=on&&level<target-.002;
-   if(on&&level<target){const diff=target-level,sp=Math.max(.06,Math.min(.42,diff*2.4));level=Math.min(target,level+sp*dt)}
-   else if(!on&&level>0){level=Math.max(0,level-dt*.9)}
-   sw=pouring?Math.min(1,sw+dt*7):Math.max(0,sw-dt*6);
-   const sy=surfY(),thin=pouring?Math.max(.38,Math.min(1,(target-level)/.1)):0;
-   if(sw>0.05){hit(100,-1.05*sw*thin);if(Math.random()<.7)hit(100+rnd(-8,8),rnd(.2,.7));foam=Math.min(1,foam+dt*3)}else foam=Math.max(0,foam-dt*1.4);
-   if(sw>0.2){ // splash droplets + entrained bubbles
-    const n=Math.round(dt*160*thin);for(let k=0;k<n;k++){const a=rnd(-1.15,1.15);drops.push({x:100+rnd(-4,4),y:sy,vx:Math.sin(a)*rnd(25,95),vy:-rnd(70,190)*(1-Math.abs(a)*.25),r:rnd(1.1,3.1)})}
-    if(Math.random()<dt*34)bubs.push({x:100+rnd(-10,10),y:sy+rnd(6,34),r:rnd(1.2,3.6),p:rnd(0,6),s:rnd(26,60)});
-   }
-   for(let i=drops.length-1;i>=0;i--){const d=drops[i];d.vy+=620*dt;d.x+=d.vx*dt;d.y+=d.vy*dt;
-    if(d.x<IX0+d.r){d.x=IX0+d.r;d.vx=Math.abs(d.vx)*.4}else if(d.x>IX1-d.r){d.x=IX1-d.r;d.vx=-Math.abs(d.vx)*.4}
-    if(d.vy>0&&d.y>surfY()-h[Math.max(0,Math.min(NC-1,Math.round((d.x-IX0)/IW*(NC-1))))]){hit(d.x,-d.r*.16);if(Math.random()<.35)bubs.push({x:d.x,y:surfY()+rnd(3,10),r:d.r*.6,p:rnd(0,6),s:rnd(24,40)});drops.splice(i,1)}}
-   for(let i=bubs.length-1;i>=0;i--){const b=bubs[i];b.y-=b.s*dt;b.x+=Math.sin(t*5+b.p)*.25;if(b.y<=surfY()+1||b.x<IX0||b.x>IX1)bubs.splice(i,1)}
-   const acc=Math.min(3,Math.round(dt*60)||1);for(let k=0;k<acc;k++)step();
-  }
-  function path(){const sy=surfY();ctx.beginPath();ctx.moveTo(IX0,IY1);
-   for(let i=0;i<NC;i++){const x=colX(i),wall=Math.max(0,1-Math.min(x-IX0,IX1-x)/6);ctx.lineTo(x,sy-h[i]*2.4-wall*2.4)}
-   ctx.lineTo(IX1,IY1);ctx.closePath()}
-  function draw(){
-   ctx.setTransform(dpr,0,0,dpr,0,44*dpr);ctx.clearRect(0,-44,200,364);
-   const sy=surfY(),has=level>0.003||drops.length||sw>0.05;if(!has)return;
-   ctx.save();ctx.beginPath();ctx.rect(IX0,IY0-40,IW,CAP+40);ctx.clip();
-   const g=ctx.createLinearGradient(0,sy,0,IY1);g.addColorStop(0,lt);g.addColorStop(.35,col);g.addColorStop(1,dk);
-   ctx.fillStyle=g;path();ctx.fill();
-   if(sw>0.03){const w=7.2*sw*Math.max(.45,Math.min(1,(target-level)/.1));ctx.beginPath();ctx.moveTo(100-w/2,-44);
-    for(let y=-44;y<=sy;y+=8)ctx.lineTo(100-w/2*(1-.3*(y+44)/(sy+44))+Math.sin(y*.12-t*30)*.9,y);
-    for(let y=sy;y>=-44;y-=8)ctx.lineTo(100+w/2*(1-.3*(y+44)/(sy+44))+Math.sin(y*.12-t*30+2)*.9,y);ctx.closePath();
-    const sg=ctx.createLinearGradient(100-w/2,0,100+w/2,0);sg.addColorStop(0,col);sg.addColorStop(.35,lt);sg.addColorStop(1,dk);ctx.fillStyle=sg;ctx.globalAlpha=.96;ctx.fill();ctx.globalAlpha=1}
-   ctx.fillStyle=lt;for(const d of drops){ctx.beginPath();ctx.ellipse(d.x,d.y,d.r*.82,d.r*(1+Math.min(.5,Math.abs(d.vy)/500)),0,0,6.3);ctx.fill();ctx.fillStyle="rgba(255,255,255,.75)";ctx.fillRect(d.x-d.r*.4,d.y-d.r*.5,d.r*.4,d.r*.5);ctx.fillStyle=lt}
-   // light through the liquid: dark rim, bright core, gentle left sheen
-   ctx.globalCompositeOperation="source-atop";
-   const hz=ctx.createLinearGradient(IX0,0,IX1,0);hz.addColorStop(0,"rgba(0,0,0,.34)");hz.addColorStop(.1,"rgba(0,0,0,.02)");hz.addColorStop(.3,"rgba(255,255,255,.16)");hz.addColorStop(.55,"rgba(255,255,255,0)");hz.addColorStop(.9,"rgba(0,0,0,.08)");hz.addColorStop(1,"rgba(0,0,0,.4)");
-   ctx.fillStyle=hz;ctx.fillRect(IX0,IY0-44,IW,CAP+44);
-   const bl=ctx.createLinearGradient(0,IY1-40,0,IY1);bl.addColorStop(0,"rgba(0,0,0,0)");bl.addColorStop(1,"rgba(0,20,50,.32)");ctx.fillStyle=bl;ctx.fillRect(IX0,IY1-40,IW,40);
-   ctx.globalCompositeOperation="source-over";
-   // bright meniscus + surface foam
-   ctx.lineWidth=1.8;ctx.strokeStyle="rgba(255,255,255,.7)";ctx.beginPath();
-   for(let i=0;i<NC;i++){const x=colX(i),wall=Math.max(0,1-Math.min(x-IX0,IX1-x)/6),y=sy-h[i]*2.4-wall*2.4;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();
-   if(foam>.02){for(let k=0;k<26;k++){const a=k*2.399,x=100+Math.sin(a*3.1+t*2)*(8+k*1.1),y=sy-h[Math.max(0,Math.min(NC-1,Math.round((x-IX0)/IW*(NC-1))))]*2.4+Math.cos(a)*2.2;ctx.fillStyle=`rgba(255,255,255,${.5*foam})`;ctx.beginPath();ctx.arc(x,y,1.1+(k%4)*.55,0,6.3);ctx.fill()}}
-   for(const b of bubs){ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,6.3);ctx.fillStyle="rgba(255,255,255,.16)";ctx.fill();ctx.strokeStyle="rgba(255,255,255,.7)";ctx.lineWidth=.9;ctx.stroke();ctx.fillStyle="rgba(255,255,255,.9)";ctx.fillRect(b.x-b.r*.5,b.y-b.r*.55,b.r*.45,b.r*.45)}
-   ctx.restore();
-  }
-  function settled(){if(on&&level<target-.002||drops.length||bubs.length||sw>.02||foam>.02)return false;if(!on&&level>0)return false;for(let i=0;i<NC;i++)if(Math.abs(h[i])>.02||Math.abs(v[i])>.02)return false;return true}
-  function frame(ts){const dt=Math.min(.033,(ts-last)/1000||.016);last=ts;update(dt);draw();if(settled()){run=false;draw();return}requestAnimationFrame(frame)}
-  return{set(f){on=f;if(rm){level=f?target:0;h.fill(0);v.fill(0);drops=[];bubs=[];sw=foam=0;draw();return}if(!run){run=true;last=performance.now();requestAnimationFrame(frame)}},setTarget(x){target=x;if(rm&&on){level=x;draw()}}};
- }
+ const ICON=["M12 21s-7.5-4.6-9.2-9.4C1.6 8 3.6 5 6.6 5c2 0 3.6 1.1 5.4 3.2C13.8 6.1 15.4 5 17.4 5c3 0 5 3 3.8 6.6C19.5 16.4 12 21 12 21z","M4 5.5C6.5 4.6 9.5 4.6 12 6c2.5-1.4 5.5-1.4 8-.5V19c-2.500-.9-5.500-.9-8 .5-2.500-1.400-5.500-1.400-8-.5z M12 6v13.500","M12 3a9 9 0 100 18 9 9 0 000-18zm0 5l3.200 2.300-1.200 3.800h-4l-1.200-3.800z","M12 2.500l2.900 6.200 6.600.8-4.900 4.600 1.300 6.600L12 17.400l-5.900 3.300 1.300-6.600L2.500 9.500l6.600-.8z"];
  const jars=[];
- D.forEach((d,i)=>{const pct=Math.round(d.v/T*100),tgt=Math.min(.84,d.v/MAX*.8),dk=shade(d.c,-.3);
-  const el=document.createElement("button");el.type="button";el.className="jar";el.style.setProperty("--hd",(i*120)+"ms");
-  el.setAttribute("aria-label",`${d.n}: ${fmt(d.v)}, ${pct} percent of the total. Hover or focus to fill the beaker.`);
-  const ticks=Array.from({length:10},(_,k)=>{const y=IY1-(k+1)*CAP/10;return `<path d="M158 ${y.toFixed(1)}h${k%5==4?15:9}" stroke="#7d93a6" stroke-width="${k%5==4?2:1.4}" opacity=".8"/>`}).join("");
-  el.innerHTML=`<span class="vs"><svg class="bk" viewBox="0 -44 200 364" aria-hidden="true"><ellipse cx="100" cy="302" rx="84" ry="9" fill="#0B1F3A" opacity=".24"/><path d="M34 34V274Q34 292 52 292H148Q166 292 166 274V34Z" fill="#dff0fb" fill-opacity=".55"/><path d="M42 38V268Q42 274 52 274H148Q158 274 158 268V38Z" fill="#f6fbff" fill-opacity=".35"/></svg>
-   <canvas width="400" height="728"></canvas>
-   <svg class="fg" viewBox="0 -44 200 364" aria-hidden="true"><defs><linearGradient id="gw${i}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".12" stop-color="#fff" stop-opacity=".1"/><stop offset=".86" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity=".7"/></linearGradient><linearGradient id="gb${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#bcd8ec" stop-opacity=".8"/></linearGradient></defs>
-    <path d="M34 34V274Q34 292 52 292H148Q166 292 166 274V34H158V268Q158 274 148 274H52Q42 274 42 268V38H34Z" fill="url(#gw${i})"/><path d="M34 34V274Q34 292 52 292H148Q166 292 166 274V34" fill="none" stroke="#9fbdd2" stroke-width="2.4" stroke-linejoin="round"/><path d="M42 38V268Q42 274 52 274H148Q158 274 158 268V38" fill="none" stroke="#c4dbea" stroke-width="1.4"/>
-    <path d="M52 274H148Q158 274 158 268V280Q158 284 148 284H52Q42 284 42 280V268Q42 274 52 274Z" fill="url(#gb${i})" opacity=".7"/>
-    <rect x="28" y="30" width="144" height="9" rx="4.5" fill="#eef7fd" stroke="#9fbdd2" stroke-width="2"/><path d="M158 33l18 -6" stroke="#9fbdd2" stroke-width="2.4" stroke-linecap="round"/><path d="M34 42Q31 150 36 262" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".55"/><path d="M148 60V150" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".5"/>${ticks}
-    <rect x="58" y="150" width="80" height="62" rx="8" fill="#fbf6e9" fill-opacity=".96" stroke="#d9cdb2" stroke-width="1.4"/><circle cx="68" cy="160" r="2" fill="${d.c}"/><text x="98" y="190" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-weight="700" font-size="30" fill="#0B1F3A">${pct}%</text><text x="98" y="205" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700" font-size="10" fill="#566780">OF EVERY £1</text>
-    <g class="tap"><rect x="90" y="-44" width="20" height="9" rx="3" fill="#c9780a"/><path d="M93 -36h14l-3 12h-8z" fill="#F7A81B"/><rect x="94" y="-28" width="12" height="3" fill="#fff" opacity=".4"/></g></svg></span>
-   <b class="nm">${d.n}</b><span class="am">${fmt(d.v)}</span>`;
-  const sim=Sim($("canvas",el),d.c);sim.setTarget(tgt);
+ D.forEach((d,i)=>{const pct=Math.round(d.v/T*100),k=(d.v/MAX).toFixed(3),dk=shade(d.c,-.28),ds=shade(d.c,-.14),lt=shade(d.c,.3);
+  const el=document.createElement("button");el.type="button";el.className="hut jar";el.style.cssText=`--c:${d.c};--ds:${ds};--dk:${dk};--lt:${lt};--k:${k};--pct:${pct}%;--hd:${i*120}ms`;
+  el.setAttribute("aria-label",`${d.n}: ${fmt(d.v)}, ${pct} percent of the total. Hover or focus to open the beach hut.`);
+  const stroke=i===1?` fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"`:i===2?` fill="none" stroke="currentColor" stroke-width="1.8"`:` fill="currentColor"`;
+  el.innerHTML=`<span class="roof"></span><span class="wall"><span class="inside"><span class="lvl"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[i]}"${stroke}/></svg><span class="pc"><b data-to="${pct}">0</b>%</span><span class="of">of every £1</span><span class="gbp">${fmt(d.v)}</span></span><span class="door"><span class="plate">${d.n}</span><span class="knob"></span></span></span><span class="step"></span><b class="nm">${d.n}</b><span class="am">${fmt(d.v)}</span>`;
+  const pc=$(".pc b",el);let raf=0;const count=to=>{cancelAnimationFrame(raf);const from=+pc.textContent,t0=performance.now(),dur=rm?0:900;const f=n=>{const p=dur?Math.min(1,(n-t0)/dur):1,e=1-Math.pow(1-p,4);pc.textContent=Math.round(from+(to-from)*e);if(p<1)raf=requestAnimationFrame(f)};f(t0)};
   const show=()=>{tip.innerHTML=`<b>${d.n}</b>: ${fmt(d.v)}, ${pct}% of everything raised.`};
   const fillOn=()=>{el.classList.add("fill");show()},fillOff=()=>{if(!el.classList.contains("pin")){el.classList.remove("fill");if(!$$(".jar.fill",box).length)tip.textContent=idle}};
-  new MutationObserver(()=>sim.set(el.classList.contains("fill"))).observe(el,{attributes:true,attributeFilter:["class"]});
+  new MutationObserver(()=>count(el.classList.contains("fill")?pct:0)).observe(el,{attributes:true,attributeFilter:["class"]});
   el.addEventListener("mouseenter",fillOn);el.addEventListener("focus",fillOn);el.addEventListener("mouseleave",fillOff);el.addEventListener("blur",fillOff);
   el.addEventListener("click",()=>{const p=el.classList.toggle("pin");el.classList.toggle("fill",p||el.matches(":hover"));if(p)show();else if(!el.matches(":hover"))fillOff()});
   jars.push(el);box.appendChild(el)});
- const fa=$("#fillall");fa.onclick=()=>{const on=fa.getAttribute("aria-pressed")!=="true";fa.setAttribute("aria-pressed",on);fa.textContent=on?"Empty the jars":"Fill all the jars";jars.forEach((el,k)=>setTimeout(()=>{el.classList.toggle("pin",on);el.classList.toggle("fill",on)},rm?0:k*140));tip.textContent=on?"All four jars: "+fmt(T)+" raised, every pound kept in Folkestone.":idle};
+ box.insertAdjacentHTML("afterbegin",`<svg class="bunt" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8Q250 56 500 24T1000 10" fill="none" stroke="#0B1F3A" stroke-width="2" opacity=".5"/>${Array.from({length:26},(_,n)=>{const x=20+n*38,y=8+Math.sin(n/25*Math.PI*2.1)*0+ (n<13?n*1.9:(25-n)*1.5)+10;return `<path d="M${x} ${y}l16 4l-8 18z" fill="${["#F7A81B","#fff","#005DAA","#4d93cc","#d9433a"][n%5]}" stroke="#0B1F3A" stroke-width=".6" stroke-opacity=".3"/>`}).join("")}</svg>`);
+ const fa=$("#fillall");fa.onclick=()=>{const on=fa.getAttribute("aria-pressed")!=="true";fa.setAttribute("aria-pressed",on);fa.textContent=on?"Close the huts":"Open all the huts";jars.forEach((el,k)=>setTimeout(()=>{el.classList.toggle("pin",on);el.classList.toggle("fill",on)},rm?0:k*140));tip.textContent=on?"All four huts: "+fmt(T)+" raised, every pound kept in Folkestone.":idle};
  new IntersectionObserver((es,o)=>es.forEach(x=>{if(x.isIntersecting){box.classList.add("hint");o.disconnect()}}),{threshold:.5}).observe(box);
  ENTER.impact=()=>{};
  const sh=$("#sheet");let from=null;
