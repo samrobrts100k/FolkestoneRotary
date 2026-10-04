@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -8,7 +8,8 @@ import { JsonLd } from "@/components/json-ld";
 import { organisationLd } from "@/lib/seo/jsonld";
 import { site } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const sans = Source_Sans_3({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const serif = Source_Serif_4({ subsets: ["latin"], axes: ["opsz"], variable: "--font-serif", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -23,7 +24,7 @@ export const viewport: Viewport = { themeColor: "#005DAA", width: "device-width"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB" className={inter.variable}>
+    <html lang="en-GB" className={`${sans.variable} ${serif.variable}`}>
       <body>
         <a href="#main" className="sr-only z-50 rounded-full bg-gold px-5 py-3 font-bold text-navy focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
         <Header />

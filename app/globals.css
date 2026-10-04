@@ -3,16 +3,53 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; }
-  body { @apply bg-white font-sans text-navy antialiased; }
-  h1, h2, h3 { @apply font-bold tracking-tight text-navy; }
-  :focus-visible { @apply outline-none ring-2 ring-rotary ring-offset-2; }
+  html { scroll-behavior: smooth; scrollbar-color: #005DAA #EEF3F8; }
+  body { @apply bg-white font-sans text-ink antialiased; font-size: 1.0625rem; line-height: 1.65; }
+  h1, h2, h3 { @apply font-serif font-bold text-navy; letter-spacing: -0.01em; text-wrap: balance; }
+  a { text-underline-offset: 5px; text-decoration-thickness: 1.5px; }
+  ::selection { background: #F7A81B; color: #0B1F3A; }
+  /* Blue rings on light surfaces, gold on dark ones (both clear 3:1 against their background). */
+  :focus-visible { outline: 3px solid #005DAA; outline-offset: 3px; }
+  .on-dark :focus-visible { outline-color: #F7A81B; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    *, ::before, ::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
   }
 }
+
 @layer components {
   .prose-club p { @apply mb-4 leading-relaxed text-slate-700; }
   .prose-club h2 { @apply mb-3 mt-8 text-2xl; }
+
+  /* ---- Home film hero ---- */
+  .hero-poster { background: radial-gradient(60% 50% at 78% 72%, rgba(247,168,27,.55), transparent 70%), linear-gradient(180deg, #0B1F3A 0, #004A88 58%, #005DAA 100%); }
+  .hero-poster::before { content: ""; position: absolute; inset: -20%; background: radial-gradient(40% 30% at 30% 40%, rgba(255,255,255,.1), transparent 70%); animation: hero-glow 18s ease-in-out infinite alternate; }
+  .hero-shade { background: linear-gradient(90deg, rgba(7,20,42,.62) 0, rgba(7,20,42,.35) 50%, transparent 80%), linear-gradient(180deg, rgba(7,20,42,.55) 0, rgba(7,20,42,.1) 30%, rgba(7,20,42,.5) 65%, rgba(7,20,42,.9) 100%); }
+  .hero-title { text-shadow: 0 3px 36px rgba(0,0,0,.45); }
+  .word-rise { display: inline-block; animation: word-rise .6s cubic-bezier(.23,1,.32,1) backwards; animation-delay: calc(var(--i) * 70ms + 120ms); }
+  .rise { animation: rise .5s cubic-bezier(.23,1,.32,1) backwards; animation-delay: var(--d, 0ms); }
+
+  /* ---- Event ticket: punched on both edges, tear line between the punches ---- */
+  .ticket {
+    --punch: calc(100% - 72px);
+    -webkit-mask: radial-gradient(circle 12px at 0 var(--punch), #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 12px at 100% var(--punch), #0000 98%, #000) right / 51% 100% no-repeat;
+    mask: radial-gradient(circle 12px at 0 var(--punch), #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 12px at 100% var(--punch), #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+  .ticket::after { content: ""; position: absolute; left: 22px; right: 22px; top: var(--punch); border-top: 2px dashed #B8C8DA; }
+  /* the mask would clip an outside focus ring, so draw it inside the ticket */
+  .ticket a:focus-visible { outline-offset: -4px; }
+
+  /* ---- Film window: scales in 220ms, out 150ms ---- */
+  .film-dialog[open] { animation: dialog-in .22s cubic-bezier(.33,1,.68,1); }
+  .film-dialog[open]::backdrop { background: rgba(7,20,42,.8); animation: fade-in .22s linear; }
+  .film-dialog.closing { animation: dialog-out .15s ease-in forwards; }
+  .film-dialog.closing::backdrop { animation: fade-out .15s linear forwards; }
 }
+
+@keyframes hero-glow { to { transform: translate(18%, 10%); } }
+@keyframes word-rise { from { transform: translateY(.45em); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes rise { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes dialog-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes dialog-out { to { opacity: 0; transform: scale(.97) translateY(4px); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }

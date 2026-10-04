@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Briefcase, Globe2, HandHeart, HeartHandshake, PiggyBank, Users } from "lucide-react";
-import { Card, CardBody } from "@/components/ui/card";
 import { Reveal } from "@/components/motion";
 import { Section, SectionHeading } from "@/components/sections";
 
@@ -13,20 +12,21 @@ const items = [
   { title: "International Projects", text: "Part of a worldwide network of Rotarians.", href: "/about#rotary-international", Icon: Globe2 },
 ];
 
+/** Six ways in, as a ruled list rather than a card grid: icon, name, one line, whole row links. */
 export function WhatWeDo() {
   return (
     <Section tone="grey">
-      <SectionHeading eyebrow="What we do" title="Local people, local action" intro="Six ways Folkestone Rotary makes a difference." />
-      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <SectionHeading title="Local people, local action" intro="Six ways Folkestone Rotary makes a difference." />
+      <ul className="grid gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(({ title, text, href, Icon }, i) => (
           <li key={title}>
-            <Reveal delay={i * 0.05} className="h-full">
-              <Link href={href} className="block h-full rounded-card">
-                <Card className="h-full"><CardBody>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-light text-rotary"><Icon aria-hidden /></span>
-                  <h3 className="mt-4 text-xl">{title}</h3><p className="mt-1 text-slate-700">{text}</p>
-                  <span className="mt-3 inline-block text-sm font-semibold text-rotary">Learn more →</span>
-                </CardBody></Card>
+            <Reveal delay={i * 0.04} className="h-full">
+              <Link href={href} className="group flex h-full gap-4 border-t border-line py-6 no-underline">
+                <Icon aria-hidden className="mt-1 h-6 w-6 shrink-0 text-rotary" strokeWidth={1.75} />
+                <span>
+                  <span className="block font-serif text-[22px] font-bold leading-snug text-navy transition-colors duration-150 group-hover:text-rotary">{title}</span>
+                  <span className="mt-1 block text-slate-700">{text}</span>
+                </span>
               </Link>
             </Reveal>
           </li>

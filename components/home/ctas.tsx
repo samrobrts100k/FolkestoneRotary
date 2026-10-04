@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/sections";
 import { Reveal } from "@/components/motion";
@@ -6,18 +7,26 @@ import { site } from "@/lib/site";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 import type { Sponsor } from "@/lib/types";
 
+/** Gold invitation panel: the lowest-commitment way in is visiting a meeting as a guest. */
 export function JoinCta() {
+  const venue = site.meeting.venue.replace(/^meeting venue/i, "Venue");
   return (
-    <Section tone="blue">
-      <Reveal className="mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl text-white sm:text-4xl">Make a Difference. Meet Great People.</h2>
-        <p className="mt-4 text-lg text-white/90">Join Folkestone Rotary and become part of a welcoming group helping improve our local community.</p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <ButtonLink href="/join" variant="gold" size="lg">Become a Member</ButtonLink>
-          <ButtonLink href="/join#guest" variant="outline-light" size="lg">Visit Us as a Guest</ButtonLink>
-        </div>
-      </Reveal>
-    </Section>
+    <section className="pb-14 sm:pb-20">
+      <div className="container">
+        <Reveal>
+          <div className="grid items-center gap-8 rounded-[1.75rem] bg-gold px-7 py-9 text-navy sm:px-10 md:grid-cols-[1.3fr_1fr] md:gap-10 lg:rounded-panel lg:px-14 lg:py-12">
+            <h2 className="m-0 text-[clamp(30px,3.6vw,46px)] leading-[1.1]">Come to a meeting as our guest</h2>
+            <div>
+              <p className="mb-5 mt-0">{site.meeting.when}. {venue}. No obligation.</p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                <ButtonLink href="/join#guest" className="bg-navy text-white shadow-none hover:bg-rotary-dark focus-visible:outline-navy">Ask to visit</ButtonLink>
+                <Link href="/join" className="font-bold text-navy underline focus-visible:outline-navy">Become a member</Link>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
@@ -27,7 +36,6 @@ export function SponsorCta() {
     <Section tone="grey">
       <div className="grid items-center gap-10 lg:grid-cols-2">
         <Reveal>
-          <p className="mb-2 text-sm font-bold uppercase tracking-widest text-rotary">Business sponsorship</p>
           <h2 className="text-3xl sm:text-4xl">Put your business at the heart of Folkestone</h2>
           <p className="mt-3 text-lg text-slate-700">Local businesses are vital to what we do. Sponsor with us and help the community while getting your name in front of local people.</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
