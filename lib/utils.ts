@@ -3,8 +3,16 @@ import { twMerge } from "tailwind-merge";
 
 export const cn = (...i: ClassValue[]) => twMerge(clsx(i));
 
+/**
+ * Node and browsers ship different ICU data, so the same en-GB format can differ by punctuation
+ * ("Sat, 14 November" on the server, "Sat 14 November" in Chrome). That breaks hydration, so the
+ * separators are normalised to single spaces and the output is identical everywhere.
+ */
 export const formatDate = (iso: string, opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" }) =>
-  new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", ...opts }).format(new Date(iso));
+  new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", ...opts })
+    .formatToParts(new Date(iso))
+    .map((p) => (p.type === "literal" && /^[\s,]+$/.test(p.value) ? " " : p.value))
+    .join("");
 
 export const formatTime = (iso: string) =>
   new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));

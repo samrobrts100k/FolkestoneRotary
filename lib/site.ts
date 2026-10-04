@@ -20,6 +20,13 @@ export const site = {
   },
   donateUrl: process.env.NEXT_PUBLIC_DONATE_URL || "",
   donateMonthlyUrl: process.env.NEXT_PUBLIC_DONATE_MONTHLY_URL || "",
+  /**
+   * Home hero film. Add 1–6 short, silent clips (e.g. "/video/race-night.mp4" in /public) and they play as a
+   * looping montage behind the headline. Leave empty to show the plain colour background.
+   */
+  heroVideos: [] as string[],
+  /** "Watch the full film" button: a YouTube/Vimeo embed URL or an .mp4. Leave empty to hide the button. */
+  filmUrl: "",
   sponsorshipPackUrl: "/downloads/sponsorship-pack.pdf", // replace with an uploaded PDF
 } as const;
 

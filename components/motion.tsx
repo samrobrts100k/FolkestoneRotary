@@ -2,12 +2,15 @@
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-/** Fades content in on scroll. Renders statically for reduced-motion users. */
+/**
+ * Fades content in on scroll. Reduced-motion users get the same element with an instant, motionless reveal.
+ * (Swapping to a plain <div> for them left the server's inline opacity:0 in place after hydration, hiding the content.)
+ */
 export function Reveal({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div className={className} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay }}>
+    <motion.div className={className} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+      transition={reduce ? { duration: 0 } : { duration: 0.5, delay, ease: [0.23, 1, 0.32, 1] }}>
       {children}
     </motion.div>
   );
