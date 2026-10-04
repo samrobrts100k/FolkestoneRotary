@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { events } from "@/lib/seed";
 import { isUpcoming, isVisibleAt } from "@/lib/visibility";
 import { buildIcs, googleCalendarUrl } from "@/lib/ics";
+import { formatDate } from "@/lib/utils";
 
 describe("event listing", () => {
   it("separates upcoming from past events", () => {
@@ -23,5 +24,14 @@ describe("event listing", () => {
     const ics = buildIcs(e, "https://x.test/events/a");
     expect(ics).toContain("BEGIN:VEVENT"); expect(ics).toContain(`SUMMARY:${e.title}`); expect(ics).toMatch(/DTSTART:\d{8}T\d{6}Z/);
     expect(googleCalendarUrl(e, "https://x.test")).toContain("calendar.google.com");
+  });
+});
+
+describe("date formatting", () => {
+  it("formats the same on server and browser (no ICU comma after the weekday)", () => {
+    const iso = "2026-11-14T19:00:00Z";
+    expect(formatDate(iso, { weekday: "short", day: "numeric", month: "long", year: "numeric" })).toBe("Sat 14 November 2026");
+    expect(formatDate(iso)).toBe("14 November 2026");
+    expect(formatDate(iso, { weekday: "short", day: "numeric", month: "short" })).toBe("Sat 14 Nov");
   });
 });
