@@ -1,0 +1,551 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Folkestone Rotary – site preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#005DAA;--blue-d:#004A88;--navy:#0B1F3A;--gold:#F7A81B;--mist:#EEF3F8;--ink:#17283e;--mute:#566780;--line:#d9e2ec}
+*{box-sizing:border-box}a{color:inherit}body{margin:0;font:18px/1.65 "Source Sans 3",system-ui,sans-serif;color:var(--ink);background:#fff}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.serif{font-family:"Source Serif 4",Georgia,serif}
+.demo{background:var(--navy);color:#cfe0f2;font-size:13px;text-align:center;padding:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:18px}
+.logo{display:flex;gap:10px;align-items:center;text-decoration:none;font:700 20px "Source Serif 4",Georgia,serif}
+.logo i{width:36px;height:36px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--blue);display:grid;place-items:center;font:700 18px "Source Serif 4",Georgia,serif;font-style:normal;color:var(--blue-d)}
+nav{display:flex;gap:24px;font-weight:600;font-size:16px}nav a{text-decoration:none}nav a:hover{color:var(--blue)}
+.btn{display:inline-block;white-space:nowrap;text-decoration:none;font-weight:700;border-radius:999px;padding:12px 26px}.gold{background:var(--gold);color:var(--navy)}.btn.gold,.meet .btn{color:inherit}.gold:hover{background:#e29a12}.ol{border:2px solid var(--blue);color:var(--blue)}
+.hero{padding:34px 0 70px}.hero .wrap{display:grid;grid-template-columns:1fr 1.12fr;gap:52px;align-items:center}
+h1{font:700 clamp(42px,5.2vw,70px)/1.04 "Source Serif 4",Georgia,serif;margin:0 0 20px;color:var(--navy);letter-spacing:-.015em}
+.lead{max-width:30em;color:var(--mute);font-size:20px;margin:0 0 28px}
+.acts{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}.acts a.t{font-weight:700;color:var(--blue);text-underline-offset:5px}
+figure{margin:0;position:relative}figure svg{display:block;width:100%;height:auto;border-radius:36px 36px 120px 36px}
+figcaption{position:absolute;left:18px;bottom:16px;background:#fff;border-radius:8px;padding:6px 12px;font-size:14px;color:var(--mute)}
+section{padding:72px 0}h2.s{font:700 clamp(30px,3.6vw,44px)/1.1 "Source Serif 4",Georgia,serif;margin:0 0 10px;color:var(--navy)}
+.sub{color:var(--mute);margin:0 0 34px;max-width:36em}
+.feature{background:var(--blue);color:#fff;border-radius:40px;padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:center}
+.feature blockquote{margin:0;font:500 clamp(26px,3vw,38px)/1.25 "Source Serif 4",Georgia,serif}
+.feature cite{display:block;font:600 16px "Source Sans 3",system-ui,sans-serif;font-style:normal;margin-top:18px;color:#cfe3f7}
+.feature .facts{display:grid;gap:14px;font-size:17px;border-left:2px solid var(--gold);padding-left:26px}.facts b{display:block;font:700 30px/1.1 "Source Serif 4",Georgia,serif;color:var(--gold)}
+.tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0;list-style:none;margin:0}
+.ticket{position:relative;background:var(--mist);padding:26px 26px 22px 30px;border-radius:14px;display:flex;flex-direction:column;gap:6px;min-height:230px;
+ -webkit-mask:radial-gradient(circle 12px at 0 62%,#0000 98%,#000) ;mask:radial-gradient(circle 12px at 0 62%,#0000 98%,#000)}
+.ticket::after{content:"";position:absolute;left:30px;right:26px;top:62%;border-top:2px dashed #b8c8da}
+.ticket time{font:700 15px "Source Sans 3",system-ui,sans-serif;color:var(--blue)}.ticket h3{font:700 26px/1.1 "Source Serif 4",Georgia,serif;margin:0;color:var(--navy)}
+.ticket p{margin:0;color:var(--mute);font-size:16px}.ticket .go{margin-top:auto;padding-top:34px;font-weight:700;color:var(--blue-d)}
+.ticket:hover{background:#e2ecf6}.ticket a{position:absolute;inset:0;border-radius:14px}
+.news{display:grid;grid-template-columns:1fr 1fr;gap:0 64px}.news a{display:block;padding:20px 0;border-top:1px solid var(--line);text-decoration:none}
+.news time{font-size:15px;color:var(--mute)}.news strong{display:block;font:700 22px/1.25 "Source Serif 4",Georgia,serif;color:var(--navy)}.news a:hover strong{color:var(--blue)}
+.meet{background:var(--gold);border-radius:40px;padding:48px 56px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;color:var(--navy)}
+.meet h2{font:700 clamp(30px,3.6vw,46px)/1.1 "Source Serif 4",Georgia,serif;margin:0}.meet .btn{background:var(--navy);color:#fff}
+footer{background:var(--navy);color:#b9cce2;padding:44px 0;font-size:15px;margin-top:72px}footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px 56px}
+@media(max-width:1000px){nav{display:none}}@media(max-width:600px){.hl{display:none}}@media(max-width:900px){.hero .wrap,.feature,.meet,.news{grid-template-columns:1fr}.tickets{grid-template-columns:1fr}.feature,.meet{padding:32px 26px;border-radius:28px}section{padding:52px 0}}
+
+.hero{position:relative;padding:0;background:#0B1F3A;overflow:hidden;isolation:isolate}
+.hero header .wrap{display:flex;position:static}
+.scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.heroin{position:relative;min-height:clamp(560px,88vh,820px);display:flex;flex-direction:column;justify-content:center;max-width:1180px;margin:0 auto;padding:60px 24px 190px}
+.hero h1{color:#fff;max-width:11em;text-shadow:0 2px 30px rgba(7,20,42,.5);animation:up .9s .15s both}
+.hero .lead{color:#dbe8f6;animation:up .9s .35s both}.hero .acts{animation:up .9s .55s both}
+.hero .acts a.t{color:#fff}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+header{position:absolute;left:0;right:0;z-index:5;background:transparent}
+header .logo,header nav a{color:#fff}header nav a:hover{color:var(--gold)}.logo i{box-shadow:0 0 0 3px #fff}
+header .ol{border-color:#fff;color:#fff}
+.sun{animation:sun 3.2s .2s cubic-bezier(.2,.7,.2,1) both}@keyframes sun{from{transform:translateY(130px)}to{transform:none}}
+.w1{animation:wave 14s linear infinite}.w2{animation:wave 10s linear infinite reverse}.w3{animation:wave 7s linear infinite}
+@keyframes wave{to{transform:translateX(-640px)}}
+.beam{transform-origin:518px 246px;animation:sweep 7s ease-in-out infinite alternate}
+@keyframes sweep{from{transform:rotate(-14deg)}to{transform:rotate(11deg)}}
+.cloud{animation:drift 70s linear infinite}.cloud.b{animation-duration:110s;animation-delay:-40s}
+@keyframes drift{from{transform:translateX(-300px)}to{transform:translateX(1500px)}}
+.gull{animation:glide 26s linear infinite}.gull.b{animation-duration:34s;animation-delay:-14s}
+@keyframes glide{from{transform:translate(-80px,0)}50%{transform:translate(700px,-24px)}to{transform:translate(1500px,6px)}}
+.win{animation:twk 4s ease-in-out infinite}.win:nth-child(3n){animation-delay:-1.4s}.win:nth-child(4n){animation-delay:-2.6s}@keyframes twk{50%{opacity:.35}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(7,20,42,.62) 0,rgba(7,20,42,.35) 45%,transparent 70%)}
+@media(max-width:700px){.hero::after{background:linear-gradient(180deg,rgba(7,20,42,.7) 0,rgba(7,20,42,.55) 55%,rgba(7,20,42,.1) 85%)}}
+.cap{position:absolute;right:20px;bottom:20px;background:rgba(7,20,42,.55);color:#cfe0f2;font-size:13px;padding:5px 12px;border-radius:8px;backdrop-filter:blur(6px)}
+.tickets{padding:0 0 4px}
+.ticket{transition:transform .35s cubic-bezier(.2,.8,.2,1);background:linear-gradient(#EEF3F8,#e4edf6)}
+.ticket .stub{margin-top:auto;padding-top:34px;transform-origin:left bottom;transition:transform .35s}
+.ticket:hover{transform:translateY(-6px) rotate(-.6deg)}.ticket:hover .stub{transform:rotate(3deg) translateY(4px)}
+.ticket .go{margin-top:0;padding-top:0}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.sun,.w1,.w2,.w3,.beam,.cloud,.gull,.win,.hero h1,.hero .lead,.hero .acts{animation:none}.rv{opacity:1;transform:none;transition:none}.ticket,.ticket .stub{transition:none}}
+@media(max-width:1000px){header nav{display:none}}
+@media(max-width:700px){.heroin{padding-bottom:150px}.cap{display:none}}
+
+header{position:sticky;top:0;z-index:30;margin-bottom:-74px;background:transparent;transition:background .3s,box-shadow .3s}
+header .logo,header nav a{color:#fff;transition:color .3s}header .logo i{box-shadow:0 0 0 3px #fff}header .ol{border-color:#fff;color:#fff}
+header.solid{background:#fff;box-shadow:0 1px 0 var(--line)}header.solid .logo,header.solid nav a{color:var(--navy)}header.solid .logo i{box-shadow:0 0 0 3px var(--blue)}header.solid .ol{border-color:var(--blue);color:var(--blue)}
+.vh{position:relative;min-height:clamp(620px,calc(100vh - 28px),900px);background:#0B1F3A;color:#fff;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end}
+.reel{position:absolute;inset:0;z-index:-2;background:#0B1F3A}
+.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}.vid.on{opacity:1}
+.poster{position:absolute;inset:0;background:radial-gradient(60% 50% at 78% 72%,rgba(247,168,27,.55),transparent 70%),linear-gradient(180deg,#0B1F3A 0,#004A88 58%,#005DAA 100%);transition:opacity 1.2s}
+.poster::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 30% at 30% 40%,rgba(255,255,255,.1),transparent 70%);animation:glide 18s ease-in-out infinite alternate}
+@keyframes glide{to{transform:translate(18%,10%)}}
+.poster.gone{opacity:0;pointer-events:none}
+.soon{position:absolute;right:24px;top:50%;transform:translateY(-50%);max-width:17em;text-align:center;color:#cfe0f2;font-size:15px;border:1px dashed rgba(255,255,255,.4);border-radius:12px;padding:18px 20px}
+.soon b{display:block;color:#fff;font:700 20px "Source Serif 4",Georgia,serif;margin-bottom:4px}
+.vh::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(7,20,42,.62) 0,rgba(7,20,42,.35) 50%,transparent 80%),linear-gradient(180deg,rgba(7,20,42,.55) 0,rgba(7,20,42,.1) 30%,rgba(7,20,42,.5) 65%,rgba(7,20,42,.9) 100%)}
+.vin{width:100%;max-width:1180px;margin:0 auto;padding:130px 24px 36px}
+.vh h1{color:#fff;font-size:clamp(44px,6.8vw,92px);max-width:10em;margin:0 0 18px;text-shadow:0 3px 36px rgba(0,0,0,.45);animation:up .9s .1s both}
+.vh .lead{color:#e1ecf8;max-width:32em;animation:up .9s .3s both}.vh .acts{animation:up .9s .5s both}.vh .acts a.t{color:#fff}
+.vctl{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.28)}
+.vb{display:inline-flex;align-items:center;gap:8px;border:2px solid #fff;color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(6px);border-radius:999px;padding:9px 18px;font:700 15px "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+.vb:hover{background:rgba(255,255,255,.2)}.vb:focus-within,.vb:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.vb.demo{margin-left:auto;border-style:dashed}.vb input{position:absolute;opacity:0;width:1px;height:1px}
+.vnote{flex-basis:100%;font-size:13.5px;color:#b9cce2;margin:0}
+dialog{border:0;border-radius:18px;padding:0;max-width:min(960px,92vw);width:100%}dialog::backdrop{background:rgba(7,20,42,.8)}
+.film{aspect-ratio:16/9;background:#0B1F3A;color:#fff;display:grid;place-items:center;text-align:center;padding:24px}.film p{max-width:32em;color:#cfe0f2}.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-weight:700}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:1000px){header nav{display:none}.soon{display:none}}
+@media(max-width:600px){.vb.demo{margin-left:0}.vin{padding-top:110px}}
+@media(prefers-reduced-motion:reduce){.vh h1,.vh .lead,.vh .acts,.poster::before{animation:none}.vid{transition:none}}
+
+/* ---- Motion system (from the "animate" skill): shared easing, 200-300ms, transform/opacity only, exits faster than enters ---- */
+:root{--ease-out-quint:cubic-bezier(.23,1,.32,1);--ease-in-out-cubic:cubic-bezier(.645,.045,.355,1);--ease-out-cubic:cubic-bezier(.33,1,.68,1)}
+.btn,.vb{transition:transform 100ms ease-out,background-color 150ms ease,color 150ms ease}.btn:active,.vb:active{transform:scale(.97)}
+header{transition:background-color .2s ease,box-shadow .2s ease}header .logo,header nav a{transition:color .2s ease}
+/* hero headline: words rise in one after another (text-reveal pattern) */
+.vh h1{animation:none}.vh h1 .w{display:inline-block;animation:wr .6s var(--ease-out-quint) backwards;animation-delay:calc(var(--i)*70ms + 120ms)}
+@keyframes wr{from{transform:translateY(.45em);opacity:0}to{transform:none;opacity:1}}
+.vh .lead{animation:up .5s .55s var(--ease-out-quint) backwards}.vh .acts{animation:up .5s .7s var(--ease-out-quint) backwards}.vh .vctl{animation:up .5s .85s var(--ease-out-quint) backwards}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* scroll reveals + ticket lift */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .35s var(--ease-out-quint),transform .35s var(--ease-out-quint)}.rv.in{opacity:1;transform:none}
+.ticket{transition:transform .2s var(--ease-out-quint),background-color .2s ease}.ticket .stub{transition:transform .2s var(--ease-out-quint)}
+.ticket:hover{transform:translateY(-4px)}.ticket:hover .stub{transform:rotate(2.5deg) translateY(3px)}.ticket:active{transform:translateY(-2px) scale(.985)}
+.news a strong{transition:color .15s ease}
+/* nav: one gold underline that slides between links */
+nav[aria-label="Main"]{position:relative}.ind{position:absolute;left:0;bottom:-6px;height:3px;width:var(--w,0);border-radius:2px;background:var(--gold);opacity:0;transform:translateX(var(--x,0));transition:transform .25s var(--ease-in-out-cubic),width .25s var(--ease-in-out-cubic),opacity .15s linear;pointer-events:none}
+.ind.show{opacity:1}
+/* mobile menu: enters ease-out 250ms, leaves ease-in 150ms */
+.burger{display:none;width:46px;height:46px;border:0;border-radius:50%;background:none;cursor:pointer;position:relative;color:#fff}
+.burger span{position:absolute;left:13px;right:13px;height:2px;background:currentColor;border-radius:1px;transition:transform .25s var(--ease-in-out-cubic),opacity .15s linear}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:22px}.burger span:nth-child(3){top:27px}
+.burger[aria-expanded=true] span:nth-child(1){transform:translateY(5px) rotate(45deg)}.burger[aria-expanded=true] span:nth-child(2){opacity:0}.burger[aria-expanded=true] span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+header.solid .burger{color:var(--navy)}.burger:focus-visible{outline:3px solid var(--gold)}
+.mm{position:absolute;top:100%;left:0;right:0;background:var(--navy);padding:8px 24px 20px;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .15s ease-in,transform .15s ease-in,visibility 0s .15s}
+.mm.open{visibility:visible;opacity:1;transform:none;transition:opacity .25s var(--ease-out-quint),transform .25s var(--ease-out-quint),visibility 0s}
+.mm a{display:block;color:#fff;text-decoration:none;font-weight:600;font-size:19px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.mm a:last-child{border:0}
+@media(max-width:1000px){.burger{display:block}}
+/* film window: scales in 220ms, out 150ms */
+dialog[open]{animation:dIn .22s var(--ease-out-cubic)}dialog[open]::backdrop{animation:fi .22s linear}
+dialog.closing{animation:dOut .15s ease-in forwards}dialog.closing::backdrop{animation:fo .15s linear forwards}
+@keyframes dIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}@keyframes dOut{to{opacity:0;transform:scale(.97) translateY(4px)}}
+@keyframes fi{from{opacity:0}}@keyframes fo{to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.vh h1 .w,.vh .lead,.vh .acts,.vh .vctl,dialog[open],dialog[open]::backdrop,dialog.closing,dialog.closing::backdrop{animation:none!important}
+ .rv,.ticket,.ticket .stub,.ind,.mm,.mm.open,.burger span,.btn,.vb{transition:none!important}.rv{opacity:1;transform:none}}
+/* ===== multi-page demo: router, inner-page hero, shared components ===== */
+.page{display:none}.page.on{display:block;transition:opacity .25s var(--ease-out-quint),transform .25s var(--ease-out-quint)}
+.page.entering{opacity:0;transform:translateY(14px)}.page.leaving{opacity:0;transform:translateY(-6px);transition:opacity .15s ease-in,transform .15s ease-in}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ph{position:relative;background:#0B1F3A;color:#fff;overflow:hidden;isolation:isolate;padding:150px 0 64px;min-height:clamp(380px,52vh,560px);display:flex;align-items:flex-end}
+.ph::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--bg,linear-gradient(160deg,#0B1F3A,#004A88))}
+.ph::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,20,42,.35),rgba(7,20,42,.1) 40%,rgba(7,20,42,.5))}
+.ph .wrap{width:100%;display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:end}
+.ph h1{font:700 clamp(46px,7.4vw,104px)/.98 "Source Serif 4",Georgia,serif;margin:0 0 16px;color:#fff;letter-spacing:-.02em}
+.ph h1 .w{display:inline-block;animation:wr .6s var(--ease-out-quint) backwards;animation-delay:calc(var(--i)*70ms + 120ms)}
+.ph .lead{color:#dbe8f6;max-width:30em;margin:0;font-size:20px;animation:up .5s .5s var(--ease-out-quint) backwards}
+.crumb{font-size:14px;color:#9fb6d0;margin:0 0 18px}.crumb a{color:inherit}
+.motif{position:absolute;right:-40px;top:70px;width:min(560px,60vw);opacity:.5;z-index:-1;pointer-events:none}
+.glass{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:22px 24px}
+.glass small{color:#b9cce2;font-size:14px;display:block}.glass b.t{font:700 26px/1.15 "Source Serif 4",Georgia,serif;display:block;margin:2px 0 12px}
+.cd{display:flex;gap:10px}.cd div{min-width:64px;text-align:center;background:rgba(7,20,42,.5);border-radius:10px;padding:8px 6px}.cd b{font:700 30px/1 "Source Sans 3",sans-serif;display:block;font-variant-numeric:tabular-nums}.cd span{font-size:12px;color:#b9cce2}
+.btn.blue{background:var(--blue);color:#fff}.btn.blue:hover{background:var(--blue-d)}
+.sec{padding:76px 0}.sec.grey{background:var(--mist)}.sec h2.s{margin-bottom:8px}
+.sub{color:var(--mute);margin:0 0 30px;max-width:38em}
+.pills{display:flex;flex-wrap:wrap;gap:8px;position:relative}
+.pill{position:relative;z-index:1;border:2px solid var(--line);background:#fff;border-radius:999px;padding:9px 18px;font:700 15.5px "Source Sans 3",sans-serif;color:var(--navy);cursor:pointer;transition:color .15s ease,border-color .15s ease,transform .1s ease-out}
+.pill:active{transform:scale(.97)}.pill[aria-pressed=true]{color:#fff;border-color:transparent}.pill:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pills .hl2{position:absolute;z-index:0;left:0;top:0;height:100%;width:var(--w,0);border-radius:999px;background:var(--blue);transform:translateX(var(--x,0));transition:transform .28s var(--ease-in-out-cubic),width .28s var(--ease-in-out-cubic)}
+/* accordion with smooth height */
+.acc-item{border-top:1px solid var(--line)}.acc-item:last-child{border-bottom:1px solid var(--line)}
+.acc-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;text-align:left;background:none;border:0;padding:20px 0;font:700 19px "Source Serif 4",Georgia,serif;color:var(--navy);cursor:pointer}
+.acc-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.acc-btn i{width:14px;height:14px;position:relative;flex:none}
+.acc-btn i::before,.acc-btn i::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--blue);transition:transform .25s var(--ease-in-out-cubic)}.acc-btn i::after{transform:rotate(90deg)}
+.acc-item.open .acc-btn i::after{transform:rotate(0)}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease-out-quint)}.acc-item.open .acc-body{grid-template-rows:1fr}.acc-body>div{overflow:hidden}.acc-body p{margin:0 0 20px;color:var(--mute);max-width:46em}
+/* event cards */
+.ctl{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:26px}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:999px;padding:3px}.seg button{border:0;background:none;border-radius:999px;padding:7px 16px;font:700 15px "Source Sans 3",sans-serif;cursor:pointer;color:var(--navy);transition:background-color .15s,color .15s}.seg button[aria-pressed=true]{background:var(--navy);color:#fff}.seg button:focus-visible{outline:3px solid var(--gold)}
+.egrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.egrid.list{grid-template-columns:1fr}
+.ecard{display:grid;grid-template-columns:96px 1fr;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .2s var(--ease-out-quint),box-shadow .2s ease;scroll-margin-top:100px}
+.ecard:hover{transform:translateY(-4px);box-shadow:0 14px 30px -14px rgba(11,31,58,.3)}.ecard.flash{animation:flash 1.4s ease-out}@keyframes flash{0%,60%{box-shadow:0 0 0 4px var(--gold)}}
+.ecard .d{background:var(--c,var(--blue));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 6px;text-align:center}.ecard .d b{font:700 38px/1 "Source Serif 4",Georgia,serif}.ecard .d span{font-size:14px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.ecard.gold .d{color:var(--navy)}.ecard .bd{padding:18px 20px}.ecard h3{font:700 23px/1.15 "Source Serif 4",Georgia,serif;margin:0 0 4px;color:var(--navy)}
+.ecard .meta{font-size:14.5px;color:var(--mute);margin:0 0 8px}.ecard p.ds{margin:0 0 14px;color:var(--ink);font-size:16.5px}.ecard .acts2{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}.ecard .acts2 a{font-weight:700;color:var(--blue);text-underline-offset:4px;font-size:15.5px}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--mist);color:var(--navy);margin-right:6px}
+.rail{position:relative;height:150px;margin-top:10px}.rail .line{position:absolute;left:0;right:0;top:78px;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold));border-radius:2px;transform-origin:left;transform:scaleX(0);transition:transform 1.1s var(--ease-out-quint)}
+.rail.in .line{transform:none}.rail .mo{position:absolute;top:92px;font-size:13px;color:var(--mute);transform:translateX(-50%)}
+.rail .dot{position:absolute;top:66px;width:28px;height:28px;margin-left:-14px;border-radius:50%;border:3px solid #fff;background:var(--c,var(--blue));box-shadow:0 2px 8px rgba(11,31,58,.35);cursor:pointer;padding:0;transform:scale(0);transition:transform .35s var(--ease-out-quint)}
+.rail.in .dot{transform:none;transition-delay:calc(var(--k)*70ms + 300ms)}.rail .dot:hover,.rail .dot:focus-visible{transform:scale(1.25)!important;outline:none;transition-delay:0s}
+.rail .tip2{position:absolute;bottom:92px;transform:translateX(-50%) translateY(6px);background:var(--navy);color:#fff;border-radius:10px;padding:8px 12px;font-size:14px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s linear,transform .2s var(--ease-out-quint)}.rail .tip2.show{opacity:1;transform:translateX(-50%)}
+.empty{padding:36px;border:2px dashed var(--line);border-radius:18px;text-align:center;color:var(--mute)}
+/* impact */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(170px,auto);gap:16px}
+.story{position:relative;border:0;text-align:left;border-radius:22px;padding:22px;color:#fff;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--g);transition:transform .2s var(--ease-out-quint)}
+.story:hover{transform:translateY(-4px)}.story:active{transform:scale(.985)}.story:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.story .amt{position:absolute;top:16px;right:20px;font:700 clamp(34px,4vw,54px)/1 "Source Serif 4",Georgia,serif;opacity:.95}.story small{opacity:.85;font-size:14px}.story h3{font:700 24px/1.15 "Source Serif 4",Georgia,serif;margin:2px 0 0;color:inherit}
+.story .more{margin-top:10px;font-weight:700;font-size:15px}.s1{grid-column:span 3;grid-row:span 2;--g:linear-gradient(150deg,#005DAA,#0B1F3A)}.s2{grid-column:span 3;--g:linear-gradient(150deg,#4d93cc,#005DAA)}.s3{grid-column:span 3;--g:linear-gradient(150deg,#e29a12,#c9780a)}.s4{grid-column:span 2;--g:linear-gradient(150deg,#16304F,#0B1F3A)}.s5{grid-column:span 4;--g:linear-gradient(150deg,#004A88,#4d93cc)}
+.s3,.s3 small{color:#0B1F3A}
+dialog.sheet{border:0;border-radius:22px;padding:0;max-width:min(680px,92vw);width:100%;overflow:hidden}dialog.sheet::backdrop{background:rgba(7,20,42,.78)}
+.sheet .top{padding:34px 34px 22px;color:#fff;background:var(--g,var(--blue))}.sheet .top h3{font:700 clamp(28px,4vw,40px)/1.1 "Source Serif 4",Georgia,serif;margin:0 0 6px;color:#fff}.sheet .bodyx{padding:26px 34px 30px}.sheet .bodyx p{margin:0 0 14px}
+.sheet .x{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:50%;width:42px;height:42px;font-size:22px;cursor:pointer}.sheet .x:focus-visible{outline:3px solid var(--gold)}
+.qs{position:relative;display:grid}.qs figure{grid-area:1/1;margin:0;opacity:0;transform:translateY(10px);transition:opacity .3s linear,transform .35s var(--ease-out-quint);pointer-events:none}.qs figure.on{opacity:1;transform:none;pointer-events:auto}
+.qs blockquote{margin:0;font:500 clamp(26px,3.4vw,42px)/1.25 "Source Serif 4",Georgia,serif;color:var(--navy);max-width:24em}.qs figcaption{margin-top:16px;color:var(--mute);font-weight:600}
+.dots{display:flex;gap:6px;margin-top:22px}.dots button{width:44px;height:44px;border:0;background:none;cursor:pointer;display:grid;place-items:center}.dots i{width:30px;height:4px;border-radius:2px;background:var(--line);display:block;position:relative;overflow:hidden}.dots button.on i{background:var(--blue)}.dots button:focus-visible{outline:3px solid var(--gold)}
+.ringwrap{display:flex;gap:40px;align-items:center;flex-wrap:wrap}.ring{width:220px;height:220px;position:relative}.ring svg{transform:rotate(-90deg);width:100%;height:100%}.ring circle{fill:none;stroke-width:16;stroke-linecap:round}.ring .bg{stroke:var(--line)}.ring .fg{stroke:var(--blue);stroke-dasharray:var(--c);stroke-dashoffset:var(--c);transition:stroke-dashoffset 1.6s var(--ease-out-quint)}.ring.in .fg{stroke-dashoffset:var(--o)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:700 40px/1 "Source Serif 4",Georgia,serif;color:var(--navy)}.ring b small{display:block;font:600 14px "Source Sans 3",sans-serif;color:var(--mute);margin-top:4px}
+.flowcard{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 22px 14px;box-shadow:10px 10px 0 var(--blue);max-width:860px}.flowcard svg{display:block;width:100%;height:auto;overflow:visible}
+.node{cursor:pointer;outline:none}.rib{opacity:.95;transition:opacity .25s}.dim .rib{opacity:.14}.dim .rib.on{opacity:1}.dim .node:not(.on) text{opacity:.35}.node:focus-visible rect.nb{stroke:var(--gold);stroke-width:4}
+.flowcard.run .rib{transform-origin:0 50%;transform-box:fill-box;animation:grow 1.1s var(--ease-out-quint) backwards}@keyframes grow{from{transform:scaleX(0);opacity:0}}
+.pulse{stroke-dasharray:3 16;animation:dash 1.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-19}}.tip{margin:6px 0 0;color:var(--mute);font-size:15px;min-height:1.6em}.tip b{color:var(--ink)}
+.dl{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line)}.dl:last-child{border-bottom:1px solid var(--line)}.dl b{font:700 20px "Source Serif 4",Georgia,serif}
+/* join */
+.persona{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:start}.panel{display:grid;background:var(--mist);border-radius:22px;padding:26px 28px}.panel>div{grid-area:1/1;opacity:0;transform:translateY(8px);transition:opacity .25s linear,transform .3s var(--ease-out-quint);pointer-events:none}.panel>div.on{opacity:1;transform:none;pointer-events:auto}
+.panel h3{font:700 24px/1.15 "Source Serif 4",Georgia,serif;margin:0 0 12px}.panel ul{margin:0;padding-left:20px}.panel li{margin:0 0 8px}
+.tline{position:relative;margin:34px 0 0;padding-left:56px;--p:0}.tline::before{content:"";position:absolute;left:19px;top:6px;bottom:6px;width:3px;background:var(--line);border-radius:2px}
+.tline::after{content:"";position:absolute;left:19px;top:6px;width:3px;height:calc((100% - 12px)*var(--p));background:var(--blue);border-radius:2px}
+.tline li{list-style:none;position:relative;padding:0 0 34px}.tline li:last-child{padding:0}.tline .tm{font:700 15px "Source Sans 3";color:var(--blue)}.tline h3{font:700 24px/1.2 "Source Serif 4",Georgia,serif;margin:0 0 4px}.tline p{margin:0;color:var(--mute);max-width:34em}
+.tline li::before{content:"";position:absolute;left:-46px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--line);transition:background-color .2s,border-color .2s,transform .3s var(--ease-out-quint)}.tline li.on::before{background:var(--gold);border-color:var(--blue);transform:scale(1.15)}
+.facts4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--navy);border-bottom:2px solid var(--navy)}.facts4 div{padding:20px 20px 20px 0}.facts4 div+div{border-left:1px solid var(--line);padding-left:20px}.facts4 b{display:block;font:700 22px/1.2 "Source Serif 4",Georgia,serif}.facts4 span{color:var(--mute);font-size:15px}
+/* forms with floating labels */
+.fl{position:relative;margin-bottom:16px}.fl input,.fl textarea,.fl select{width:100%;border:2px solid var(--line);border-radius:12px;padding:24px 14px 9px;font:17px "Source Sans 3",system-ui,sans-serif;background:#fff;color:var(--ink);transition:border-color .15s}
+.fl textarea{min-height:130px;resize:vertical}.fl label{position:absolute;left:16px;top:16px;color:var(--mute);pointer-events:none;transform-origin:left top;transition:transform .2s var(--ease-out-quint),color .15s}
+.fl input:focus,.fl textarea:focus,.fl select:focus{outline:none;border-color:var(--blue)}.fl input:focus+label,.fl textarea:focus+label,.fl input:not(:placeholder-shown)+label,.fl textarea:not(:placeholder-shown)+label,.fl select+label{transform:translateY(-10px) scale(.78);color:var(--blue)}
+.fl.bad input,.fl.bad textarea{border-color:#b3261e}.fl .err{display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s var(--ease-out-quint)}.fl.bad .err{grid-template-rows:1fr}.fl .err span{overflow:hidden;color:#b3261e;font-weight:600;font-size:14.5px;display:block}.fl.bad .err span{padding-top:5px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:6px 0 18px;font-size:15.5px}.check input{width:22px;height:22px;accent-color:var(--blue);flex:none;margin-top:2px}
+.okmark{width:84px;height:84px;display:block;margin:0 auto 14px}.okmark circle{fill:none;stroke:var(--blue);stroke-width:5;stroke-dasharray:252;stroke-dashoffset:252;animation:draw .6s var(--ease-out-quint) forwards}.okmark path{fill:none;stroke:var(--gold);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .4s .45s var(--ease-out-quint) forwards}@keyframes draw{to{stroke-dashoffset:0}}
+.done{text-align:center;padding:30px 20px;background:var(--mist);border-radius:22px;animation:up .4s var(--ease-out-quint)}.done h3{font:700 28px "Source Serif 4",Georgia,serif;margin:0 0 6px}
+/* funding wizard */
+.wiz{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:26px;box-shadow:10px 10px 0 var(--blue);max-width:760px}
+.wiz .prog{display:flex;gap:6px;margin-bottom:18px}.wiz .prog i{flex:1;height:5px;border-radius:3px;background:var(--line);position:relative;overflow:hidden}.wiz .prog i::after{content:"";position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease-out-quint)}.wiz .prog i.on::after{transform:none}
+.wiz .stage{position:relative;min-height:230px;overflow:hidden}.wiz .sl{position:absolute;inset:0;padding:2px;transition:opacity .25s var(--ease-out-quint),transform .25s var(--ease-out-quint)}
+.wiz .sl.in-r{opacity:0;transform:translateX(34px)}.wiz .sl.in-l{opacity:0;transform:translateX(-34px)}.wiz .sl.out-l{opacity:0;transform:translateX(-34px);transition:opacity .15s ease-in,transform .15s ease-in}.wiz .sl.out-r{opacity:0;transform:translateX(34px);transition:opacity .15s ease-in,transform .15s ease-in}
+.wiz h3{font:700 clamp(24px,3vw,32px)/1.2 "Source Serif 4",Georgia,serif;margin:0 0 8px}.wiz p{color:var(--mute);margin:0 0 20px}.wiz .row2{display:flex;flex-wrap:wrap;gap:10px}.wiz .nav2{display:flex;justify-content:space-between;margin-top:14px;min-height:44px}
+.wiz .back{background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;font-size:16px;text-underline-offset:4px;text-decoration:underline}
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:30px}.track::before{content:"";position:absolute;left:12%;right:12%;top:21px;height:4px;background:var(--line);border-radius:2px}
+.track::after{content:"";position:absolute;left:12%;top:21px;height:4px;width:0;background:var(--blue);border-radius:2px;transition:width 1.3s var(--ease-out-quint)}.track.in::after{width:76%}
+.track div{text-align:center;padding:0 10px;position:relative}.track i{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;margin:0 auto 10px;background:#fff;border:4px solid var(--blue);font:700 18px "Source Serif 4",serif;font-style:normal;color:var(--blue);position:relative;z-index:1}
+.track b{display:block;font:700 19px "Source Serif 4",Georgia,serif}.track span{color:var(--mute);font-size:15px}
+.cl li{list-style:none;margin:0 0 10px}.cl label{display:flex;gap:12px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:13px 16px;cursor:pointer;background:#fff;transition:border-color .15s,background-color .15s}.cl input{width:22px;height:22px;accent-color:var(--blue)}.cl label:has(input:checked){border-color:var(--blue);background:#e8f1fa}.cl{padding:0;margin:0}
+.meter{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:6px 0 16px}.meter i{display:block;height:100%;background:var(--gold);transform-origin:left;transform:scaleX(var(--v,0));transition:transform .3s var(--ease-out-quint)}
+/* about */
+.swap{font:700 clamp(32px,5vw,64px)/1.1 "Source Serif 4",Georgia,serif;color:var(--navy);margin:0}.swapbox{display:inline-grid;vertical-align:bottom;overflow:hidden;height:1.2em}.swapbox span{grid-area:1/1;color:var(--blue);transform:translateY(100%);opacity:0;transition:transform .45s var(--ease-out-quint),opacity .3s linear}.swapbox span.on{transform:none;opacity:1}.swapbox span.off{transform:translateY(-100%);opacity:0}
+.hist{position:relative;margin:30px 0 0;--p:0}.hist::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;background:var(--line);transform:translateX(-50%)}.hist::after{content:"";position:absolute;left:50%;top:0;width:3px;height:calc(100%*var(--p));background:var(--blue);transform:translateX(-50%)}
+.boat{position:absolute;left:50%;top:calc(100%*var(--p));width:46px;height:46px;margin:-23px 0 0 -23px;z-index:2;transition:top .1s linear}
+.hi{position:relative;width:46%;padding:0 0 46px}.hi:nth-child(odd){text-align:right;padding-right:34px}.hi:nth-child(even){margin-left:54%;padding-left:34px}
+.hi .yr{font:700 clamp(42px,6vw,74px)/1 "Source Serif 4",Georgia,serif;color:var(--blue);opacity:.9}.hi h3{font:700 24px "Source Serif 4",Georgia,serif;margin:2px 0 4px}.hi p{margin:0;color:var(--mute)}
+.lead3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.person{border:1px solid var(--line);border-radius:22px;padding:24px;background:#fff;transition:transform .2s var(--ease-out-quint),box-shadow .2s;position:relative;overflow:hidden}.person:hover{transform:translateY(-4px);box-shadow:0 16px 30px -16px rgba(11,31,58,.3)}
+.av{width:70px;height:70px;border-radius:50%;background:linear-gradient(140deg,var(--blue),var(--navy));color:#fff;display:grid;place-items:center;font:700 26px "Source Serif 4",serif;margin-bottom:12px}.person h3{font:700 22px "Source Serif 4",Georgia,serif;margin:0}.person small{color:var(--mute)}
+.person .ask{margin:12px 0 0;color:var(--blue-d);font-weight:600;max-height:0;opacity:0;transform:translateY(6px);transition:opacity .2s linear,transform .2s var(--ease-out-quint),max-height .25s var(--ease-out-quint)}.person:hover .ask,.person:focus-within .ask{max-height:60px;opacity:1;transform:none}
+.worldn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center}.worldn b{display:block;font:700 clamp(40px,6vw,76px)/1 "Source Serif 4",Georgia,serif;color:var(--blue)}.worldn span{color:var(--mute)}
+/* news */
+.feat{display:grid;grid-template-columns:1.2fr 1fr;border-radius:26px;overflow:hidden;background:var(--navy);color:#fff;text-decoration:none;transition:transform .2s var(--ease-out-quint);border:0;text-align:left;cursor:pointer;width:100%;padding:0}.feat:hover{transform:translateY(-4px)}.feat:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.feat .pic{min-height:300px;background:radial-gradient(60% 60% at 70% 30%,rgba(247,168,27,.7),transparent 70%),linear-gradient(150deg,#005DAA,#0B1F3A)}.feat .tx{padding:36px}.feat h2{font:700 clamp(28px,3.6vw,44px)/1.1 "Source Serif 4",Georgia,serif;color:#fff;margin:6px 0 12px}.feat p{color:#cfe0f2;margin:0 0 14px}
+.nrow{display:grid;grid-template-columns:130px 1fr auto;gap:8px 24px;align-items:baseline;padding:20px 0;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;transition:padding .2s var(--ease-out-quint)}.nrow:last-child{border-bottom:1px solid var(--line)}
+.nrow:hover{padding-left:10px}.nrow:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}.nrow time{color:var(--mute);font-size:15px}.nrow h3{font:700 23px/1.2 "Source Serif 4",Georgia,serif;margin:0;color:var(--navy)}.nrow p{margin:2px 0 0;color:var(--mute)}.nrow .rt{color:var(--blue);font-weight:700;font-size:14.5px;white-space:nowrap}
+mark{background:#ffe3a3;color:inherit;border-radius:3px;padding:0 2px}
+.srch{position:relative;max-width:360px;flex:1}.srch input{width:100%;border:2px solid var(--line);border-radius:999px;padding:11px 18px 11px 44px;font:17px "Source Sans 3",sans-serif}.srch input:focus{outline:none;border-color:var(--blue)}.srch svg{position:absolute;left:15px;top:13px;width:20px;height:20px;stroke:var(--mute);fill:none;stroke-width:2.2}
+dialog.reader{border:0;padding:0;margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(680px,100vw);border-radius:0;overflow:auto}dialog.reader::backdrop{background:rgba(7,20,42,.7)}dialog.reader[open]{animation:rIn .25s var(--ease-out-quint)}dialog.reader.closing{animation:rOut .15s ease-in forwards}dialog.reader.closing::backdrop{animation:fo .15s linear forwards}
+@keyframes rIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}@keyframes rOut{to{opacity:0;transform:translateX(20px)}}
+.rbar{position:sticky;top:0;height:5px;background:var(--line);z-index:2}.rbar i{display:block;height:100%;background:var(--gold);transform-origin:left;transform:scaleX(var(--rp,0))}
+.reader .art{padding:36px 36px 56px}.reader .art h2{font:700 clamp(30px,4vw,44px)/1.1 "Source Serif 4",Georgia,serif;margin:6px 0 14px}.reader .art p{font-size:19px;line-height:1.7;max-width:34em}.reader .close2{float:right}
+/* contact */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}.tile{position:relative}.tile input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}.tile span{display:block;border:2px solid var(--line);border-radius:14px;padding:14px 12px;font-weight:700;text-align:center;background:#fff;transition:border-color .15s,background-color .15s,transform .1s ease-out,color .15s}
+.tile input:checked+span{border-color:var(--blue);background:var(--blue);color:#fff}.tile input:active+span{transform:scale(.97)}.tile input:focus-visible+span{outline:3px solid var(--gold);outline-offset:2px}
+.who{min-height:1.7em;color:var(--blue-d);font-weight:600;margin:-8px 0 16px}.cgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:start}
+.mapc{border-radius:22px;overflow:hidden;background:var(--navy);color:#fff}.mapc svg{display:block;width:100%;height:auto}.mapc .in2{padding:20px 22px}.pin{animation:pin 2.2s ease-out infinite;transform-origin:center;transform-box:fill-box}@keyframes pin{from{transform:scale(.4);opacity:.9}to{transform:scale(2.6);opacity:0}}
+.copy{background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:4px;font-size:16px;padding:6px 0}.copy:focus-visible{outline:3px solid var(--gold)}
+.next{background:var(--mist);border-radius:22px;padding:22px 24px;margin-bottom:18px}.next .cd div{background:#fff}.next .cd span{color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;opacity:0;pointer-events:none;z-index:99;transition:opacity .15s ease-in,transform .15s ease-in}.toast.show{opacity:1;transform:translate(-50%,0);transition:opacity .25s var(--ease-out-quint),transform .25s var(--ease-out-quint)}
+footer.big{background:var(--navy);color:#b9cce2;padding:56px 0 34px;font-size:16px}footer.big .grid4{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}footer.big h4{color:#fff;margin:0 0 12px;font:700 18px "Source Serif 4",Georgia,serif}footer.big a{display:block;color:#b9cce2;text-decoration:none;padding:4px 0}footer.big a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+footer.big .bot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:14.5px}
+@media(max-width:900px){.ph .wrap,.persona,.cgrid,.feat{grid-template-columns:1fr}.motif{display:none}.egrid{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.bento .story{grid-column:span 2!important;grid-row:auto!important;min-height:180px}.facts4{grid-template-columns:1fr 1fr}.facts4 div:nth-child(3){border-left:0;padding-left:0}.track{grid-template-columns:1fr 1fr;row-gap:26px}.track::before,.track::after{display:none}
+ .lead3,.worldn{grid-template-columns:1fr}.hist::before,.hist::after{left:20px}.boat{left:20px}.hi,.hi:nth-child(even){width:auto;margin-left:0;padding:0 0 38px 54px;text-align:left}.hi:nth-child(odd){padding-right:0}.tiles{grid-template-columns:1fr 1fr}.nrow{grid-template-columns:1fr}.nrow .rt{display:none}footer.big .grid4{grid-template-columns:1fr 1fr}.sec{padding:54px 0}.ph{padding-top:120px}}
+@media(max-width:540px){.cd div{min-width:56px}.ecard{grid-template-columns:78px 1fr}.ecard .d b{font-size:30px}.sheet .top,.sheet .bodyx{padding-left:22px;padding-right:22px}.reader .art{padding:26px 22px 48px}.wiz{padding:18px}.wiz .stage{min-height:290px}footer.big .grid4{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ph h1 .w,.ph .lead,.done,.okmark circle,.okmark path,dialog.reader[open],.pin,.ecard.flash{animation:none!important}.okmark circle,.okmark path{stroke-dashoffset:0}.page,.page.on,.page.entering,.page.leaving{transition:none!important;transform:none!important}
+ .rail .line,.rail .dot,.ring .fg,.track::after,.pills .hl2,.acc-body,.qs figure,.panel>div,.wiz .sl,.swapbox span,.meter i,.toast{transition:none!important}.rail .line,.rail .dot{transform:none}.ring .fg{stroke-dashoffset:var(--o)}.track::after{width:76%}.flowcard.run .rib{animation:none}}
+section.page{padding:0}h1[tabindex="-1"]:focus,h1[tabindex="-1"]:focus-visible{outline:none}
+.pill[aria-pressed=true]{background:transparent}
+.qs figcaption{position:static;background:none;padding:0;border-radius:0;left:auto;bottom:auto;color:var(--mute)}
+button.btn{border:0;font:700 17px/1.2 "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+
+[hidden]{display:none!important}
+</style></head><body>
+<div class="demo">Design demo F · whole-site preview · sample content</div>
+
+<a href="#main" class="sr" style="position:absolute;z-index:99">Skip to content</a>
+<header><div class="wrap"><a class="logo" href="#/"><i>F</i>Folkestone Rotary</a>
+<nav aria-label="Main"><span class="ind" aria-hidden="true"></span><a href="#/about">About</a><a href="#/impact">Our impact</a><a href="#/events">Events</a><a href="#/news">News</a><a href="#/join">Join</a><a href="#/funding">Funding</a><a href="#/contact">Contact</a></nav>
+<div style="display:flex;gap:10px"><a class="btn gold" href="#/" data-toast="Donate opens your chosen donation website">Donate</a><a class="btn ol hl" href="#/" data-toast="Member login opens in the real site" style="padding:10px 20px">Login</a><button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mm" aria-label="Open menu"><span></span><span></span><span></span></button></div></div><div class="mm" id="mm" role="region" aria-label="Mobile menu"><a href="#/about">About</a><a href="#/impact">Our impact</a><a href="#/events">Events</a><a href="#/news">News</a><a href="#/join">Join</a><a href="#/funding">Funding</a><a href="#/contact">Contact</a></div></header>
+<main id="main">
+<section class="page" id="p-home" data-title="Home"><div class="vh" id="vh"><div class="reel"><div class="poster" id="poster"></div>
+<video class="vid" id="v1" muted playsinline preload="metadata" aria-hidden="true"></video><video class="vid" id="v2" muted playsinline preload="none" aria-hidden="true"></video></div>
+<div class="soon" id="soon"><b>Your film plays here</b>A silent, looping montage of Rotary events fills this whole area.</div>
+<div class="vin"><h1>Making a difference in Folkestone</h1>
+<p class="lead">We’re local people who raise money, give time and back the charities, young people and projects that make this town work.</p>
+<div class="acts"><a class="btn gold" href="#/join">Join us</a><a class="t" href="#/events">View events</a><a class="t" href="#/funding">Apply for funding</a></div>
+<div class="vctl"><button class="vb" id="pp" type="button" aria-pressed="false">Pause film</button><button class="vb" id="film" type="button">&#9654; Watch the full film</button>
+<label class="vb demo">Try your own clips<input id="pick" type="file" accept="video/*" multiple></label>
+<p class="vnote">Demo only: choose 1 to 6 clips from your phone or computer and they play as the hero montage. They stay on your device and aren’t uploaded.</p></div></div></div>
+<dialog id="dlg" aria-label="Rotary film"><div class="dh"><span>Folkestone Rotary: our year in film</span><button class="vb" style="color:#0B1F3A;border-color:#0B1F3A;background:none" id="close" type="button">Close</button></div>
+<div class="film"><div><p><strong>The full film plays here.</strong></p><p>Link a YouTube, Vimeo or MP4 file and it plays in this window, with captions.</p></div></div></dialog>
+<script>
+(()=>{const rm=matchMedia("(prefers-reduced-motion:reduce)").matches,V=[v1,v2],MAX=7000;let list=[],idx=0,cur=0,paused=rm,t0=0,iv;
+const act=()=>V[cur];
+function begin(){const a=act();a.src=list[0];a.loop=list.length===1;a.currentTime=0;a.classList.add("on");V[1-cur].classList.remove("on");poster.classList.add("gone");soon.style.display="none";
+ if(!paused)a.play().catch(()=>{});else{a.pause()}t0=performance.now();clearInterval(iv);if(list.length>1)iv=setInterval(tick,300)}
+function tick(){if(paused)return;const a=act();if(a.ended||performance.now()-t0>MAX)next()}
+function next(){idx=(idx+1)%list.length;const o=act(),n=V[1-cur];n.src=list[idx];n.currentTime=0;n.loop=false;n.play().catch(()=>{});n.classList.add("on");o.classList.remove("on");setTimeout(()=>o.pause(),1400);cur=1-cur;t0=performance.now()}
+pick.onchange=e=>{list.forEach(u=>URL.revokeObjectURL(u));list=[...e.target.files].slice(0,6).map(f=>URL.createObjectURL(f));if(list.length){idx=0;begin()}};
+pp.textContent=paused?"Play film":"Pause film";pp.setAttribute("aria-pressed",paused);
+pp.onclick=()=>{paused=!paused;pp.textContent=paused?"Play film":"Pause film";pp.setAttribute("aria-pressed",paused);const a=act();if(a.src){paused?a.pause():(a.play().catch(()=>{}),t0=performance.now())}};
+const shut=()=>{if(rm||!dlg.open){dlg.close();return}dlg.classList.add("closing");setTimeout(()=>{dlg.close();dlg.classList.remove("closing")},150)};document.getElementById("film").onclick=()=>dlg.showModal();document.getElementById("close").onclick=shut;dlg.addEventListener("click",e=>{if(e.target===dlg)shut()});dlg.addEventListener("cancel",e=>{e.preventDefault();shut()});
+const hd=document.querySelector("header");const on=()=>{const h=document.querySelector(".page.on .vh,.page.on .ph");hd.classList.toggle("solid",scrollY>(h?h.offsetHeight:0)-140)};addEventListener("scroll",on,{passive:true});window.__hdr=on;on();
+window.__film={begin:()=>{},state:()=>({list:list.length,idx,cur,paused})}})();
+</script>
+<section style="padding-top:20px"><div class="wrap"><div class="feature"><blockquote class="serif">“Baby Basics gave us everything we needed when we had nothing ready for our daughter.”<cite>Sample quote · Baby Basics Folkestone family</cite></blockquote>
+<div class="facts"><div><b data-to="48500" data-pre="£" data-suf="+">£48,500+</b>raised for local causes</div><div><b data-to="40" data-suf="+">40+</b>local organisations supported</div><div><b data-to="1200" data-suf="+">1,200+</b>volunteer hours given</div><span style="font-size:14px;color:#cfe3f7">Sample figures, editable in the admin.</span></div></div></div></section>
+
+<section style="padding-top:0"><div class="wrap"><h2 class="s">What’s on</h2><p class="sub">Come for the fun. The money stays in Folkestone.</p>
+<ul class="tickets">
+<li class="ticket"><time datetime="2026-11-14">Sat 14 Nov</time><h3>Race Night</h3><p>Friendly betting, supper and a lot of noise.</p><span class="stub"><span class="go">Get tickets</span></span><a href="#/events" aria-label="Race Night"></a></li>
+<li class="ticket"><time>Fri 19 Feb</time><h3>Wine &amp; Wisdom</h3><p>A quiz and tasting evening.</p><span class="stub"><span class="go">Get tickets</span></span><a href="#/events" aria-label="Wine and Wisdom"></a></li>
+<li class="ticket"><time>Sun 17 May</time><h3>Folkestone Half Marathon</h3><p>Seafront, the Leas and the coast.</p><span class="stub"><span class="go">Enter the race</span></span><a href="#/events" aria-label="Half Marathon"></a></li></ul>
+<p style="margin-top:26px"><a href="#" style="font-weight:700;color:var(--blue);text-underline-offset:5px">See all events</a></p></div></section>
+
+<section style="padding-top:0"><div class="wrap"><h2 class="s">News from the club</h2><div class="news" style="margin-top:24px">
+<a href="#/news"><time>12 Sep 2026</time><strong>Community funding round now open</strong></a><a href="#/news"><time>2 Sep 2026</time><strong>Supporting Baby Basics Folkestone</strong></a>
+<a href="#/news"><time>18 Aug 2026</time><strong>Welcoming new members to the club</strong></a><a href="#/news"><time>7 Aug 2026</time><strong>Golf Day date announced</strong></a></div></div></section>
+
+<div class="wrap"><div class="meet"><h2>Come to a meeting as our guest</h2><div><p style="margin:0 0 16px">Tuesdays, 12:30. Venue to be confirmed. No obligation.</p><a class="btn" href="#/join">Ask to visit</a></div></div></div>
+</section>
+<section class="page" id="p-events" data-title="Events">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 85% 20%,rgba(247,168,27,.45),transparent 70%),linear-gradient(160deg,#0B1F3A,#005DAA)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><rect x="60" y="40" width="240" height="110" rx="14" transform="rotate(-8 180 95)"/><rect x="100" y="110" width="240" height="110" rx="14" transform="rotate(6 220 165)"/><path d="M130 165h180" stroke-dasharray="8 8" transform="rotate(6 220 165)"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Events</p><h1 id="h-events" tabindex="-1">What’s on</h1><p class="lead">Races, quizzes, collections and one very good golf day. Every ticket helps someone in Folkestone.</p></div><div class="glass" aria-live="off"><small>Next up</small><b class="t" id="nxt-t">Race Night</b><div class="cd" id="nxt-cd" role="timer" aria-label="Time until the next event"></div></div></div></div>
+<section class="sec"><div class="wrap"><h2 class="s">The year at a glance</h2><p class="sub">Hover or tab to a dot to see what’s coming, then click to jump to it.</p><div class="rail" id="rail" aria-label="Events over the next twelve months"></div></div></section>
+<section class="sec grey"><div class="wrap"><div class="ctl"><div class="pills" id="evpills" role="group" aria-label="Filter events"></div><div class="seg" role="group" aria-label="Layout"><button type="button" aria-pressed="true" data-v="grid">Grid</button><button type="button" aria-pressed="false" data-v="list">List</button></div></div>
+<div class="egrid" id="egrid"></div><p class="empty" id="evempty" hidden>Nothing in this category yet. <a href="#/contact">Ask us what’s planned.</a></p>
+<div style="margin-top:44px"><div class="acc-item" id="pastacc"><button class="acc-btn" type="button" aria-expanded="false"><span>Past events</span><i></i></button><div class="acc-body"><div><div class="egrid list" id="pgrid" style="padding-bottom:20px"></div></div></div></div></div></div></section>
+<section class="sec"><div class="wrap"><div class="meet" data-rv><h2>Want to sponsor or volunteer at an event?</h2><div><p style="margin:0 0 16px">Put your business on the programme, or give a morning to help it run.</p><a class="btn" href="#/contact">Sponsor an event</a> <a class="btn" style="background:transparent;border:2px solid var(--navy);color:var(--navy)" href="#/join">Volunteer</a></div></div></div></section>
+</section>
+<section class="page" id="p-impact" data-title="Our impact">
+<div class="ph" style="--bg:radial-gradient(70% 90% at 15% 90%,rgba(77,147,204,.55),transparent 70%),linear-gradient(160deg,#004A88,#0B1F3A)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><path d="M0 220q50-40 100 0t100 0 100 0 100 0"/><path d="M0 170q50-40 100 0t100 0 100 0 100 0"/><path d="M0 120q50-40 100 0t100 0 100 0 100 0"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Our impact</p><h1 id="h-impact" tabindex="-1">What £48,500 did</h1><p class="lead">Every pound we raise stays in the town. Here’s where it went, and what happened next.</p></div></div></div>
+<section class="sec"><div class="wrap"><h2 class="s">Follow the money</h2><p class="sub">Hover, tap or tab through the causes to follow their share. Sample figures, editable in the admin.</p>
+<div class="flowcard" id="flowcard"><svg id="sk" viewBox="0 0 640 400" role="group" aria-label="Flow diagram from money raised to four causes"></svg><p class="tip" id="tip" aria-live="polite">Hover or tab to a cause to follow its share.</p></div></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">Stories behind the numbers</h2><p class="sub">Open any story to see what it paid for.</p><div class="bento">
+<button class="story s1" data-i="0" type="button"><span class="amt">£1,500</span><small>Baby Basics Folkestone</small><h3>Starter packs for new parents</h3><span class="more">Read the story</span></button>
+<button class="story s2" data-i="1" type="button"><span class="amt">£2,000</span><small>Local primary schools</small><h3>Books and enterprise days</h3><span class="more">Read the story</span></button>
+<button class="story s3" data-i="2" type="button"><span class="amt">£5,000</span><small>Community charities</small><h3>Keeping services running</h3><span class="more">Read the story</span></button>
+<button class="story s4" data-i="3" type="button"><span class="amt">120</span><small>Families at Christmas</small><h3>A happier Christmas</h3><span class="more">Read the story</span></button>
+<button class="story s5" data-i="4" type="button"><span class="amt">£1,000</span><small>Young people of Folkestone</small><h3>Skills, sport and confidence</h3><span class="more">Read the story</span></button></div></div></section>
+<dialog class="sheet" id="sheet" aria-labelledby="sh-t"><button class="x" type="button" id="sh-x" aria-label="Close story">&times;</button><div class="top" id="sh-top"><small id="sh-o"></small><h3 id="sh-t"></h3><b id="sh-a" style="font:700 28px 'Source Serif 4',serif"></b></div><div class="bodyx"><p id="sh-p"></p><p style="color:var(--mute)"><strong>Sample story.</strong> Replace with the real outcome in the admin.</p><p><a class="btn blue" href="#/funding" id="sh-link">Apply for similar funding</a></p></div></dialog>
+<section class="sec"><div class="wrap"><h2 class="s">In their words</h2><div class="qs" id="qs"><figure class="on"><blockquote>“When we had nothing ready for our daughter, Baby Basics gave us everything we needed.”</blockquote><figcaption>Sample quote · a Baby Basics family</figcaption></figure><figure><blockquote>“The grant meant we could keep our weekly lunch club open for another year.”</blockquote><figcaption>Sample quote · a local charity trustee</figcaption></figure><figure><blockquote>“I came for one lunch and stayed because of the people.”</blockquote><figcaption>Sample quote · a Rotary member</figcaption></figure></div><div class="dots" id="qdots" role="group" aria-label="Choose a quote"></div></div></section>
+<section class="sec grey"><div class="wrap ringwrap"><div class="ring" id="ring" style="--c:440;--o:88"><svg viewBox="0 0 160 160" aria-hidden="true"><circle class="bg" cx="80" cy="80" r="70"/><circle class="fg" cx="80" cy="80" r="70"/></svg><b><span><span data-to="1200" data-suf="+">1,200+</span><small>volunteer hours</small></span></b></div><div style="max-width:30em"><h2 class="s">Time is the other currency</h2><p class="sub">Collections, races, school visits and clear-ups. Every hour is given freely by members and friends. Sample figure.</p><a class="btn blue" href="#/join">Give some time</a></div></div></section>
+<section class="sec"><div class="wrap"><h2 class="s">Annual reports</h2><div style="max-width:700px;margin-top:16px"><div class="dl"><b>Annual report 2025 (sample)</b><button class="btn blue" type="button" data-toast="PDF download would start here">Download PDF</button></div><div class="dl"><b>Annual report 2024 (sample)</b><button class="btn blue" type="button" data-toast="PDF download would start here">Download PDF</button></div></div></div></section>
+<section class="sec"><div class="wrap"><div class="meet" data-rv><h2>Help us do even more</h2><div><p style="margin:0 0 16px">Give, volunteer or ask for funding for a project of your own.</p><a class="btn" href="#/funding">Apply for funding</a> <a class="btn" style="background:transparent;border:2px solid var(--navy);color:var(--navy)" href="#/join">Join us</a></div></div></div></section>
+</section>
+<section class="page" id="p-join" data-title="Join">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 80% 80%,rgba(247,168,27,.5),transparent 70%),linear-gradient(160deg,#16304F,#005DAA)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><circle cx="200" cy="150" r="60"/><circle cx="200" cy="60" r="18"/><circle cx="290" cy="150" r="18"/><circle cx="200" cy="240" r="18"/><circle cx="110" cy="150" r="18"/><circle cx="264" cy="86" r="18"/><circle cx="136" cy="214" r="18"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Join</p><h1 id="h-join" tabindex="-1">Your first Tuesday</h1><p class="lead">No sign-up, no suit, no speech. Come to lunch and see if it feels like your kind of people.</p></div></div></div>
+<section class="sec"><div class="wrap persona"><div><h2 class="s">Who’s it for?</h2><p class="sub">Pick the one that’s closest to you.</p><div class="pills" id="who" role="group" aria-label="I am a"></div></div><div class="panel" id="panel" aria-live="polite"></div></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">A Rotary lunch, minute by minute</h2><p class="sub">Timings are a guide. Confirm with the club.</p><ol class="tline" id="tline" style="padding-left:56px;margin-left:0">
+<li><span class="tm">12:15</span><h3>Arrive and say hello</h3><p>Someone will meet you at the door and introduce you around.</p></li>
+<li><span class="tm">12:30</span><h3>Lunch</h3><p>Sit wherever you like. Nobody keeps a seating plan.</p></li>
+<li><span class="tm">12:50</span><h3>A speaker, or a cause</h3><p>Local people talk about what they do, from lifeboat crews to school heads.</p></li>
+<li><span class="tm">1:20</span><h3>Club news and plans</h3><p>Who needs a hand this month. You can put your hand up, or just listen.</p></li>
+<li><span class="tm">1:45</span><h3>Home</h3><p>Back to your day. No obligation to come back, but most people do.</p></li></ol></div></section>
+<section class="sec"><div class="wrap"><div class="facts4"><div><b>To be confirmed</b><span>Annual membership</span></div><div><b>About two hours</b><span>A month, if you want it that way</span></div><div><b>Come as you are</b><span>Dress for your day</span></div><div><b>Always welcome</b><span>Guests, no strings</span></div></div></div></section>
+<section class="sec grey" id="enq"><div class="wrap" style="max-width:760px"><h2 class="s">Ask to visit</h2><p class="sub">Tell us a little about yourself and someone will reply.</p>
+<form id="jform" novalidate><div class="fl"><input id="jn" placeholder=" " autocomplete="name"><label for="jn">Your name</label><div class="err"><span>Please tell us your name.</span></div></div>
+<div class="fl"><input id="je" type="email" placeholder=" " autocomplete="email"><label for="je">Email</label><div class="err"><span>Enter an email like name@example.com.</span></div></div>
+<div class="fl"><textarea id="jw" placeholder=" "></textarea><label for="jw">Why are you interested?</label><div class="err"><span>A sentence or two is plenty.</span></div></div>
+<label class="check"><input type="checkbox" id="jc"><span>I agree to Folkestone Rotary storing my details to reply to me. <em>(Demo form: nothing is sent.)</em></span></label><p class="sr" id="jerr" role="alert"></p>
+<button class="btn blue" type="submit">Send my enquiry</button></form><div class="done" id="jdone" hidden><svg class="okmark" viewBox="0 0 84 84"><circle cx="42" cy="42" r="40"/><path d="M26 43l11 11 21-24"/></svg><h3>Thank you, we’ll be in touch</h3><p>In the real site this saves to the club’s database and emails you a confirmation.</p></div></div></section>
+<section class="sec"><div class="wrap" style="max-width:820px"><h2 class="s">Questions people ask</h2><div style="margin-top:18px" id="jfaq"><div class="acc-item"><button class="acc-btn" type="button" aria-expanded="false"><span>Do I need to run a business?</span><i></i></button><div class="acc-body"><div><p>No. Members are retired, employed, self-employed, students and everything in between.</p></div></div></div><div class="acc-item"><button class="acc-btn" type="button" aria-expanded="false"><span>How much time does it take?</span><i></i></button><div class="acc-body"><div><p>As much or as little as you like. Most people come to lunch and help at a few events a year.</p></div></div></div><div class="acc-item"><button class="acc-btn" type="button" aria-expanded="false"><span>Can I just visit first?</span><i></i></button><div class="acc-body"><div><p>Yes, that’s what the first Tuesday is for. There’s no obligation to join.</p></div></div></div></div></div></section>
+</section>
+<section class="page" id="p-funding" data-title="Funding">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 20% 20%,rgba(247,168,27,.4),transparent 70%),linear-gradient(160deg,#0B1F3A,#004A88)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><ellipse cx="200" cy="200" rx="90" ry="26"/><ellipse cx="200" cy="170" rx="90" ry="26"/><ellipse cx="200" cy="140" rx="90" ry="26"/><ellipse cx="200" cy="110" rx="90" ry="26"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Funding</p><h1 id="h-funding" tabindex="-1">Funding for local good</h1><p class="lead">Four quick questions will tell you whether your project is a fit, before you spend an hour on a form.</p></div></div></div>
+<section class="sec"><div class="wrap"><h2 class="s">Is your project a fit?</h2><p class="sub">Answer honestly. There are no trick questions.</p><div class="wiz" id="wiz"><div class="prog" id="wprog"></div><div class="stage" id="wstage"></div><div class="nav2"><button class="back" type="button" id="wback" hidden>Back</button><span></span></div></div></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">What happens next</h2><p class="sub">Timings to be confirmed by the funding panel.</p><div class="track" id="track"><div><i>1</i><b>Received</b><span>You get a reference by email.</span></div><div><i>2</i><b>Under review</b><span>The panel reads your application.</span></div><div><i>3</i><b>Decision</b><span>Approved, declined, or we ask for more information.</span></div><div><i>4</i><b>Funds paid</b><span>Then tell us how it went.</span></div></div></div></section>
+<section class="sec"><div class="wrap" style="max-width:820px"><h2 class="s">What you’ll need</h2><p class="sub" id="clc">0 of 6 ready</p><div class="meter" aria-hidden="true"><i id="clm"></i></div><ul class="cl" id="cl"></ul></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">Recent grants</h2><div style="max-width:760px;margin-top:14px"><div class="dl"><b>Baby Basics Folkestone</b><span>£1,500</span></div><div class="dl"><b>Local primary schools</b><span>£2,000</span></div><div class="dl"><b>Community charity grants</b><span>£5,000</span></div><div class="dl"><b>Youth programmes</b><span>£1,000</span></div></div></div></section>
+</section>
+<section class="page" id="p-about" data-title="About">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 80% 15%,rgba(247,168,27,.5),transparent 70%),linear-gradient(160deg,#004A88,#0B1F3A)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><rect x="180" y="60" width="40" height="180"/><path d="M170 60l30-30 30 30"/><path d="M60 250h280"/><path d="M200 60L40 30M200 60l160-30" stroke-dasharray="6 8"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / About us</p><h1 id="h-about" tabindex="-1">Local people. Global network.</h1><p class="lead">We’re Folkestone’s Rotary club: neighbours who’d rather do something than talk about it.</p></div></div></div>
+<section class="sec"><div class="wrap"><p class="swap" id="swap" aria-label="Rotary is a group of neighbours, friends, leaders and problem-solvers.">Rotary is a group of <span class="swapbox" aria-hidden="true"><span class="on">neighbours.</span><span>friends.</span><span>leaders.</span><span>problem-solvers.</span></span></p><p class="sub" style="margin-top:18px">We raise money, give time and connect with local organisations, as part of a worldwide network of Rotarians.</p></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">Our story</h2><p class="sub">Sample milestones. Replace with the club’s real history.</p><div class="hist" id="hist"><svg class="boat" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="22" fill="#fff" stroke="#005DAA" stroke-width="3"/><path d="M12 28h22l-4 6H16z" fill="#0B1F3A"/><path d="M23 10v16M23 12l9 11H23" fill="#F7A81B" stroke="#0B1F3A" stroke-width="1.5"/></svg>
+<div class="hi"><div class="yr">Year</div><h3>The club is founded</h3><p>A handful of local people meet to start something.</p></div><div class="hi"><div class="yr">Year</div><h3>First big fundraiser</h3><p>The first of many events that pay for local projects.</p></div><div class="hi"><div class="yr">Year</div><h3>Youth enterprise begins</h3><p>Young people pitch ideas to local business leaders.</p></div><div class="hi"><div class="yr">Today</div><h3>Still going, still local</h3><p>Every pound still stays in Folkestone.</p></div></div></div></section>
+<section class="sec"><div class="wrap"><h2 class="s">The people</h2><p class="sub">Names to be confirmed.</p><div class="lead3"><div class="person" tabindex="0"><div class="av">P</div><h3>President</h3><small>Name to be confirmed</small><p class="ask">Ask me about: how to get involved.</p></div><div class="person" tabindex="0"><div class="av">S</div><h3>Secretary</h3><small>Name to be confirmed</small><p class="ask">Ask me about: visiting as a guest.</p></div><div class="person" tabindex="0"><div class="av">T</div><h3>Treasurer</h3><small>Name to be confirmed</small><p class="ask">Ask me about: where the money goes.</p></div></div></div></section>
+<section class="sec grey"><div class="wrap"><h2 class="s">Part of something bigger</h2><div class="worldn" style="margin-top:18px"><div><b data-to="1" data-suf="m+">1m+</b><span>Rotarians worldwide</span></div><div><b data-to="200" data-suf="+">200+</b><span>countries and regions</span></div><div><b data-to="40" data-suf="+">40+</b><span>local groups we’ve backed</span></div></div><p class="sub" style="margin-top:18px">Global figures are approximate. Confirm before launch.</p></div></section>
+<section class="sec"><div class="wrap"><div class="meet" data-rv><h2>Come and meet us</h2><div><p style="margin:0 0 16px">Tuesdays at 12:30. Visitors are always welcome.</p><a class="btn" href="#/join">Visit as a guest</a> <a class="btn" style="background:transparent;border:2px solid var(--navy);color:var(--navy)" href="#/contact">Get in touch</a></div></div></div></section>
+</section>
+<section class="page" id="p-news" data-title="News">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 15% 20%,rgba(77,147,204,.5),transparent 70%),linear-gradient(160deg,#0B1F3A,#16304F)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><path d="M60 60h280M60 100h200M60 140h280M60 180h160M60 220h240"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / News</p><h1 id="h-news" tabindex="-1">News from the club</h1><p class="lead">Funding rounds, new members and the odd photo of someone in a hat.</p></div></div></div>
+<section class="sec"><div class="wrap"><button class="feat" type="button" data-art="0"><div class="pic" aria-hidden="true"></div><div class="tx"><span class="tag">Featured</span><h2>Community funding round now open</h2><p>Local charities and groups can now apply for grants from Folkestone Rotary.</p><span style="font-weight:700;color:var(--gold)">Read the story</span></div></button></div></section>
+<section class="sec grey"><div class="wrap"><div class="ctl"><div class="srch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label class="sr" for="nq">Search news</label><input id="nq" type="search" placeholder="Search news" autocomplete="off"></div><div class="pills" id="npills" role="group" aria-label="Filter by category"></div></div><div id="nlist"></div><p class="empty" id="nempty" hidden>No stories match. <button class="copy" type="button" id="nclear">Clear search</button></p></div></section>
+<dialog class="reader" id="reader" aria-labelledby="rd-t"><div class="rbar" aria-hidden="true"><i id="rbi"></i></div><div class="art"><button class="btn blue close2" type="button" id="rd-x">Close</button><span class="tag" id="rd-c"></span><h2 id="rd-t"></h2><p style="color:var(--mute)" id="rd-m"></p><div id="rd-b"></div><p><button class="btn blue" type="button" id="rd-s">Copy link to share</button></p><p><a href="#/join" id="rd-j">Join Rotary</a></p></div></dialog>
+</section>
+<section class="page" id="p-contact" data-title="Contact">
+<div class="ph" style="--bg:radial-gradient(60% 80% at 80% 20%,rgba(247,168,27,.45),transparent 70%),linear-gradient(160deg,#005DAA,#0B1F3A)"><svg class="motif" viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><rect x="70" y="80" width="260" height="170" rx="14"/><path d="M70 90l130 90 130-90"/></svg><div class="wrap"><div><p class="crumb"><a href="#/">Home</a> / Contact</p><h1 id="h-contact" tabindex="-1">Say hello</h1><p class="lead">Questions about membership, funding, events or sponsorship? A real person will reply.</p></div></div></div>
+<section class="sec"><div class="wrap cgrid"><div><h2 class="s">What’s it about?</h2><div class="tiles" id="tiles" role="radiogroup" aria-label="Subject"></div><p class="who" id="who2" aria-live="polite"></p>
+<form id="cform" novalidate><div class="fl"><input id="cn" placeholder=" " autocomplete="name"><label for="cn">Your name</label><div class="err"><span>Please tell us your name.</span></div></div><div class="fl"><input id="ce" type="email" placeholder=" " autocomplete="email"><label for="ce">Email</label><div class="err"><span>Enter an email like name@example.com.</span></div></div><div class="fl"><textarea id="cm" placeholder=" "></textarea><label for="cm" id="cml">Your message</label><div class="err"><span>Write a few words so we can help.</span></div></div>
+<label class="check"><input type="checkbox" id="cc"><span>I agree to Folkestone Rotary storing my details to reply. <em>(Demo form: nothing is sent.)</em></span></label><button class="btn blue" type="submit">Send message</button></form>
+<div class="done" id="cdone" hidden><svg class="okmark" viewBox="0 0 84 84"><circle cx="42" cy="42" r="40"/><path d="M26 43l11 11 21-24"/></svg><h3>Message sent</h3><p>In the real site this saves to the database and emails you a confirmation.</p></div></div>
+<aside><div class="next"><small style="color:var(--mute)">Next meeting</small><b class="t" style="font:700 24px 'Source Serif 4',serif;display:block;margin:2px 0 12px;color:var(--navy)">Tuesday, 12:30</b><div class="cd" id="mcd" role="timer" aria-label="Time until the next meeting"></div></div>
+<div class="mapc"><svg viewBox="0 0 420 240" aria-hidden="true"><rect width="420" height="240" fill="#0d2b52"/><path d="M0 170Q70 140 130 160T250 130 340 150 420 120V240H0Z" fill="#005DAA"/><path d="M0 200Q80 175 150 190T290 165 420 180V240H0Z" fill="#0B1F3A"/><path d="M0 120Q60 100 110 110T200 85 300 95 420 70" fill="none" stroke="#4d93cc" stroke-width="2" stroke-dasharray="3 6"/><circle class="pin" cx="250" cy="118" r="10" fill="#F7A81B"/><circle cx="250" cy="118" r="8" fill="#F7A81B" stroke="#fff" stroke-width="3"/></svg><div class="in2"><b>Meeting venue to be confirmed</b><br>Folkestone, Kent<br><a href="#/contact" style="color:#F7A81B;font-weight:700" data-toast="Opens Google Maps in the real site">Open in Google Maps</a></div></div>
+<p style="margin-top:18px"><strong>Email</strong><br>info@folkestonerotary.org <button class="copy" type="button" data-copy="info@folkestonerotary.org">Copy</button></p><p><strong>Phone</strong><br>01303 000000 <button class="copy" type="button" data-copy="01303 000000">Copy</button></p></aside></div></section>
+</section>
+</main>
+<footer class="big"><div class="wrap"><div class="grid4"><div><h4>Folkestone Rotary</h4><p>Local people making a difference in Folkestone.<br>info@folkestonerotary.org<br>Meeting venue to be confirmed</p></div><div><h4>Explore</h4><a href="#/about">About us</a><a href="#/impact">Our impact</a><a href="#/events">Events</a><a href="#/news">News</a></div><div><h4>Get involved</h4><a href="#/join">Join Rotary</a><a href="#/funding">Apply for funding</a><a href="#/contact">Sponsor an event</a><a href="#/contact">Contact</a></div><div><h4>Follow</h4><a href="#/" data-toast="Opens Facebook in the real site">Facebook</a><a href="#/" data-toast="Opens Instagram in the real site">Instagram</a><a href="#/" data-toast="Opens LinkedIn in the real site">LinkedIn</a></div></div><div class="bot"><span>© 2026 Folkestone Rotary</span><span>Privacy · Cookies · Accessibility · Terms</span></div></div></footer>
+
+<script>
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".ticket,.feature,.news a,.meet").forEach((el,i)=>{el.classList.add("rv");io.observe(el)})}
+</script><script>
+(()=>{const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const h=document.querySelector(".vh h1");if(h&&!rm){const words=h.textContent.trim().split(/\s+/);h.textContent="";words.forEach((w,i)=>{const s=document.createElement("span");s.className="w";s.style.setProperty("--i",i);s.textContent=w;h.append(s,i<words.length-1?" ":"")})}
+const nav=document.querySelector('nav[aria-label="Main"]'),ind=nav.querySelector(".ind");
+const mv=a=>{const r=a.getBoundingClientRect(),n=nav.getBoundingClientRect();ind.style.setProperty("--x",(r.left-n.left)+"px");ind.style.setProperty("--w",r.width+"px");ind.classList.add("show")};
+nav.querySelectorAll("a").forEach(a=>{a.addEventListener("mouseenter",()=>mv(a));a.addEventListener("focus",()=>mv(a))});
+nav.addEventListener("mouseleave",()=>ind.classList.remove("show"));nav.addEventListener("focusout",e=>{if(!nav.contains(e.relatedTarget))ind.classList.remove("show")});
+const bg=document.getElementById("burger"),mm=document.getElementById("mm");
+const set=o=>{bg.setAttribute("aria-expanded",o);bg.setAttribute("aria-label",o?"Close menu":"Open menu");mm.classList.toggle("open",o)};
+bg.onclick=()=>set(bg.getAttribute("aria-expanded")!=="true");addEventListener("keydown",e=>{if(e.key==="Escape")set(false)});mm.addEventListener("click",e=>{if(e.target.tagName==="A")set(false)});
+const fmt=(n,p="",s="")=>p+Math.round(n).toLocaleString("en-GB")+s;
+const run=el=>{const to=+el.dataset.to,p=el.dataset.pre||"",s=el.dataset.suf||"";if(rm){el.textContent=fmt(to,p,s);return}const t0=performance.now(),D=1300;(function f(t){const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,5);el.textContent=fmt(to*e,p,s);if(k<1)requestAnimationFrame(f)})(t0)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target);io.unobserve(e.target)}}),{threshold:.6});document.querySelectorAll("[data-to]").forEach(el=>io.observe(el));
+document.querySelectorAll(".tickets,.news").forEach(g=>[...g.children].forEach((c,i)=>{c.style.transitionDelay=(i*60)+"ms"}));
+})();
+</script>
+<script>(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const EASE="cubic-bezier(.23,1,.32,1)";
+const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
+/* ---------- toast + delegated actions ---------- */
+const tt=document.createElement("div");tt.className="toast";tt.setAttribute("role","status");tt.setAttribute("aria-live","polite");document.body.appendChild(tt);let tto;
+function toast(m){tt.textContent=m;tt.classList.add("show");clearTimeout(tto);tto=setTimeout(()=>tt.classList.remove("show"),2400)}
+document.addEventListener("click",e=>{
+ const t=e.target.closest("[data-toast]");if(t){e.preventDefault();toast(t.dataset.toast);return}
+ const c=e.target.closest("[data-copy]");if(c){try{navigator.clipboard&&navigator.clipboard.writeText(c.dataset.copy)}catch(_){}toast("Copied: "+c.dataset.copy);return}
+ const a=e.target.closest(".acc-btn");if(a){const it=a.closest(".acc-item"),o=!it.classList.contains("open");it.classList.toggle("open",o);a.setAttribute("aria-expanded",o)}
+});
+/* ---------- helpers ---------- */
+function pills(box,items,onChange,start=0){box.innerHTML='<span class="hl2" aria-hidden="true"></span>';let cur=start;const hl=$(".hl2",box);
+ const btns=items.map((it,i)=>{const b=document.createElement("button");b.type="button";b.className="pill";b.textContent=it;b.setAttribute("aria-pressed",i===start);b.onclick=()=>{cur=i;btns.forEach((x,k)=>x.setAttribute("aria-pressed",k===i));pos();onChange(i,it)};box.appendChild(b);return b});
+ function pos(){const b=btns[cur];if(!b.offsetWidth)return;box.style.setProperty("--x",b.offsetLeft+"px");box.style.setProperty("--w",b.offsetWidth+"px");hl.style.transform="translateX("+b.offsetLeft+"px)";hl.style.width=b.offsetWidth+"px"}
+ addEventListener("resize",pos);return{pos}}
+function flip(box,mutate){const first=new Map([...box.children].map(k=>[k,k.getBoundingClientRect()]));mutate();if(rm)return;[...box.children].forEach(k=>{if(k.hidden)return;const f=first.get(k),l=k.getBoundingClientRect();
+ if(f&&f.width){const dx=f.left-l.left,dy=f.top-l.top;if(dx||dy)k.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:300,easing:EASE})}else k.animate([{opacity:0,transform:"scale(.96)"},{opacity:1,transform:"none"}],{duration:220,easing:"cubic-bezier(.33,1,.68,1)"})})}
+const cdHTML=ms=>{ms=Math.max(0,ms);const v=[Math.floor(ms/864e5),Math.floor(ms/36e5)%24,Math.floor(ms/6e4)%60,Math.floor(ms/1e3)%60],l=["days","hrs","min","sec"];return v.map((n,i)=>`<div><b>${String(n).padStart(2,"0")}</b><span>${l[i]}</span></div>`).join("")};
+const when=(d,h)=>{const x=new Date(Date.now()+d*864e5);x.setHours(h,0,0,0);return x};
+const fmtD=x=>x.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+/* ---------- EVENTS ---------- */
+const CAT={fundraising:["Fundraising","#F7A81B","gold"],community:["Community","#005DAA",""],social:["Social","#4d93cc",""],business:["Business","#0B1F3A",""],youth:["Youth","#c9780a",""]};
+const EV=[["Race Night","social",20,19,"Venue to be confirmed","Friendly betting, supper and a lot of noise.","Book tickets"],["Folkestone Rotary Golf Day","fundraising",35,8,"Local golf club (TBC)","Team golf, lunch and prizes, all for local causes.","Book a team"],["Wine & Wisdom","social",45,19,"Venue to be confirmed","A quiz and tasting evening with good company.","Book tickets"],["Christmas Collections","community",60,17,"Around Folkestone","Join Santa’s sleigh and collect for families in need.","Volunteer"],["Business Breakfast","business",70,8,"Venue to be confirmed","Meet local business people over breakfast.","Reserve a seat"],["Folkestone Half Marathon","fundraising",80,9,"Folkestone seafront","The seafront, the Leas and the coast, on foot.","Enter the race"],["Dragons’ Den","youth",100,14,"Local school (TBC)","Young entrepreneurs pitch to local business leaders.","Find out more"],["Summer Community Fete","community",-120,12,"Folkestone","A past event, kept for the archive.","See photos"]].map((e,i)=>({id:"ev"+i,t:e[0],c:e[1],at:when(e[2],e[3]),v:e[4],s:e[5],a:e[6]}));
+function evCard(e){const [n,col,cl]=CAT[e.c];const el=document.createElement("article");el.className="ecard "+cl;el.id=e.id;el.style.setProperty("--c",col);
+ el.innerHTML=`<div class="d"><b>${e.at.getDate()}</b><span>${e.at.toLocaleDateString("en-GB",{month:"short"})}</span></div><div class="bd"><span class="tag">${n}</span><h3>${e.t.replace(/&/g,"&amp;")}</h3><p class="meta">${fmtD(e.at)}, ${e.at.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})} · ${e.v}</p><p class="ds">${e.s}</p><div class="acts2"><a href="#/events" data-toast="${e.a}: opens the booking page in the real site">${e.a}</a><a href="#/events" data-toast="Added to your calendar (demo)">Add to calendar</a></div></div>`;el.dataset.c=e.c;return el}
+function initEvents(){const up=EV.filter(e=>e.at>new Date()).sort((a,b)=>a.at-b.at),past=EV.filter(e=>e.at<=new Date());
+ const g=$("#egrid");up.forEach(e=>g.appendChild(evCard(e)));past.forEach(e=>$("#pgrid").appendChild(evCard(e)));
+ const nx=up[0];$("#nxt-t").textContent=nx.t;const tick=()=>$("#nxt-cd").innerHTML=cdHTML(nx.at-Date.now());tick();setInterval(tick,1000);
+ const start=new Date();start.setDate(1);start.setHours(0,0,0,0);const end=new Date(start);end.setMonth(end.getMonth()+12);const R=$("#rail");R.innerHTML='<div class="line"></div>';
+ for(let i=0;i<12;i++){const m=new Date(start);m.setMonth(start.getMonth()+i);const s=document.createElement("span");s.className="mo";s.style.left=(i/12*100)+"%";s.textContent=m.toLocaleDateString("en-GB",{month:"short"});R.appendChild(s)}
+ const tip=document.createElement("div");tip.className="tip2";R.appendChild(tip);
+ up.forEach((e,k)=>{const x=(e.at-start)/(end-start)*100;if(x<0||x>100)return;const b=document.createElement("button");b.className="dot";b.type="button";b.style.left=x+"%";b.style.setProperty("--c",CAT[e.c][1]);b.style.setProperty("--k",k);b.setAttribute("aria-label",`${e.t}, ${fmtD(e.at)}`);
+  const show=()=>{tip.textContent=`${e.t} · ${fmtD(e.at)}`;tip.style.left=x+"%";tip.classList.add("show")},hide=()=>tip.classList.remove("show");
+  b.onmouseenter=b.onfocus=show;b.onmouseleave=b.onblur=hide;b.onclick=()=>{if(cat!==0)P.reset();const c=$("#"+e.id);c.scrollIntoView({behavior:rm?"auto":"smooth",block:"center"});c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")};R.appendChild(b)});
+ new IntersectionObserver((es,o)=>es.forEach(x=>{if(x.isIntersecting){R.classList.add("in");o.disconnect()}}),{threshold:.4}).observe(R);
+ let cat=0;const names=["All",...Object.values(CAT).map(c=>c[0])],keys=["all",...Object.keys(CAT)];
+ const P=pills($("#evpills"),names,i=>{cat=i;flip(g,()=>{let n=0;[...g.children].forEach(c=>{const ok=!i||c.dataset.c===keys[i];c.hidden=!ok;if(ok)n++});$("#evempty").hidden=n>0})});P.reset=()=>$("#evpills .pill").click();ENTER.events=()=>{P.pos()};
+ $$(".seg button").forEach(b=>b.onclick=()=>{$$(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));flip(g,()=>g.classList.toggle("list",b.dataset.v==="list"))})}
+/* ---------- IMPACT ---------- */
+const STORIES=[["Baby Basics Folkestone","Starter packs for new parents","£1,500","Starter packs gave local families the essentials for a new baby when they needed them most.","linear-gradient(150deg,#005DAA,#0B1F3A)"],["Local primary schools","Books and enterprise days","£2,000","More children took part in reading and enterprise days.","linear-gradient(150deg,#4d93cc,#005DAA)"],["Community charities","Keeping services running","£5,000","Small charities kept essential services open for another year.","linear-gradient(150deg,#e29a12,#c9780a)"],["Local families","A happier Christmas","120 families","Food and gifts reached families facing a hard winter.","linear-gradient(150deg,#16304F,#0B1F3A)"],["Young people of Folkestone","Skills, sport and confidence","£1,000","Young people gained confidence, and new skills for work.","linear-gradient(150deg,#004A88,#4d93cc)"]];
+function initImpact(){
+ const D=[{n:"Community charities",v:19400,c:"#005DAA"},{n:"Local schools",v:12125,c:"#4d93cc"},{n:"Youth programmes",v:9700,c:"#F7A81B"},{n:"Christmas family support",v:7275,c:"#0B1F3A"}];
+ const T=D.reduce((s,d)=>s+d.v,0),H=330,GAP=16,TY=30,LW=26,RX=330,RW=26,avail=H-GAP*(D.length-1),svg=$("#sk"),NS="http://www.w3.org/2000/svg";
+ const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e},fmt=n=>"£"+n.toLocaleString("en-GB");
+ let ly=TY,ry=TY;D.forEach(d=>{d.lh=d.v/T*H;d.rh=d.v/T*avail;d.ly=ly;d.ry=ry;ly+=d.lh;ry+=d.rh+GAP});const gR=el("g",{});
+ D.forEach((d,i)=>{const x1=LW,x2=RX,a=d.ly,b=d.ly+d.lh,c=d.ry,e2=d.ry+d.rh,mx=(x1+x2)/2;const g=el("g",{class:"rib","data-i":i,style:`animation-delay:${i*.12}s`},gR);
+  el("path",{d:`M${x1} ${a} C${mx} ${a} ${mx} ${c} ${x2} ${c} L${x2} ${e2} C${mx} ${e2} ${mx} ${b} ${x1} ${b}Z`,fill:d.c,"fill-opacity":.32},g);
+  el("path",{d:`M${x1} ${(a+b)/2} C${mx} ${(a+b)/2} ${mx} ${(c+e2)/2} ${x2} ${(c+e2)/2}`,fill:"none",stroke:d.c,"stroke-width":2.5,class:"pulse"},g)});
+ const L=el("g",{});el("rect",{x:0,y:TY,width:LW,height:H,fill:"#0B1F3A",rx:3},L);el("text",{x:0,y:16,"font-size":15,"font-weight":700,fill:"#56677f"},L).textContent="RAISED";const bt=el("text",{x:LW+12,y:TY+34,"font-size":30,"font-weight":800,fill:"#0B1F3A"},L);bt.textContent=fmt(T);
+ const tip=$("#tip"),idle=tip.textContent;
+ D.forEach((d,i)=>{const g=el("g",{class:"node",tabindex:0,"data-i":i,role:"img","aria-label":`${d.n}: ${fmt(d.v)}, ${Math.round(d.v/T*100)} percent`});
+  el("rect",{class:"nb",x:RX,y:d.ry,width:RW,height:d.rh,fill:d.c,rx:3},g);el("text",{x:RX+RW+12,y:d.ry+d.rh/2-2,"font-size":17,"font-weight":700,fill:"#13243a"},g).textContent=d.n;el("text",{x:RX+RW+12,y:d.ry+d.rh/2+19,"font-size":17,"font-weight":500,fill:"#56677f"},g).textContent=fmt(d.v)+" · "+Math.round(d.v/T*100)+"%";
+  const on=()=>{svg.classList.add("dim");$$("[data-i]",svg).forEach(n=>n.classList.toggle("on",n.dataset.i==i));tip.innerHTML=`<b>${d.n}</b> took ${Math.round(d.v/T*100)}% of everything raised.`},off=()=>{svg.classList.remove("dim");$$(".on",svg).forEach(n=>n.classList.remove("on"));tip.textContent=idle};
+  g.addEventListener("mouseenter",on);g.addEventListener("focus",on);g.addEventListener("mouseleave",off);g.addEventListener("blur",off);g.addEventListener("click",on)});
+ const fc=$("#flowcard");ENTER.impact=()=>{fc.classList.remove("run");void fc.offsetWidth;fc.classList.add("run");if(rm)return;const t0=performance.now();(function f(t){const p=clamp((t-t0)/1500),e=1-Math.pow(1-p,3);bt.textContent=fmt(Math.round(T*e));if(p<1)requestAnimationFrame(f)})(t0)};
+ const sh=$("#sheet");let from=null;
+ $$(".story").forEach(b=>b.onclick=()=>{const s=STORIES[b.dataset.i];from=b;$("#sh-o").textContent=s[0];$("#sh-t").textContent=s[1];$("#sh-a").textContent=s[2];$("#sh-p").textContent=s[3];$("#sh-top").style.setProperty("--g",s[4]);$("#sh-top").style.background=s[4];sh.showModal();
+  if(!rm){const r=b.getBoundingClientRect(),d=sh.getBoundingClientRect();sh.animate([{transform:`translate(${r.left-d.left}px,${r.top-d.top}px) scale(${r.width/d.width},${r.height/d.height})`,opacity:.5},{transform:"none",opacity:1}],{duration:320,easing:EASE})}});
+ const shut=()=>{if(rm||!sh.open){sh.close();return}const r=(from||document.body).getBoundingClientRect(),d=sh.getBoundingClientRect();const a=sh.animate([{transform:"none",opacity:1},{transform:`translate(${r.left-d.left}px,${r.top-d.top}px) scale(${r.width/d.width},${r.height/d.height})`,opacity:0}],{duration:200,easing:"ease-in"});a.onfinish=()=>{sh.close()}};
+ $("#sh-x").onclick=shut;sh.addEventListener("cancel",e=>{e.preventDefault();shut()});sh.addEventListener("click",e=>{if(e.target===sh)shut()});$("#sh-link").addEventListener("click",()=>sh.close());
+ const figs=$$("#qs figure"),dots=$("#qdots");let qi=0,hold=false;figs.forEach((f,i)=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Show quote "+(i+1));b.innerHTML="<i></i>";b.onclick=()=>q(i);dots.appendChild(b)});
+ function q(i){qi=i;figs.forEach((f,k)=>f.classList.toggle("on",k===i));[...dots.children].forEach((b,k)=>b.classList.toggle("on",k===i))}q(0);
+ const qs=$("#qs");qs.onmouseenter=()=>hold=true;qs.onmouseleave=()=>hold=false;qs.addEventListener("focusin",()=>hold=true);dots.addEventListener("focusin",()=>hold=true);if(!rm)setInterval(()=>{if(!hold&&$("#p-impact").classList.contains("on"))q((qi+1)%figs.length)},6500);
+ new IntersectionObserver((es,o)=>es.forEach(x=>{if(x.isIntersecting){$("#ring").classList.add("in");o.disconnect()}}),{threshold:.5}).observe($("#ring"))}
+/* ---------- JOIN ---------- */
+function initJoin(){const P=[["a business owner",["Meet other local business people over lunch","Help organise the sponsorship drive for the Golf Day","Mentor young people at Dragons’ Den"]],["retired",["Come to lunch and meet people who live nearby","Help at collections and the Half Marathon","Plan the next event, or just turn up and help on the day"]],["a teacher",["Link your school with funding for projects","Run enterprise days with Dragons’ Den","Hear what local charities need"]],["new to Folkestone",["Meet a friendly crowd in one lunch","Learn the town through the people who run it","Find a reason to be down at the seafront on a Saturday"]],["under 30",["Bring ideas the club hasn’t tried yet","Run the social media for an event","Build skills and a local network"]]];
+ const panel=$("#panel");P.forEach((p,i)=>{const d=document.createElement("div");d.innerHTML=`<h3>If you’re ${p[0]}, you might…</h3><ul>${p[1].map(x=>`<li>${x}</li>`).join("")}</ul>`;if(!i)d.className="on";panel.appendChild(d)});
+ const W=pills($("#who"),P.map(p=>p[0][0].toUpperCase()+p[0].slice(1)),i=>$$("#panel>div").forEach((d,k)=>d.classList.toggle("on",k===i)));ENTER.join=()=>W.pos();
+ const tl=$("#tline"),li=$$("li",tl),upd=()=>{if(!$("#p-join").classList.contains("on"))return;const r=tl.getBoundingClientRect(),y=innerHeight*.62;tl.style.setProperty("--p",clamp((y-r.top)/r.height));li.forEach(x=>x.classList.toggle("on",x.getBoundingClientRect().top<y))};addEventListener("scroll",upd,{passive:true});ENTER.join2=upd;
+ form("jform",["jn","jw"],"je","jc",()=>{$("#jform").hidden=true;$("#jdone").hidden=false;$("#jdone").scrollIntoView({block:"center",behavior:rm?"auto":"smooth"})})}
+function form(id,req,emailId,chkId,ok){const f=$("#"+id);f.addEventListener("submit",e=>{e.preventDefault();let first=null;
+ req.forEach(r=>{const i=$("#"+r),bad=!i.value.trim();i.closest(".fl").classList.toggle("bad",bad);if(bad&&!first)first=i});
+ const em=$("#"+emailId),eb=!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value.trim());em.closest(".fl").classList.toggle("bad",eb);if(eb&&!first)first=em;
+ const c=$("#"+chkId);if(!c.checked&&!first){first=c;toast("Please tick the box to agree")}
+ if(first){first.focus();return}ok()});$$("input,textarea",f).forEach(i=>i.addEventListener("input",()=>i.closest(".fl")&&i.closest(".fl").classList.remove("bad")))}
+/* ---------- FUNDING ---------- */
+function initFunding(){const Q=[["Is your group based in, or helping people in, Folkestone?","We fund projects that benefit people in and around the town.","Our funding is for projects in or around Folkestone."],["Are you a charity, school or community group?","Registered charities, schools and community groups can all apply.","We can’t fund individuals or private businesses."],["Is the money for a specific project or purchase?","For example: equipment, an event, a programme of activities.","We usually don’t cover general running costs alone."],["Can you say roughly how many people will benefit?","A rough number is fine.","We need a rough idea of how many people will benefit."]];
+ const st=$("#wstage"),pr=$("#wprog"),bk=$("#wback");let i=0,ans=[];Q.forEach(()=>pr.appendChild(document.createElement("i")));
+ function slide(html,dir){const s=document.createElement("div");s.className="sl "+(dir>0?"in-r":"in-l");s.innerHTML=html;const old=$(".sl",st);st.appendChild(s);if(old){old.classList.add(dir>0?"out-l":"out-r");setTimeout(()=>old.remove(),rm?0:170)}void s.offsetWidth;requestAnimationFrame(()=>s.classList.remove("in-r","in-l"));return s}
+ function ask(dir){$$("i",pr).forEach((p,k)=>p.classList.toggle("on",k<i));bk.hidden=i===0;const q=Q[i];const s=slide(`<h3>${q[0]}</h3><p>${q[1]}</p><div class="row2"><button class="btn blue" data-a="1" type="button">Yes</button><button class="btn" style="border:2px solid var(--navy);color:var(--navy)" data-a="0" type="button">No</button></div>`,dir);
+  $$("[data-a]",s).forEach(b=>b.onclick=()=>{ans[i]=b.dataset.a==="1";i++;i<Q.length?ask(1):done()});if(!first)$("button",s).focus({preventScroll:true})}
+ let first=true;
+ function done(){$$("i",pr).forEach(p=>p.classList.add("on"));bk.hidden=false;const bad=Q.filter((q,k)=>!ans[k]);
+  slide(bad.length?`<h3>Probably not a fit yet</h3><p>${bad.map(q=>q[2]).join(" ")}</p><div class="row2"><a class="btn blue" href="#/contact">Talk to us anyway</a></div>`:`<h3>That looks like a fit</h3><p>Your project matches what we fund. The application takes about 15 minutes.</p><div class="row2"><button class="btn gold" type="button" data-toast="In the real site this opens the application form">Start your application</button></div>`,1)}
+ bk.onclick=()=>{if(i>=Q.length)i=Q.length-1;else i=Math.max(0,i-1);ask(-1)};ask(1);first=false;
+ new IntersectionObserver((es,o)=>es.forEach(x=>{if(x.isIntersecting){$("#track").classList.add("in");o.disconnect()}}),{threshold:.5}).observe($("#track"));
+ const items=["A short project description","The total cost, and what you’re asking us for","Quotes for any big purchases","A simple budget","Who benefits, and roughly how many","Your charity number, if you have one"],cl=$("#cl");
+ items.forEach((t,k)=>{const l=document.createElement("li");l.innerHTML=`<label><input type="checkbox"><span>${t}</span></label>`;cl.appendChild(l);$("input",l).onchange=()=>{const n=$$("input",cl).filter(x=>x.checked).length;$("#clc").textContent=`${n} of ${items.length} ready`+(n===items.length?". You’re ready to apply.":"");$("#clm").style.setProperty("--v",n/items.length)}})}
+/* ---------- ABOUT ---------- */
+function initAbout(){const w=$$("#swap .swapbox span");let k=0;if(!rm)setInterval(()=>{if(!$("#p-about").classList.contains("on"))return;w[k].classList.remove("on");w[k].classList.add("off");const p=w[k];k=(k+1)%w.length;setTimeout(()=>p.classList.remove("off"),450);w[k].classList.add("on")},2400);
+ const h=$("#hist"),upd=()=>{if(!$("#p-about").classList.contains("on"))return;const r=h.getBoundingClientRect();h.style.setProperty("--p",clamp((innerHeight*.55-r.top)/r.height))};addEventListener("scroll",upd,{passive:true});ENTER.about=upd}
+/* ---------- NEWS ---------- */
+const ART=[["Community funding round now open","community","12 Sep 2026","3 min","Local charities and groups can now apply for grants from Folkestone Rotary.",["Folkestone Rotary is inviting applications from local organisations for this year’s funding round.","Grants support projects that benefit people across Folkestone, from equipment to events and programmes.","Check the eligibility questions on the funding page, then apply online. This is a sample article."]],["Supporting Baby Basics Folkestone","community","2 Sep 2026","2 min","Rotary funds essentials for local new parents through Baby Basics.",["Baby Basics Folkestone gives starter packs to families who need them.","A grant from the club paid for another round of packs. This is a sample article."]],["Welcoming new members to the club","club","18 Aug 2026","2 min","A warm welcome to our newest Rotarians. Could you be next?",["The club grew this summer, with new members from across the town.","Come to lunch as a guest and see what it’s like. This is a sample article."]],["Golf Day date announced","fundraising","7 Aug 2026","1 min","Book your team for this year’s Rotary Golf Day.",["The Golf Day returns this autumn.","Teams of four can book now. This is a sample article."]],["Race Night raises a record sum","fundraising","20 Jul 2026","3 min","A noisy, brilliant evening for charity.",["The room was full and the horses were fast.","Every penny goes to local causes. This is a sample article."]],["Young entrepreneurs pitch at Dragons’ Den","community","30 Jun 2026","4 min","Local students pitched ideas to a panel of business leaders.",["Students presented business ideas to local business owners.","The winners took home mentoring from the panel. This is a sample article."]]].map((a,i)=>({i,t:a[0],c:a[1],d:a[2],rt:a[3],s:a[4],b:a[5]}));
+const FILL=["Folkestone Rotary is a club of local volunteers who raise money and give time for the town’s charities, young people and community projects.","Everything raised stays in Folkestone. Members organise collections, races, quizzes and the annual Golf Day, then decide together where the money goes.","If you’d like to help, the easiest way to start is to come to lunch as a guest. There’s no obligation, and most people find they’re glad they did.","Local organisations can apply for funding through the website, and businesses can sponsor events. This text is sample content.","To keep up with what’s happening, subscribe to the newsletter or follow the club on social media."];
+const CN={community:"Community",club:"Club news",fundraising:"Fundraising"};
+function initNews(){const L=$("#nlist");let cat="all",q="";const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+ const hi=(s,q)=>q?esc(s).replace(new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>"):esc(s);
+ ART.forEach(a=>{const b=document.createElement("button");b.type="button";b.className="nrow";b.dataset.i=a.i;b.onclick=()=>open(a,b);L.appendChild(b)});
+ function paint(){let n=0;const rows=[...L.children];rows.forEach((b,k)=>{const a=ART[k],ok=(cat==="all"||a.c===cat)&&(!q||(a.t+" "+a.s).toLowerCase().includes(q.toLowerCase()));b.hidden=!ok;if(ok)n++;b.innerHTML=`<time>${a.d}</time><div><h3>${hi(a.t,q)}</h3><p>${hi(a.s,q)}</p></div><span class="rt">${a.rt} read</span>`});$("#nempty").hidden=n>0}
+ paint();const keys=["all","club","community","fundraising"];const P=pills($("#npills"),["All","Club news","Community","Fundraising"],i=>flip(L,()=>{cat=keys[i];paint()}));ENTER.news=()=>P.pos();
+ $("#nq").addEventListener("input",e=>flip(L,()=>{q=e.target.value.trim();paint()}));$("#nclear").onclick=()=>{$("#nq").value="";flip(L,()=>{q="";paint()})};
+ const rd=$("#reader");function open(a,b){$("#rd-c").textContent=CN[a.c];$("#rd-t").textContent=a.t;$("#rd-m").textContent=a.d+" · "+a.rt+" read";$("#rd-b").innerHTML=a.b.concat(FILL).map(p=>`<p>${esc(p)}</p>`).join("");rd.showModal();rd.scrollTop=0;rd.style.setProperty("--rp",0)}
+ $$("[data-art]").forEach(b=>b.onclick=()=>open(ART[b.dataset.art]));
+ const shut=()=>{if(rm||!rd.open){rd.close();return}rd.classList.add("closing");setTimeout(()=>{rd.close();rd.classList.remove("closing")},150)};
+ $("#rd-x").onclick=shut;rd.addEventListener("cancel",e=>{e.preventDefault();shut()});rd.addEventListener("click",e=>{if(e.target===rd)shut()});$("#rd-j").addEventListener("click",()=>rd.close());
+ rd.addEventListener("scroll",()=>rd.style.setProperty("--rp",clamp(rd.scrollTop/Math.max(1,rd.scrollHeight-rd.clientHeight))));$("#rd-s").onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(location.href)}catch(_){}toast("Link copied")}}
+/* ---------- CONTACT ---------- */
+function initContact(){const S=[["General enquiry","Anyone on the committee can answer this. Usually within 2 working days.","Your message"],["Membership","The membership team usually replies within 2 working days.","Tell us a little about yourself"],["Funding","The funding panel will point you the right way.","Tell us about your project"],["Events","The events team will get back to you.","Which event, and how can we help?"],["Sponsorship","Our sponsorship lead replies within 2 working days.","Tell us about your business"],["Media","Our media contact will reply the same day where possible.","What are you working on?"],["Other","We’ll pass it to the right person.","Your message"]];
+ const T=$("#tiles");S.forEach((s,i)=>{const l=document.createElement("label");l.className="tile";l.innerHTML=`<input type="radio" name="subj" value="${i}" ${i?"":"checked"}><span>${s[0]}</span>`;T.appendChild(l);$("input",l).onchange=()=>set(i)});
+ function set(i){$("#who2").textContent=S[i][1];$("#cml").textContent=S[i][2]}set(0);
+ const nm=()=>{const d=new Date();d.setHours(12,30,0,0);while(d.getDay()!==2||d<new Date())d.setDate(d.getDate()+1);return d};const m=nm();const tick=()=>$("#mcd").innerHTML=cdHTML(m-Date.now());tick();setInterval(tick,1000);
+ form("cform",["cn","cm"],"ce","cc",()=>{$("#cform").hidden=true;$("#cdone").hidden=false})}
+/* ---------- router ---------- */
+const ENTER={},inited={};const INIT={events:initEvents,impact:initImpact,join:initJoin,funding:initFunding,about:initAbout,news:initNews,contact:initContact};
+let cur=null,tmr;const route=()=>{const r=(location.hash.replace(/^#\/?/,"")||"home").split("/")[0];return document.getElementById("p-"+r)?r:"home"};
+function after(r,page,first){document.title=(r==="home"?"Folkestone Rotary":page.dataset.title+" | Folkestone Rotary");
+ $$('header nav a, #mm a').forEach(a=>{const on=a.getAttribute("href")==="#/"+r;on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+ const bg=document.getElementById("burger");if(bg&&bg.getAttribute("aria-expanded")==="true")bg.click();
+ if(INIT[r]&&!inited[r]){inited[r]=1;INIT[r]()}
+ const h=$(".ph h1",page);if(h&&!h.dataset.s&&!rm){h.dataset.s=1;const ws=h.textContent.trim().split(/\s+/);h.textContent="";ws.forEach((w,i)=>{const s=document.createElement("span");s.className="w";s.style.setProperty("--i",i);s.textContent=w;h.append(s,i<ws.length-1?" ":"")})}
+ ENTER[r]&&ENTER[r]();if(r==="join")ENTER.join2&&ENTER.join2();if(r==="about")ENTER.about&&ENTER.about();
+ scrollTo(0,0);window.__hdr&&window.__hdr();const f=$("h1",page);if(f&&!first){f.setAttribute("tabindex","-1");f.focus({preventScroll:true})}}
+function show(first){const r=route(),next=document.getElementById("p-"+r);if(next===cur)return;clearTimeout(tmr);
+ const swap=()=>{if(cur)cur.classList.remove("on","leaving");cur=next;next.classList.add("on");if(!first&&!rm){next.classList.add("entering");void next.offsetWidth;requestAnimationFrame(()=>next.classList.remove("entering"))}after(r,next,first)};
+ if(cur&&!rm){cur.classList.add("leaving");tmr=setTimeout(swap,150)}else swap()}
+addEventListener("hashchange",()=>show(false));show(true);
+})();
+</script></body></html>
