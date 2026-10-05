@@ -367,7 +367,7 @@ header nav a[aria-current=page]{font-weight:800}
 .hut .gbp{position:relative;margin-top:8px;font:700 clamp(13px,1.6vw,18px) "Source Sans 3",sans-serif;background:#fff;padding:3px 10px;border-radius:99px;color:var(--navy);box-shadow:0 2px 6px rgba(11,31,58,.2)}
 .hut .door{background:repeating-linear-gradient(90deg,#fff 0 10px,#f2ede0 10px 12px);border:4px solid #fff;border-bottom:0;transform-origin:left center;transition:transform .9s var(--ease-out-quint);display:flex;align-items:flex-start;justify-content:center;backface-visibility:hidden;box-shadow:2px 0 10px rgba(11,31,58,.25)}
 .hut.fill .door{transform:perspective(700px) rotateY(-118deg)}
-.hut .plate{margin-top:14%;padding:5px 6px;background:var(--dk);color:#fff;font:700 clamp(9px,1.25vw,13px)/1.15 "Source Sans 3",sans-serif;text-align:center;border-radius:4px;max-width:86%}
+.hut .hsign{margin-top:14%;padding:5px 6px;background:var(--dk);color:#fff;font:700 clamp(9px,1.25vw,13px)/1.15 "Source Sans 3",sans-serif;text-align:center;border-radius:4px;max-width:86%}
 .hut .knob{position:absolute;right:9%;top:55%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe29a,#c9780a)}
 .hut .step{display:block;width:118%;height:9px;background:#d5ccb4;border-radius:2px;margin-top:-1px;box-shadow:0 3px 0 #b8ae94}
 .hut .nm{margin-top:12px}.hut:hover .roof,.hut.fill .roof{transform:translateY(-5px)}
@@ -383,6 +383,9 @@ header nav a[aria-current=page]{font-weight:800}
 .jars.huts::after{display:none}.jars.huts{padding-bottom:20px}
 @media(max-width:700px){.hut .roof{width:106%}.jars.huts{column-gap:22px}}
 @media(max-width:700px){.ph{--sw:100vw;padding-bottom:calc(100vw*.275*1.05)}.ph .sky{right:0}}
+.hut .door{flex-direction:column;align-items:center}
+.hut .hsign{box-sizing:border-box;width:88%;max-width:none;flex:none;padding:6px 4px;font-size:clamp(10.5px,1.3vw,14px);overflow-wrap:normal;word-break:normal;hyphens:none}
+.hut .door{justify-content:flex-start}.hut .hsign{margin-top:18%}.hut .knob{top:58%}
 
 [hidden]{display:none!important}
 </style></head><body>
@@ -624,7 +627,7 @@ function initImpact(){
   const el=document.createElement("button");el.type="button";el.className="hut jar";el.style.cssText=`--c:${d.c};--ds:${ds};--dk:${dk};--lt:${lt};--k:${k};--pct:${pct}%;--hd:${i*120}ms`;
   el.setAttribute("aria-label",`${d.n}: ${fmt(d.v)}, ${pct} percent of the total. Hover or focus to open the beach hut.`);
   const stroke=i===1?` fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"`:i===2?` fill="none" stroke="currentColor" stroke-width="1.8"`:` fill="currentColor"`;
-  el.innerHTML=`<span class="roof"></span><span class="wall"><span class="inside"><span class="lvl"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[i]}"${stroke}/></svg><span class="pc"><b data-to="${pct}">0</b>%</span><span class="of">of every £1</span><span class="gbp">${fmt(d.v)}</span></span><span class="door"><span class="plate">${d.n}</span><span class="knob"></span></span></span><span class="step"></span><b class="nm">${d.n}</b><span class="am">${fmt(d.v)}</span>`;
+  el.innerHTML=`<span class="roof"></span><span class="wall"><span class="inside"><span class="lvl"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[i]}"${stroke}/></svg><span class="pc"><b data-to="${pct}">0</b>%</span><span class="of">of every £1</span><span class="gbp">${fmt(d.v)}</span></span><span class="door"><span class="hsign">${d.n}</span><span class="knob"></span></span></span><span class="step"></span><b class="nm">${d.n}</b><span class="am">${fmt(d.v)}</span>`;
   const pc=$(".pc b",el);let raf=0;const count=to=>{cancelAnimationFrame(raf);const from=+pc.textContent,t0=performance.now(),dur=rm?0:900;const f=n=>{const p=dur?Math.min(1,(n-t0)/dur):1,e=1-Math.pow(1-p,4);pc.textContent=Math.round(from+(to-from)*e);if(p<1)raf=requestAnimationFrame(f)};f(t0)};
   const show=()=>{tip.innerHTML=`<b>${d.n}</b>: ${fmt(d.v)}, ${pct}% of everything raised.`};
   const fillOn=()=>{el.classList.add("fill");show()},fillOff=()=>{if(!el.classList.contains("pin")){el.classList.remove("fill");if(!$$(".jar.fill",box).length)tip.textContent=idle}};
