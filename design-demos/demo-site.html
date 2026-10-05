@@ -518,6 +518,7 @@ a.t{transition:color .15s,text-decoration-color .15s}a.t:hover{color:var(--blue)
 a.rv strong{transition:color .15s}a.rv:hover strong{color:var(--blue)}a.rv:active{transform:scale(.995)}
 .ticket{transition:transform .25s var(--ease-out-quint),box-shadow .25s var(--ease-out-quint)}.ticket:hover{transform:translateY(-4px)}.ticket:active{transform:translateY(-1px) scale(.995)}
 @media(hover:none){.ticket:hover{transform:none}}
+.jbar em{white-space:nowrap}@media(max-width:420px){.jbar em{font-size:16px}}
 
 [hidden]{display:none!important}
 </style></head><body>
@@ -854,7 +855,7 @@ function initFunding(){
  render();
  /* sticky bar + closing CTA jump back to the form */
  const jump=()=>{$("#fhero").scrollIntoView({block:"start",behavior:rm?"auto":"smooth"});setTimeout(()=>{const f=$("input,textarea",$f);f&&f.focus({preventScroll:true})},rm?0:450)};$("#fgo").onclick=jump;
- if(!$("#fbar")){document.body.insertAdjacentHTML("beforeend",`<div class="jbar" id="fbar" hidden><span><em>Apply in 5 minutes</em></span><button class="btn gold" type="button" id="fbtn">Continue my application</button></div>`);$("#fbtn").onclick=jump}
+ if(!$("#fbar")){document.body.insertAdjacentHTML("beforeend",`<div class="jbar" id="fbar" hidden><span><em>5-minute application</em></span><button class="btn gold" type="button" id="fbtn">Continue</button></div>`);$("#fbtn").onclick=jump}
  const bar=$("#fbar");let seen=true;const upd=()=>{bar.hidden=!(location.hash==="#/funding"&&!seen);if(!bar.hidden)requestAnimationFrame(()=>bar.classList.add("up"));else bar.classList.remove("up")};
  new IntersectionObserver(es=>{seen=es[0].intersectionRatio>.35;upd()},{threshold:[0,.2,.35,.6,.9]}).observe($("#fhero"));addEventListener("hashchange",upd);
  /* what we fund */
