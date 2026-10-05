@@ -17,7 +17,7 @@ export async function submitMembership(_: FormState, fd: FormData): Promise<Form
   return processForm({
     fd, schema: membershipSchema, table: "membership_enquiries", kind: "membership enquiry",
     confirmation: (d) => ({ to: d.email, ...templates.membershipConfirmation({ name: d.name }) }),
-    summary: (d) => ({ Name: d.name, Email: d.email, Phone: d.phone, Why: d.why_interested, "Preferred contact": d.preferred_contact }),
+    summary: (d) => ({ Name: d.name, Email: d.email, Phone: d.phone ?? "", Why: d.why_interested, "Preferred contact": d.preferred_contact ?? "" }),
   });
 }
 

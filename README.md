@@ -69,3 +69,13 @@ All forms use a honeypot, a minimum-fill-time check, per-IP rate limiting and (o
 
 ## Project layout
 `app/` routes · `components/` UI (`ui/` = shadcn-style primitives) · `lib/content.ts` data access (Supabase, falling back to `lib/seed.ts`) · `lib/forms/` validation, spam, storage · `lib/admin/resources.ts` CMS field definitions (add a field here to add it to the admin) · `supabase/` migrations & seed · `tests/` Vitest.
+
+
+## Design system (the `dx` pages)
+
+The About, Our impact, Events, News, Join, Funding and Contact pages use the Folkestone skyline design from `design-demos/demo-site.html`.
+
+- `app/dx.css` is generated: run `node scripts/port-demo-css.mjs` after changing the demo's CSS. Every rule is scoped under `.dx`, so it cannot affect the rest of the site. Hand-written additions live in `app/dx-extra.css`.
+- `components/dx/*` holds the interactive pieces. `DxRoot` wraps a page and `DxHero` draws the hero and skyline (`lib/skyline.ts`).
+- The forms post to the existing server actions in `app/actions/forms.ts`. Funding and guest-visit enquiries only require the essentials (see `lib/forms/schemas.ts`); everything else is optional.
+- The header turns transparent over a dark hero on the paths listed in `heroPaths` in `components/layout/header.tsx`.

@@ -13,7 +13,8 @@ describe("contact form", () => {
 describe("membership form", () => {
   const ok = { name: "Alex Jones", email: "a@example.com", phone: "01303 123456", why_interested: "I want to volunteer locally", preferred_contact: "email", consent: "on" };
   it("accepts valid input with optional fields blank", () => expect(membershipSchema.safeParse({ ...ok, age_range: "", occupation: "" }).success).toBe(true));
-  it("requires a phone number and contact method", () => expect(membershipSchema.safeParse({ ...ok, phone: "", preferred_contact: "" }).success).toBe(false));
+  it("needs only a name, email and consent", () => { const r = membershipSchema.safeParse({ name: "Alex Jones", email: "a@example.com", consent: "on" }); expect(r.success && r.data.why_interested).toBe("Guest visit request"); });
+  it("still rejects a missing email", () => expect(membershipSchema.safeParse({ name: "Alex Jones", consent: "on" }).success).toBe(false));
 });
 describe("newsletter form", () => {
   it("requires consent", () => expect(newsletterSchema.safeParse({ first_name: "Ann", last_name: "Bee", email: "a@b.co" }).success).toBe(false));
@@ -26,5 +27,6 @@ describe("funding application", () => {
   it("accepts a complete application and coerces numbers", () => { const r = fundingSchema.safeParse(ok); expect(r.success && r.data.amount_requested).toBe(1500); });
   it("rejects a request larger than the project cost", () => expect(fundingSchema.safeParse({ ...ok, amount_requested: "9000" }).success).toBe(false));
   it("rejects an end date before the start date", () => expect(fundingSchema.safeParse({ ...ok, end_date: "2026-01-01" }).success).toBe(false));
+  it("accepts a short application and defaults the total cost to the amount asked", () => { const r = fundingSchema.safeParse({ organisation_name: "Kent Kids", contact_name: "Pat Smith", email: "p@example.org", project_name: "Play area", project_description: "A new accessible play area for children.", amount_requested: "1500", consent: "on" }); expect(r.success && r.data.total_project_cost).toBe(1500); });
   it("rejects an invalid website", () => expect(fundingSchema.safeParse({ ...ok, website: "not a url" }).success).toBe(false));
 });

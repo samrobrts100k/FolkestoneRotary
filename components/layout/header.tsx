@@ -11,9 +11,12 @@ import { Logo } from "./logo";
 /** Header height in px; the home hero tucks underneath it by this much. */
 const H = 72;
 
+/** Pages that open with a dark hero: the header sits transparent on top of it, like the home film. */
+const heroPaths = ["/", "/about", "/impact", "/events", "/news", "/join", "/funding", "/contact"];
+
 export function Header() {
   const path = usePathname();
-  const isHome = path === "/";
+  const isHome = heroPaths.includes(path);
   const [open, setOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const burger = useRef<HTMLButtonElement>(null);

@@ -1,0 +1,18 @@
+
+/* Gallery grid (real-site addition) */
+.dx .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;list-style:none;margin:16px 0 0;padding:0}
+@media(max-width:700px){.dx .gal{grid-template-columns:1fr 1fr}}
+
+/* Calendar view (kept from the previous site, restyled) */
+.dx .calhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.dx .calhd h3{font:700 24px var(--serif);margin:0;color:var(--navy)}
+.dx .calhd button{width:44px;height:44px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);font-size:24px;line-height:1;cursor:pointer;transition:background-color .2s,color .2s,transform .12s}.dx .calhd button:hover{background:var(--navy);color:#fff}.dx .calhd button:active{transform:scale(.94)}
+.dx .calwk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-weight:700;color:var(--mute);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.dx .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;list-style:none;margin:6px 0 0;padding:0}.dx .calgrid li{min-height:84px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;font-size:14px}.dx .calgrid li.blank{background:transparent;border-color:transparent}.dx .calgrid .n{font-weight:700;color:var(--mute)}.dx .calgrid .wd{display:none}
+.dx .calgrid a{display:block;margin-top:4px;border-radius:8px;padding:3px 7px;font-size:12.5px;font-weight:700;text-decoration:none;transition:transform .15s var(--ease-out-quint)}.dx .calgrid a:hover{transform:translateY(-1px)}
+@media(max-width:700px){.dx .calwk{display:none}.dx .calgrid{grid-template-columns:1fr}.dx .calgrid li:not(.has){display:none}.dx .calgrid .wd{display:inline}}
+
+.dx .fmsg{background:#fdecea;color:#8a1c14;border-radius:12px;padding:10px 14px;margin:0 0 12px;font-weight:600;font-size:15px}
+.dx .glass .fmsg{background:rgba(255,236,234,.95)}
+.dx .fl-files .rm{margin-left:auto;background:none;border:0;color:var(--gold);font:700 14px var(--sans);text-decoration:underline;cursor:pointer;padding:2px 4px}
+.dx .fstep>span:last-child{display:block}
+.dx .soc{display:flex;gap:10px;list-style:none;margin:16px 0 0;padding:0}.dx .soc a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--mist);color:var(--navy);transition:background-color .2s,color .2s,transform .15s var(--ease-out-quint)}.dx .soc a:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
