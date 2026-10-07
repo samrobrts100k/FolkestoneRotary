@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { submitContact } from "@/app/actions/forms";
 import { Cd } from "./common";
 import { useToast } from "./dx-root";
+import { nextMeetings } from "@/lib/meetings";
 import { Fl, OkMark, ServerMessage, emailOk, useSubmit } from "./forms";
 import { contactSubjects } from "@/lib/forms/subjects";
 
@@ -66,9 +67,9 @@ export function CopyBtn({ text, label = "Copy" }: { text: string; label?: string
   return <button className="copy" type="button" onClick={() => { try { navigator.clipboard?.writeText(text); } catch { /* ignore */ } toast(`Copied: ${text}`); }}>{label}</button>;
 }
 
-/** Next Tuesday 12:30 as a timestamp, worked out in the browser. */
+/** The next lunch (2nd or 4th Monday, 12:15) as a timestamp, worked out in the browser. */
 export function NextMeeting() {
   const [t, setT] = useState<number | null>(null);
-  useEffect(() => { const d = new Date(); d.setHours(12, 30, 0, 0); while (d.getDay() !== 2 || d < new Date()) d.setDate(d.getDate() + 1); setT(d.getTime()); }, []);
+  useEffect(() => { setT(nextMeetings(1)[0].getTime()); }, []);
   return t ? <Cd to={t} label="Time until the next meeting" /> : <div className="cd" style={{ minHeight: 76 }} aria-hidden />;
 }

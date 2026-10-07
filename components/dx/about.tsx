@@ -91,7 +91,7 @@ export function RoundTable({ leaders, joinHref = "/join" }: { leaders: Leader[];
   return (
     <div className="tw">
       <div className={`round${inView ? " in" : ""}`} ref={ref} role="group" aria-label="The club’s officers around a lunch table">
-        <div className="tbl" aria-hidden="true"><div><b>Tuesday lunch</b><small>Every week · guests welcome</small></div></div>
+        <div className="tbl" aria-hidden="true"><div><b>Monday lunch</b><small>2nd &amp; 4th Monday · guests welcome</small></div></div>
         {Array.from({ length: N }, (_, i) => { const p = pos(i); return <i key={`p${i}`} className="plate" style={{ left: `${p.px}%`, top: `${p.py}%` }} />; })}
         {Array.from({ length: N }, (_, i) => {
           const p = pos(i), isYou = i === list.length, l = list[i];
@@ -107,7 +107,7 @@ export function RoundTable({ leaders, joinHref = "/join" }: { leaders: Leader[];
       </div>
       <div className="bubble" aria-live="polite">
         {sel === null && <div className="pop"><h3>Take a seat</h3><p className="nm">Folkestone Rotary</p><p style={{ margin: "0 0 14px", fontSize: 19 }}>Tap anyone to find out what they do, and what to ask them. One chair is empty, and it’s yours if you want it.</p></div>}
-        {you && <div className="pop" key="you"><h3>This chair is free</h3><p className="nm">Reserved for: you</p><p style={{ fontSize: 19, margin: "0 0 16px" }}>Come to a Tuesday lunch as our guest. Nobody will ask you to sign anything.</p><Link className="btn gold" href={joinHref}>Visit as a guest</Link></div>}
+        {you && <div className="pop" key="you"><h3>This chair is free</h3><p className="nm">Reserved for: you</p><p style={{ fontSize: 19, margin: "0 0 16px" }}>Come to a lunch as our guest. Nobody will ask you to sign anything.</p><Link className="btn gold" href={joinHref}>Visit as a guest</Link></div>}
         {person && <div className="pop" key={person.id}><h3>{person.title}</h3><p className="nm">{person.body?.replace(/\s*\(sample\)\.?/i, "") || "Name to be confirmed"}</p><p className="ask">{ASK.find(([r]) => r.test(person.title))?.[1] ?? "what they do in the club"}</p></div>}
       </div>
     </div>

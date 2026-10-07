@@ -6,14 +6,14 @@ import { Cd, reducedMotion, useScrolledPast } from "./common";
 import { Fl, OkMark, ServerMessage, emailOk, useSubmit } from "./forms";
 import { formatDate } from "@/lib/utils";
 import { googleCalendarUrl } from "@/lib/ics";
+import { meetingEnd, nextMeetings } from "@/lib/meetings";
+import { site } from "@/lib/site";
 
-/** Next three meeting dates (Tuesdays at 12:30), worked out in the browser. */
+/** The next three lunch meetings (2nd and 4th Monday, 12:15), worked out in the browser. */
 function useDates() {
   const [dates, setDates] = useState<Date[]>([]);
   useEffect(() => {
-    const d = new Date(); d.setHours(12, 30, 0, 0);
-    while (d.getDay() !== 2 || d < new Date()) d.setDate(d.getDate() + 1);
-    setDates([0, 1, 2].map((i) => { const x = new Date(d); x.setDate(x.getDate() + i * 7); return x; }));
+    setDates(nextMeetings(3));
   }, []);
   return dates;
 }
@@ -26,7 +26,7 @@ export function Reserve({ who, children, className }: { who?: string; children: 
   return <button type="button" className={className} onClick={() => open(who)}>{children}</button>;
 }
 
-/** The enquiry itself: pick a Tuesday, give a name and email. Used in the hero and in the pop-up. */
+/** The enquiry itself: pick a lunch date, give a name and email. Used in the hero and in the pop-up. */
 function ReserveForm({ prefix, sel, setSel, who, onDone }: { prefix: string; sel: number; setSel: (n: number) => void; who: string; onDone?: () => void }) {
   const dates = useDates();
   const { state, pending, submit } = useSubmit(submitMembership, "membership_enquiry");
@@ -47,10 +47,10 @@ function ReserveForm({ prefix, sel, setSel, who, onDone }: { prefix: string; sel
     return (
       <div className="jdone" aria-live="polite">
         <OkMark />
-        <h3>You’re down for {d ? day(d, { weekday: "long", day: "numeric", month: "long" }) : "the next lunch"}, 12:30</h3>
+        <h3>You’re down for {d ? day(d, { weekday: "long", day: "numeric", month: "long" }) : "the next lunch"}, 12:15</h3>
         <ul><li>Check your inbox for a confirmation.</li><li>Someone will be in touch to arrange your visit.</li><li>Nothing to bring. Come as you are.</li></ul>
         <div className="acts3">
-          {d && <a className="btn blue" target="_blank" rel="noopener noreferrer" href={googleCalendarUrl({ title: "Folkestone Rotary lunch (guest)", short_description: "Guest visit", description: "Guest visit", starts_at: d.toISOString(), ends_at: new Date(d.getTime() + 90 * 60000).toISOString(), venue_name: "Folkestone Rotary meeting", slug: "join" } as never, "")}>Add to calendar</a>}
+          {d && <a className="btn blue" target="_blank" rel="noopener noreferrer" href={googleCalendarUrl({ title: "Folkestone Rotary lunch (guest)", short_description: "Guest visit", description: "Guest visit", starts_at: d.toISOString(), ends_at: meetingEnd(d).toISOString(), venue_name: site.meeting.venue, slug: "join" } as never, "")}>Add to calendar</a>}
           <Link className="btn ghost" href="/contact?subject=Membership">Ask us a question</Link>
         </div>
       </div>
@@ -58,7 +58,7 @@ function ReserveForm({ prefix, sel, setSel, who, onDone }: { prefix: string; sel
   }
   return (
     <form className="jf" onSubmit={send} noValidate aria-busy={pending}>
-      <div className="jdates" role="radiogroup" aria-label="Which Tuesday suits you?">
+      <div className="jdates" role="radiogroup" aria-label="Which lunch suits you?">
         {(dates.length ? dates : [null, null, null]).map((d, i) => (
           <button key={i} type="button" role="radio" aria-checked={i === sel} onClick={() => setSel(i)}>
             <b>{d ? day(d, { day: "numeric" }) : "–"}</b><span>{d ? day(d, { month: "short" }) : ""}{i === 0 ? " · next" : ""}</span>
@@ -98,7 +98,7 @@ export function JoinShell({ children, hero }: { children: React.ReactNode; hero:
         <div className="bodyx"><ReserveForm prefix="d" sel={sel} setSel={setSel} who={who} onDone={() => setBooked(true)} /></div>
       </dialog>
       <div className={`jbar${past && !booked ? " up" : ""}`} hidden={!past || booked}>
-        <span><b>Next lunch</b> <em>{dates[0] ? dates[0].toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) + ", 12:30" : ""}</em></span>
+        <span><b>Next lunch</b> <em>{dates[0] ? dates[0].toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) + ", 12:15" : ""}</em></span>
         <button className="btn gold" type="button" onClick={() => open()}>Reserve a seat</button>
       </div>
     </JoinCtx.Provider>
@@ -110,7 +110,7 @@ export function JoinHeroCard() {
   const dates = useDates();
   return (
     <div className="glass jhero" id="jhero">
-      <div className="jtop"><div><b className="t">Reserve your seat</b><span className="jwhen">{dates[sel] ? formatDate(dates[sel].toISOString(), { weekday: "long", day: "numeric", month: "long" }) + ", 12:30" : ""}</span></div>{dates[0] && <Cd to={dates[0].getTime()} small label="Time until the next lunch" />}</div>
+      <div className="jtop"><div><b className="t">Reserve your seat</b><span className="jwhen">{dates[sel] ? formatDate(dates[sel].toISOString(), { weekday: "long", day: "numeric", month: "long" }) + ", 12:15" : ""}</span></div>{dates[0] && <Cd to={dates[0].getTime()} small label="Time until the next lunch" />}</div>
       <ReserveForm prefix="h" sel={sel} setSel={setSel} who="" />
     </div>
   );
@@ -118,7 +118,7 @@ export function JoinHeroCard() {
 
 const PERSONAS: { t: string; who: string; hk: string; pts: string[]; c: string; ic: string }[] = [
   { t: "Business owners", who: "a business owner", hk: "Meet the people who buy, sell and hire in Folkestone.", pts: ["Lunch with other local business people", "Help with the Golf Day sponsorship drive", "Mentor young people at Dragons’ Den"], c: "#005DAA", ic: "M4 8h16v11H4zM9 8V5h6v3M4 13h16" },
-  { t: "Retired", who: "retired", hk: "Be useful, social and out of the house on a Tuesday.", pts: ["Meet people who live nearby", "Help at collections and the Half Marathon", "Plan an event, or just turn up and help"], c: "#F7A81B", ic: "M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2" },
+  { t: "Retired", who: "retired", hk: "Be useful, social and out of the house at lunchtime.", pts: ["Meet people who live nearby", "Help at collections and the Half Marathon", "Plan an event, or just turn up and help"], c: "#F7A81B", ic: "M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2" },
   { t: "Teachers", who: "a teacher", hk: "Bring your school’s ideas to people who can fund them.", pts: ["Link your school with funding", "Run enterprise days with Dragons’ Den", "Hear what local charities need"], c: "#4d93cc", ic: "M3 9l9-5 9 5-9 5zM7 11.5V16q5 3 10 0v-4.5" },
   { t: "New to Folkestone", who: "new to Folkestone", hk: "One lunch and you know a roomful of locals.", pts: ["Meet a friendly crowd in one lunch", "Learn the town from the people who run it", "Find a reason to be on the seafront on a Saturday"], c: "#0B1F3A", ic: "M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" },
   { t: "Under 30", who: "under 30", hk: "Your ideas, your skills, a network that opens doors.", pts: ["Bring ideas the club hasn’t tried", "Run the social media for an event", "Build skills and a local network"], c: "#c9780a", ic: "M12 3l2.6 5.8 6.4.7-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3L3 9.5l6.4-.7z" },
@@ -168,6 +168,6 @@ export function Table() {
 
 export function JoinCta() {
   return (
-    <div className="jcta" data-rv><div><h2>Your seat’s waiting.</h2><p>It takes ten seconds. Pick a Tuesday, tell us your name and email, and someone will be in touch.</p></div><Reserve className="btn gold">Reserve my seat</Reserve></div>
+    <div className="jcta" data-rv><div><h2>Your seat’s waiting.</h2><p>It takes ten seconds. Pick a lunch date, tell us your name and email, and someone will be in touch.</p></div><Reserve className="btn gold">Reserve my seat</Reserve></div>
   );
 }

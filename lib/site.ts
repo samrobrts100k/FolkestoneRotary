@@ -8,10 +8,11 @@ export const site = {
   email: "info@folkestonerotary.org", // placeholder
   phone: "01303 000000", // placeholder
   meeting: {
-    when: "Every Tuesday, 12:30pm", // placeholder
-    venue: "Meeting venue to be confirmed", // placeholder
+    when: "2nd and 4th Monday of each month, 12:15–12:45pm",
+    short: "2nd and 4th Mondays, 12:15",
+    venue: "The Burlington Hotel",
     address: "Folkestone, Kent",
-    postcode: "CT20 1AA", // placeholder
+    postcode: "", // add the hotel's postcode so the map pin is exact
   },
   social: {
     facebook: "https://www.facebook.com/folkestonerotary", // placeholder – confirm

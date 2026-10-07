@@ -35,7 +35,7 @@ A local club made of local people. The money raised stays in Folkestone and goes
 
 ## Operating Context
 
-- Weekly club meeting (currently "Tuesdays, 12:30", venue to be confirmed; both placeholders in `lib/site.ts`). Visitors can attend as guests.
+- Lunch meetings on the 2nd and 4th Monday of each month, 12:15 to 12:45, at The Burlington Hotel (details in `lib/site.ts`; dates worked out in `lib/meetings.ts`). Visitors can attend as guests.
 - Annual fundraising calendar of events, with tickets or race entry.
 - Community funding rounds. Applications move through Received → Under Review → Approved / Declined / More Information Required.
 - Content is managed in the admin CMS. Every item is Draft, Published, Scheduled or Archived, with preview before publishing.
@@ -50,7 +50,7 @@ A local club made of local people. The money raised stays in Folkestone and goes
 - Roles: Admin, Editor, Events Manager, News Editor, Funding Reviewer, Member. Members have a private area for documents and meetings.
 - Analytics load only after cookie consent.
 - `design-demos/` holds standalone HTML design explorations (demos A–E) for the homepage direction. They are not part of the app.
-- Undecided: meeting venue, phone number, social links, and the final donation provider.
+- Undecided: the hotel postcode, phone number, social links, and the final donation provider.
 
 ## Brand Commitments
 
