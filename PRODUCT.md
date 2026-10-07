@@ -50,7 +50,7 @@ A local club made of local people. The money raised stays in Folkestone and goes
 - Roles: Admin, Editor, Events Manager, News Editor, Funding Reviewer, Member. Members have a private area for documents and meetings.
 - Analytics load only after cookie consent.
 - `design-demos/` holds standalone HTML design explorations (demos A–E) for the homepage direction. They are not part of the app.
-- Undecided: the hotel postcode, phone number, social links, and the final donation provider.
+- Undecided: phone number, social links, and the final donation provider.
 
 ## Brand Commitments
 

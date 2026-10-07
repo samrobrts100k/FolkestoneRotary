@@ -11,8 +11,8 @@ export const site = {
     when: "2nd and 4th Monday of each month, 12:15–12:45pm",
     short: "2nd and 4th Mondays, 12:15",
     venue: "The Burlington Hotel",
-    address: "Folkestone, Kent",
-    postcode: "", // add the hotel's postcode so the map pin is exact
+    address: "3-5 Earls Avenue, Folkestone",
+    postcode: "CT20 2HR",
   },
   social: {
     facebook: "https://www.facebook.com/folkestonerotary", // placeholder – confirm
