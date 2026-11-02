@@ -32,6 +32,9 @@ export const site = {
 } as const;
 
 /** Where the Donate buttons go: the external donation site once configured, otherwise our /donate info page. */
+/** Santa route finder, built and kept up to date by a club member on his own site. Shown in a frame on /christmas. */
+export const santaFinderUrl = "https://kieranosborne.netlify.app/rotary/santa/";
+
 export const donateHref = site.donateUrl || "/donate";
 export const donateExternal = Boolean(site.donateUrl);
 

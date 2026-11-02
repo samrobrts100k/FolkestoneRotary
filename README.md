@@ -57,6 +57,8 @@ Every item has a status: **Draft** (hidden), **Published**, **Scheduled** (goes 
 
 Page text defaults live in `lib/page-text.ts`; saved wording is stored in the `pages` table (slug `text-<page>`), so no database change is needed. To make more text editable, add a field there and use it via `getPageText()`.
 
+The Christmas page (`/christmas`) shows the Santa route finder in a frame from `santaFinderUrl` in `lib/site.ts`. It is built and kept up to date by a club member on his own site; the frame grows to fit using his `santaHeight` / `santaScrollTo` messages (`components/dx/santa-frame.tsx`). Its wording and sleigh photo are in **Page text → Christmas**.
+
 Club-wide details (meeting time/venue, phone, email, social links) are in `lib/site.ts` — each is marked `placeholder` until confirmed.
 Legal pages (`app/privacy`, `cookies`, `accessibility`, `terms`) are drafts to be reviewed before launch.
 

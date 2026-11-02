@@ -12,6 +12,7 @@ const BG: Record<string, string> = {
   join: "radial-gradient(60% 80% at 80% 80%,rgba(247,168,27,.5),transparent 70%),linear-gradient(160deg,#16304F,#005DAA)",
   funding: "radial-gradient(60% 80% at 20% 20%,rgba(247,168,27,.4),transparent 70%),linear-gradient(160deg,#0B1F3A,#004A88)",
   contact: "radial-gradient(60% 80% at 75% 25%,rgba(77,147,204,.55),transparent 70%),linear-gradient(160deg,#0B1F3A,#005DAA)",
+  christmas: "radial-gradient(50% 70% at 82% 22%,rgba(247,168,27,.55),transparent 70%),radial-gradient(40% 50% at 10% 90%,rgba(201,40,40,.35),transparent 70%),linear-gradient(160deg,#0B1F3A,#004A88)",
 };
 
 /** Dark hero with the Folkestone skyline. The page header sits transparent on top of it (see Header's `heroPaths`). */

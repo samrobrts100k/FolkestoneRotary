@@ -15,7 +15,9 @@ import { getPageText } from "@/lib/content";
 
 /** One event, in the seafront design: hero with countdown, the story on the left, a ticket with the essentials on the right. */
 export async function EventView({ e }: { e: EventItem }) {
-  const t = await getPageText("events");
+  const [t, xt] = await Promise.all([getPageText("events"), getPageText("christmas")]);
+  // Christmas collections point people to the Santa route finder.
+  const santa = /christmas|santa/i.test(`${e.slug} ${e.title}`);
   const url = `${site.url}/events/${e.slug}`;
   const future = new Date(e.starts_at) > new Date();
   const [cn, col, light] = cat(e.category);
@@ -35,7 +37,7 @@ export async function EventView({ e }: { e: EventItem }) {
             {!future && <p style={{ margin: 0, color: "var(--on-dark)" }}>This event has finished. Thank you to everyone who came.</p>}
             {future && (book
               ? <a className="btn gold" href={book.href} target="_blank" rel="noopener noreferrer">{book.label}</a>
-              : <Link className="btn gold" href="/contact?subject=Events">Ask about tickets</Link>)}
+              : santa ? <Link className="btn gold" href="/christmas#santa">{xt.finderTitle}</Link> : <Link className="btn gold" href="/contact?subject=Events">Ask about tickets</Link>)}
           </div>
         } />
 
@@ -89,7 +91,7 @@ export async function EventView({ e }: { e: EventItem }) {
               </dl>
               <div className="acts">
                 {future && book && <a className="btn blue blk" href={book.href} target="_blank" rel="noopener noreferrer">{book.label}</a>}
-                {future && !book && <Link className="btn blue blk" href="/contact?subject=Events">Ask about tickets</Link>}
+                {future && !book && (santa ? <Link className="btn blue blk" href="/christmas#santa">{xt.finderTitle}</Link> : <Link className="btn blue blk" href="/contact?subject=Events">Ask about tickets</Link>)}
                 {future && <a className="btn ghost blk" href={googleCalendarUrl(e, url)} target="_blank" rel="noopener noreferrer">Add to calendar</a>}
                 {future && <a className="lnk" href={`/events/${e.slug}/ics`}>Download for Outlook or Apple Calendar</a>}
               </div>

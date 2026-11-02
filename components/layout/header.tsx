@@ -12,7 +12,7 @@ import { Logo } from "./logo";
 const H = 72;
 
 /** Pages that open with a dark hero: the header sits transparent on top of it, like the home film. */
-const heroPaths = ["/", "/about", "/impact", "/events", "/news", "/join", "/funding", "/contact"];
+const heroPaths = ["/", "/about", "/impact", "/events", "/news", "/join", "/funding", "/contact", "/christmas"];
 /** Event and article pages open with the same dark hero. */
 const heroPrefixes = ["/events/", "/news/"];
 
@@ -37,10 +37,12 @@ export function Header() {
   useEffect(() => {
     if (!isHome) return;
     const hero = document.getElementById("hero");
-    const on = () => setPastHero(window.scrollY > (hero?.offsetHeight ?? 600) - 140);
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
+    if (!hero) return;
+    // Watch the hero rather than measuring it once: on a slow first load its styles may not be in yet,
+    // and a one-off measurement then thinks the hero has already scrolled away.
+    const io = new IntersectionObserver(([e]) => setPastHero(!e.isIntersecting), { rootMargin: "-140px 0px 0px 0px" });
+    io.observe(hero);
+    return () => io.disconnect();
   }, [isHome]);
 
   const solid = !isHome || pastHero || open;

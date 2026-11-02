@@ -26,7 +26,7 @@ export function Footer() {
         <nav aria-label="Quick links">
           <h2 className="mb-4 text-base font-semibold text-gold">Quick links</h2>
           <ul className="space-y-2 text-sm">
-            {[...nav.filter((n) => n.href !== "/"), { href: "/sponsors", label: "Our Sponsors" }, { href: "/donate", label: "Donate" }].map((l) => (
+            {[...nav.filter((n) => n.href !== "/"), { href: "/christmas", label: "Santa’s sleigh" }, { href: "/sponsors", label: "Our Sponsors" }, { href: "/donate", label: "Donate" }].map((l) => (
               <li key={l.href}><Link href={l.href} className="hover:text-gold hover:underline">{l.label}</Link></li>
             ))}
           </ul>

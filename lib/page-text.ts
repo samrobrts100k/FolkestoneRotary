@@ -163,6 +163,19 @@ export const PAGE_TEXT = {
       ...panel("Got a project in mind?", "It takes about five minutes, and you can stop and come back whenever you like.", "Start my application"),
     } },
   ] },
+  christmas: { label: "Christmas (Santa’s sleigh)", path: "/christmas", groups: [
+    { title: "Top of the page", fields: {
+      heroTitle: f("Headline", "Santa’s on his way"),
+      heroLead: long("Introduction", "Every December, Santa’s sleigh tours Folkestone with our members collecting for local families. Find out when he’ll reach your street."),
+      sleighPhoto: image("Sleigh photo", "Shown above the route finder. Wide photos work best."),
+      sleighAlt: f("Describe the sleigh photo", "Santa’s sleigh on a Folkestone street, lit up for Christmas"),
+    } },
+    { title: "Route finder", fields: {
+      finderTitle: f("Heading", "When is Santa coming to my street?"),
+      finderNote: long("Line under the heading", "Routes and times are kept up to date by our route team, so this always shows the latest."),
+    } },
+    { title: "Gold panel (bottom)", fields: panel("Walk with Santa", "Members and friends walk alongside the sleigh, collecting for local families. Join us for an evening.", "Volunteer", "Donate") },
+  ] },
   contact: { label: "Contact", path: "/contact", groups: [
     { title: "Top of the page", fields: {
       heroTitle: f("Headline", "Say hello"),
