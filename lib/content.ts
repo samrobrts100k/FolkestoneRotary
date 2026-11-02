@@ -4,6 +4,8 @@ import { createPublicClient } from "./supabase/server";
 import { isSupabaseConfigured } from "./supabase/env";
 import { isUpcoming, isVisible } from "./visibility";
 import type { ContentItem, EventItem, ImpactStory, NewsItem, Sponsor, Stat } from "./types";
+import { fill, mergeText, pageTextSlug, type PageKey, type PageText } from "./page-text";
+import { site } from "./site";
 
 /** Reads a table from Supabase, falling back to seed content when Supabase is not configured or errors. */
 async function load<T>(table: string, fallback: T[], order?: { col: string; asc: boolean }): Promise<T[]> {
@@ -60,4 +62,22 @@ export async function getGalleryImages(): Promise<{ url: string; alt: string; ca
     const { data } = await createPublicClient().from("gallery_images").select("url, alt, caption").order("sort_order").limit(24);
     return data ?? [];
   } catch { return []; }
+}
+
+/** Page wording from Admin → Page text, falling back to the defaults in lib/page-text.ts. {meeting} and {venue} are filled in. */
+export async function getPageText<P extends PageKey>(p: P): Promise<PageText<P>> {
+  let saved: Record<string, unknown> | null = null;
+  if (isSupabaseConfigured()) {
+    try {
+      const { data, error } = await createPublicClient().from("pages").select("body").eq("slug", pageTextSlug(p)).eq("status", "published").maybeSingle();
+      if (error) throw error;
+      if (data?.body) saved = JSON.parse(data.body);
+    } catch (e) {
+      console.error(`[content] page text for ${p} failed, using defaults`, e);
+    }
+  }
+  const merged = mergeText(p, saved) as Record<string, string>;
+  const vars = { meeting: site.meeting.when, venue: site.meeting.venue };
+  for (const k in merged) merged[k] = fill(merged[k], vars);
+  return merged as PageText<P>;
 }

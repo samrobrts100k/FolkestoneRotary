@@ -44,6 +44,7 @@ Sign in and open **/admin**:
 
 | To change… | Go to |
 |---|---|
+| Headings, introductions, buttons and other wording on Home, About, Our impact, Events, News, Join, Funding and Contact | **Page text** → pick the page. Empty a box (or **Use original**) to go back to the original wording |
 | Events, news, impact stories, sponsors, galleries | the matching section → **Add** / **Edit** |
 | Homepage numbers | **Homepage statistics** |
 | FAQs, testimonials, timeline, leadership, annual-report PDFs | **FAQs, testimonials & reports** |
@@ -52,6 +53,8 @@ Sign in and open **/admin**:
 | Members-area documents and meetings | **Member documents**, **Meetings** |
 
 Every item has a status: **Draft** (hidden), **Published**, **Scheduled** (goes live at a chosen time), **Archived** (hidden). Use **Preview** on the list to see exactly what visitors will see before publishing. Change the alt text for every image so the site stays accessible.
+
+Page text defaults live in `lib/page-text.ts`; saved wording is stored in the `pages` table (slug `text-<page>`), so no database change is needed. To make more text editable, add a field there and use it via `getPageText()`.
 
 Club-wide details (meeting time/venue, phone, email, social links) are in `lib/site.ts` — each is marked `placeholder` until confirmed.
 Legal pages (`app/privacy`, `cookies`, `accessibility`, `terms`) are drafts to be reviewed before launch.

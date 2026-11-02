@@ -20,7 +20,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
       <h1 className="text-3xl">Admin dashboard</h1>
       {denied && <p role="alert" className="rounded-xl bg-red-50 p-3 font-medium text-red-800">Your role doesn&apos;t have access to that area.</p>}
       {todo.length > 0 && <ul className="grid gap-4 sm:grid-cols-3">{todo.map(([l, n, h]) => <li key={h as string}><Link href={h as string}><Card><CardBody><p className="text-3xl font-extrabold text-rotary">{n as number}</p><p className="text-sm">{l as string}</p></CardBody></Card></Link></li>)}</ul>}
-      <ul className="grid gap-3 sm:grid-cols-2">{resources.filter((r) => canManage(s.role, r.key)).map((r) => <li key={r.key}><Link href={`/admin/${r.key}`} className="block rounded-card border border-slate-200 p-4 font-semibold hover:border-rotary">{r.title} →</Link></li>)}</ul>
+      <ul className="grid gap-3 sm:grid-cols-2">{canManage(s.role, "pages") && <li><Link href="/admin/page-text" className="block rounded-card border-2 border-rotary p-4 font-semibold hover:bg-rotary-light">Page text (headings, wording, buttons) →</Link></li>}{resources.filter((r) => canManage(s.role, r.key)).map((r) => <li key={r.key}><Link href={`/admin/${r.key}`} className="block rounded-card border border-slate-200 p-4 font-semibold hover:border-rotary">{r.title} →</Link></li>)}</ul>
     </div>
   );
 }

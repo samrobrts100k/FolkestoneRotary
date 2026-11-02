@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getContentItems, getNews, getSponsors, getStats, getUpcomingEvents } from "@/lib/content";
+import { getContentItems, getNews, getPageText, getSponsors, getStats, getUpcomingEvents } from "@/lib/content";
 import { Hero } from "@/components/home/hero";
 import { StatsBand } from "@/components/home/stats";
 import { EventTickets } from "@/components/home/tickets";
@@ -17,23 +17,23 @@ export const metadata: Metadata = buildMetadata({ title: `${site.name} – ${sit
 const moreCls = "font-bold text-rotary underline";
 
 export default async function HomePage() {
-  const [stats, events, news, testimonials, sponsors] = await Promise.all([getStats(), getUpcomingEvents(3), getNews(), getContentItems("testimonial"), getSponsors()]);
+  const [stats, events, news, testimonials, sponsors, t, jt] = await Promise.all([getStats(), getUpcomingEvents(3), getNews(), getContentItems("testimonial"), getSponsors(), getPageText("home"), getPageText("join")]);
   return (
     <>
-      <Hero />
+      <Hero t={t} card={{ title: jt.cardTitle, btn: jt.cardBtn, fine: jt.cardFine }} />
       <StatsBand stats={stats} quote={testimonials[0]} />
       <Section>
-        <SectionHeading title="What’s on" intro="Come for the fun. The money stays in Folkestone." />
+        <SectionHeading title={t.eventsTitle} intro={t.eventsIntro} />
         <EventTickets events={events} />
-        <p className="mt-7"><Link href="/events" className={moreCls}>See all events</Link></p>
+        <p className="mt-7"><Link href="/events" className={moreCls}>{t.eventsLink}</Link></p>
       </Section>
       <Section className="pt-0 sm:pt-0">
-        <SectionHeading title="News from the club" />
+        <SectionHeading title={t.newsTitle} />
         <NewsList items={news.slice(0, 4)} />
-        <p className="mt-7"><Link href="/news" className={moreCls}>All news</Link></p>
+        <p className="mt-7"><Link href="/news" className={moreCls}>{t.newsLink}</Link></p>
       </Section>
-      <SponsorRow sponsors={sponsors} />
-      <JoinCta />
+      <SponsorRow sponsors={sponsors} t={t} />
+      <JoinCta t={t} />
     </>
   );
 }

@@ -11,9 +11,11 @@ import { cat } from "@/lib/event-categories";
 import { googleCalendarUrl, mapsUrl } from "@/lib/ics";
 import { formatDate, formatTime } from "@/lib/utils";
 import { site } from "@/lib/site";
+import { getPageText } from "@/lib/content";
 
 /** One event, in the seafront design: hero with countdown, the story on the left, a ticket with the essentials on the right. */
-export function EventView({ e }: { e: EventItem }) {
+export async function EventView({ e }: { e: EventItem }) {
+  const t = await getPageText("events");
   const url = `${site.url}/events/${e.slug}`;
   const future = new Date(e.starts_at) > new Date();
   const [cn, col, light] = cat(e.category);
@@ -40,19 +42,19 @@ export function EventView({ e }: { e: EventItem }) {
       <section className="sec"><div className="wrap dtl">
         <div className="dtl-main">
           {e.image_url && <Photo src={e.image_url} alt={e.image_alt || e.title} ratio="aspect-[16/9]" className="dtl-pic" priority sizes="(min-width:1000px) 720px, 100vw" />}
-          <h2 className="s">About this event</h2>
+          <h2 className="s">{t.evAbout}</h2>
           <div className="dtl-copy">{e.description.split(/\n\n+/).map((p, i) => <p key={i}>{p}</p>)}</div>
 
           {e.programme?.length ? (<>
-            <h2 className="s">On the day</h2>
+            <h2 className="s">{t.evDay}</h2>
             <ol className="dtl-prog">{e.programme.map((p) => <li key={p.time + p.item}><b>{p.time}</b><span>{p.item}</span></li>)}</ol>
           </>) : null}
 
-          <h2 className="s">Tickets and entry</h2>
-          <div className="dtl-copy"><p>{e.ticket_info || "Details coming soon. Ask us and we’ll let you know first."}</p></div>
+          <h2 className="s">{t.evTickets}</h2>
+          <div className="dtl-copy"><p>{e.ticket_info || t.evTicketsNone}</p></div>
 
           {e.sponsors?.length ? (<>
-            <h2 className="s">With thanks to</h2>
+            <h2 className="s">{t.evThanks}</h2>
             <ul className="dtl-chips">{e.sponsors.map((s) => <li key={s}>{s}</li>)}</ul>
           </>) : null}
 
@@ -67,7 +69,7 @@ export function EventView({ e }: { e: EventItem }) {
           </>) : null}
 
           {e.faq?.length ? (<>
-            <h2 className="s">Questions</h2>
+            <h2 className="s">{t.evFaq}</h2>
             <Accordion items={e.faq.map((f) => ({ q: f.q, a: f.a }))} />
           </>) : null}
         </div>
@@ -100,8 +102,8 @@ export function EventView({ e }: { e: EventItem }) {
       </div></section>
 
       <section className="sec" style={{ paddingTop: 0 }}><div className="wrap"><div className="meet" data-rv>
-        <h2>Help make it happen</h2>
-        <div><p>Put your business on the programme, or give a morning to help it run.</p><Link className="btn" href="/contact?subject=Sponsorship">Sponsor this event</Link>{" "}<Link className="btn ghost" href="/join">Volunteer</Link></div>
+        <h2>{t.evCtaTitle}</h2>
+        <div><p>{t.evCtaText}</p><Link className="btn" href="/contact?subject=Sponsorship">{t.evCtaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.evCtaBtn2}</Link></div>
       </div></div></section>
     </DxRoot>
   );

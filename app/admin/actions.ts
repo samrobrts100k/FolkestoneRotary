@@ -6,6 +6,7 @@ import { createAdminClient, createSessionClient } from "@/lib/supabase/server";
 import { buildRow } from "@/lib/admin/build-row";
 import { fundingStatuses, getResource } from "@/lib/admin/resources";
 import { isRole, canManage } from "@/lib/permissions";
+import { PAGE_TEXT, isPageKey, pageTextSlug, textFields } from "@/lib/page-text";
 
 export interface SaveState { errors?: Record<string, string>; message?: string }
 
@@ -103,4 +104,22 @@ export async function deleteMedia(id: string) {
   const { data } = await sb.from("media").select("storage_path").eq("id", id).maybeSingle();
   if (data) { const [bucket, ...rest] = data.storage_path.split("/"); await sb.storage.from(bucket).remove([rest.join("/")]); await sb.from("media").delete().eq("id", id); }
   revalidatePath("/admin/media");
+}
+
+/** Saves the wording for one page. Only fields that differ from the default are stored, so blank = default. */
+export async function savePageText(page: string, _: SaveState, fd: FormData): Promise<SaveState & { ok?: boolean }> {
+  await requireStaff("pages");
+  if (!isPageKey(page)) return { message: "Unknown page." };
+  const body: Record<string, string> = {};
+  for (const [k, f] of textFields(page)) {
+    const v = String(fd.get(k) ?? "").replace(/\r\n/g, "\n").trim();
+    if (v && v !== f.def) body[k] = v;
+  }
+  const { error } = await (await createSessionClient()).from("pages").upsert(
+    { slug: pageTextSlug(page), title: `${PAGE_TEXT[page].label} page text`, body: JSON.stringify(body), status: "published" },
+    { onConflict: "slug" },
+  );
+  if (error) return { message: `Couldn't save: ${error.message}` };
+  refresh();
+  return { ok: true, message: `Saved. The ${PAGE_TEXT[page].label} page now shows your wording.` };
 }

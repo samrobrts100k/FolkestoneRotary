@@ -3,13 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/lib/site";
-import { HomeReserveCard } from "@/components/dx/join";
+import { HomeReserveCard, type CardText } from "@/components/dx/join";
+import type { PageText } from "@/lib/page-text";
 
-const TITLE = "Making a difference in Folkestone";
 /** Longest a clip plays before the montage cross-fades to the next one. */
 const CLIP_MS = 7000;
 
-export function Hero() {
+export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
+  const TITLE = t.heroTitle;
   const videos = site.heroVideos;
   const hasFilm = Boolean(site.filmUrl);
   return (
@@ -29,12 +30,12 @@ export function Hero() {
             ))}
           </h1>
           <p className="rise mb-7 max-w-[32em] text-lg text-[#E1ECF8] sm:text-xl" style={{ "--d": "550ms" } as React.CSSProperties}>
-            We’re local people who raise money, give time and back the charities, young people and projects that make this town work.
+            {t.heroLead}
           </p>
           <div className="rise flex flex-wrap items-center gap-x-7 gap-y-4" style={{ "--d": "700ms" } as React.CSSProperties}>
-            <ButtonLink href="/join" variant="gold" size="lg">Join us</ButtonLink>
-            <Link href="/events" className="font-bold text-white underline">View events</Link>
-            <Link href="/funding" className="font-bold text-white underline">Apply for funding</Link>
+            <ButtonLink href="/join" variant="gold" size="lg">{t.heroBtn}</ButtonLink>
+            <Link href="/events" className="font-bold text-white underline">{t.heroLink1}</Link>
+            <Link href="/funding" className="font-bold text-white underline">{t.heroLink2}</Link>
           </div>
           {(videos.length > 0 || hasFilm) && (
             <div className="rise mt-10 flex flex-wrap items-center gap-4 border-t border-white/30 pt-5" style={{ "--d": "850ms" } as React.CSSProperties}>
@@ -43,7 +44,7 @@ export function Hero() {
             </div>
           )}
         </div>
-        <div className="rise w-full max-w-[460px]" style={{ "--d": "650ms" } as React.CSSProperties}><HomeReserveCard /></div>
+        <div className="rise w-full max-w-[460px]" style={{ "--d": "650ms" } as React.CSSProperties}><HomeReserveCard text={card} /></div>
       </div>
     </section>
   );

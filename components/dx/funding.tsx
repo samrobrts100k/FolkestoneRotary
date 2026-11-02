@@ -166,6 +166,7 @@ export function StartButton({ children }: { children: React.ReactNode }) {
   return <button className="btn gold" type="button" onClick={jump}>{children}</button>;
 }
 
+/** Colour and icon for each "What we fund" card; the wording comes from the admin. */
 const FUND: [string, string, string, string][] = [
   ["Community projects", "Equipment, venue hire, activity programmes", "#005DAA", "M3 11l9-7 9 7v9H3zM9 20v-6h6v6"],
   ["Schools and young people", "Enterprise days, books, trips, sport", "#4d93cc", "M3 9l9-5 9 5-9 5zM7 11.5V16q5 3 10 0v-4.5"],
@@ -173,10 +174,10 @@ const FUND: [string, string, string, string][] = [
   ["Families in need", "Starter packs, Christmas support", "#c9780a", "M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7c-2.5 0-4-1-4-2.5S9.5 2 12 5c2.5-3 4-1 4 2"],
   ["Events and heritage", "Festivals, gardens, local history", "#0B1F3A", "M5 21V4h11l-1.5 4 1.5 4H5"],
 ];
-export function FundCards() {
+export function FundCards({ cards }: { cards: [string, string][] }) {
   return (
     <div className="fgrid">
-      {FUND.map(([t, p, c, ic], i) => (
+      {FUND.map(([, , c, ic], i) => [cards[i]?.[0] ?? "", cards[i]?.[1] ?? "", c, ic]).filter(([t]) => t).map(([t, p, c, ic], i) => (
         <article className="fcard" data-rv key={t} style={{ ["--c" as string]: c, ["--i" as string]: i }}>
           <span className="pic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={ic} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
           <h3>{t}</h3><p>{p}</p>
@@ -186,7 +187,7 @@ export function FundCards() {
   );
 }
 
-export function Track() {
+export function Track({ steps }: { steps: [string, string][] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
@@ -196,7 +197,7 @@ export function Track() {
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  const T = [["Received", "You get a reference by email."], ["Read by a panel member", "They may ask a question or two."], ["Panel decides", "Approved, declined, or more information needed."], ["Funds paid", "Then tell us how it went."]];
+  const T = steps.filter(([b]) => b);
   return (
     <div className={`ftrack${on ? " in" : ""}`} ref={ref}>
       <i className="fline" />

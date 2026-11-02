@@ -10,6 +10,11 @@ import { formatDate } from "@/lib/utils";
 import { googleCalendarUrl } from "@/lib/ics";
 import { meetingEnd, nextMeetings } from "@/lib/meetings";
 import { site } from "@/lib/site";
+import { toLines, type PageText } from "@/lib/page-text";
+
+/** Wording for the "Reserve your seat" card, from Admin → Page text (Join). */
+export interface CardText { title: string; btn: string; fine: string }
+const CARD: CardText = { title: "Reserve your seat", btn: "Reserve my seat", fine: "No obligation. We’ll be in touch to arrange your visit. By reserving you agree to us storing your details to reply, as described in the" };
 
 /** The next three lunch meetings (2nd and 4th Monday, 12:15), worked out in the browser. */
 function useDates() {
@@ -29,7 +34,7 @@ export function Reserve({ who, children, className }: { who?: string; children: 
 }
 
 /** The enquiry itself: pick a lunch date, give a name and email. Used in the hero and in the pop-up. */
-function ReserveForm({ prefix, sel, setSel, who, onDone }: { prefix: string; sel: number; setSel: (n: number) => void; who: string; onDone?: () => void }) {
+function ReserveForm({ prefix, sel, setSel, who, onDone, text = CARD }: { prefix: string; sel: number; setSel: (n: number) => void; who: string; onDone?: () => void; text?: CardText }) {
   const dates = useDates();
   const { state, pending, submit } = useSubmit(submitMembership, "membership_enquiry");
   const [name, setName] = useState(""); const [email, setEmail] = useState("");
@@ -70,14 +75,14 @@ function ReserveForm({ prefix, sel, setSel, who, onDone }: { prefix: string; sel
       <Fl id={`${prefix}n`} label="Your name" value={name} onChange={(v) => { setName(v); setBad((b) => ({ ...b, n: undefined })); }} auto="name" bad={bad.n} error={state.errors?.name} />
       <Fl id={`${prefix}e`} label="Email" type="email" mode="email" value={email} onChange={(v) => { setEmail(v); setBad((b) => ({ ...b, e: undefined })); }} auto="email" bad={bad.e} error={state.errors?.email} />
       <ServerMessage message={!state.ok ? state.message : undefined} />
-      <button className="btn gold blk" type="submit" disabled={pending}>{pending ? "Sending…" : "Reserve my seat"}</button>
-      <p className="fine">No obligation. We’ll be in touch to arrange your visit. By reserving you agree to us storing your details to reply, as described in the <Link href="/privacy">Privacy Policy</Link>.</p>
+      <button className="btn gold blk" type="submit" disabled={pending}>{pending ? "Sending…" : text.btn}</button>
+      <p className="fine">{text.fine} <Link href="/privacy">Privacy Policy</Link>.</p>
     </form>
   );
 }
 
 /** Wraps the Join page: owns the chosen date, the pop-up and the sticky bar. */
-export function JoinShell({ children, hero }: { children: React.ReactNode; hero: React.ReactNode }) {
+export function JoinShell({ children, hero, text = CARD, barBtn = "Reserve a seat" }: { children: React.ReactNode; hero: React.ReactNode; text?: CardText; barBtn?: string }) {
   const [sel, setSel] = useState(0);
   const [who, setWho] = useState("");
   const [booked, setBooked] = useState(false);
@@ -96,24 +101,24 @@ export function JoinShell({ children, hero }: { children: React.ReactNode; hero:
       {children}
       <dialog className="sheet jdlg" ref={dlg} aria-labelledby="jdt" onCancel={(e) => { e.preventDefault(); shut(); }} onClick={(e) => { if (e.target === dlg.current) shut(); }}>
         <button className="x" type="button" aria-label="Close" onClick={shut}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" /></svg></button>
-        <div className="top"><h3 id="jdt">Reserve your seat</h3><p style={{ margin: 0, color: "#dbe8f6" }}>{who ? `Reserving as ${who}.` : "No obligation. Someone will be in touch."}</p></div>
-        <div className="bodyx"><ReserveForm prefix="d" sel={sel} setSel={setSel} who={who} onDone={() => setBooked(true)} /></div>
+        <div className="top"><h3 id="jdt">{text.title}</h3><p style={{ margin: 0, color: "#dbe8f6" }}>{who ? `Reserving as ${who}.` : "No obligation. Someone will be in touch."}</p></div>
+        <div className="bodyx"><ReserveForm prefix="d" sel={sel} setSel={setSel} who={who} onDone={() => setBooked(true)} text={text} /></div>
       </dialog>
       <div className={`jbar${past && !booked ? " up" : ""}`} hidden={!past || booked}>
         <span><b>Next lunch</b> <em>{dates[0] ? dates[0].toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) + ", 12:15" : ""}</em></span>
-        <button className="btn gold" type="button" onClick={() => open()}>Reserve a seat</button>
+        <button className="btn gold" type="button" onClick={() => open()}>{barBtn}</button>
       </div>
     </JoinCtx.Provider>
   );
 }
 
-export function JoinHeroCard() {
+export function JoinHeroCard({ text = CARD }: { text?: CardText }) {
   const { sel, setSel } = useReserve();
   const dates = useDates();
   return (
     <div className="glass jhero" id="jhero">
-      <div className="jtop"><div><b className="t">Reserve your seat</b><span className="jwhen">{dates[sel] ? formatDate(dates[sel].toISOString(), { weekday: "long", day: "numeric", month: "long" }) + ", 12:15" : ""}</span></div>{dates[0] && <Cd to={dates[0].getTime()} small label="Time until the next lunch" />}</div>
-      <ReserveForm prefix="h" sel={sel} setSel={setSel} who="" />
+      <div className="jtop"><div><b className="t">{text.title}</b><span className="jwhen">{dates[sel] ? formatDate(dates[sel].toISOString(), { weekday: "long", day: "numeric", month: "long" }) + ", 12:15" : ""}</span></div>{dates[0] && <Cd to={dates[0].getTime()} small label="Time until the next lunch" />}</div>
+      <ReserveForm prefix="h" sel={sel} setSel={setSel} who="" text={text} />
     </div>
   );
 }
@@ -126,25 +131,27 @@ const PERSONAS: { t: string; who: string; hk: string; pts: string[]; c: string; 
   { t: "Under 30", who: "under 30", hk: "Your ideas, your skills, a network that opens doors.", pts: ["Bring ideas the club hasn’t tried", "Run the social media for an event", "Build skills and a local network"], c: "#c9780a", ic: "M12 3l2.6 5.8 6.4.7-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3L3 9.5l6.4-.7z" },
 ];
 
-export function Personas() {
+export function Personas({ t }: { t: PageText<"join"> }) {
+  const cards = PERSONAS.map((p, i) => { const n = i + 1 as 1 | 2 | 3 | 4 | 5; return { ...p, t: t[`p${n}Title`], hk: t[`p${n}Hook`], pts: toLines(t[`p${n}Pts`]) }; });
   return (
     <div className="pgrid">
-      {PERSONAS.map((p, i) => (
+      {cards.map((p, i) => (
         <article className="pcard" data-rv key={p.t} style={{ ["--c" as string]: p.c, ["--i" as string]: i }}>
           <span className="pic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={p.ic} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
           <h3>{p.t}</h3><p className="hk">{p.hk}</p>
           <ul>{p.pts.map((x) => <li key={x}>{x}</li>)}</ul>
-          <Reserve className="pbtn" who={p.who}>Come along<i aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></i></Reserve>
+          <Reserve className="pbtn" who={p.who}>{t.cardCta}<i aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></i></Reserve>
         </article>
       ))}
     </div>
   );
 }
 
-const SEATS: ([string, string, string] | null)[] = [["Retired teacher", "R", "#4d93cc"], ["Print shop owner", "P", "#F7A81B"], null, ["Student nurse", "S", "#005DAA"], ["Lifeboat volunteer", "L", "#c9780a"], ["Café owner", "C", "#0B1F3A"], null, ["Retired engineer", "E", "#4d93cc"], ["Primary school teacher", "T", "#005DAA"], null];
+/** Seat colours round the table; null is a free chair. */
+const SLOTS: (string | null)[] = ["#4d93cc", "#F7A81B", null, "#005DAA", "#c9780a", "#0B1F3A", null, "#4d93cc", "#005DAA", null];
 
 /** Pull up a chair: the kinds of people you would sit with, and the free seats. */
-export function Table() {
+export function Table({ t }: { t: PageText<"join"> }) {
   const [on, setOn] = useState<number | null>(null);
   const [seen, setSeen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -155,6 +162,10 @@ export function Table() {
     io.observe(el);
     return () => io.disconnect();
   }, []);
+  // Names come from the admin; colours and the three free chairs keep their places.
+  const names = toLines(t.seats);
+  let n = 0;
+  const SEATS = SLOTS.map((c) => (c && names[n] ? ((x) => [x, x[0].toUpperCase(), c] as [string, string, string])(names[n++]) : null));
   const seat = (m: (typeof SEATS)[number], i: number) => m
     ? <button key={i} type="button" className={`sit${on === i ? " on" : ""}`} style={{ ["--c" as string]: m[2], ["--i" as string]: i }} aria-pressed={on === i} aria-label={m[0]} onClick={() => setOn(on === i ? null : i)}><span className="av">{m[1]}</span><b>{m[0]}</b></button>
     : <Reserve key={i} className="sit free"><span className="av" style={{ ["--i" as string]: i }}>+</span><b>Your seat</b></Reserve>;
@@ -163,23 +174,23 @@ export function Table() {
       <div className="trow">{SEATS.slice(0, 5).map((m, i) => seat(m, i))}</div>
       <div className="tbar" aria-hidden="true"><i /><i /><i /><i /><i /></div>
       <div className="trow">{SEATS.slice(5).map((m, i) => seat(m, i + 5))}</div>
-      <p className="tbl-note" aria-live="polite">{on !== null && SEATS[on] ? `${SEATS[on]![0]}. The kind of person you might sit next to.` : "Three seats free. Yours?"}</p>
+      <p className="tbl-note" aria-live="polite">{on !== null && SEATS[on] ? `${SEATS[on]![0]}. The kind of person you might sit next to.` : t.tableNote}</p>
     </div>
   );
 }
 
-export function JoinCta() {
+export function JoinCta({ t }: { t: PageText<"join"> }) {
   return (
-    <div className="jcta" data-rv><div><h2>Your seat’s waiting.</h2><p>It takes ten seconds. Pick a lunch date, tell us your name and email, and someone will be in touch.</p></div><Reserve className="btn gold">Reserve my seat</Reserve></div>
+    <div className="jcta" data-rv><div><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p></div><Reserve className="btn gold">{t.ctaBtn}</Reserve></div>
   );
 }
 
 /** The Join page's "Reserve your seat" card on its own, for the home hero. Brings the dx styles with it. */
-export function HomeReserveCard() {
+export function HomeReserveCard({ text }: { text: CardText }) {
   const [sel, setSel] = useState(0);
   return (
     <JoinCtx.Provider value={{ open: () => {}, sel, setSel }}>
-      <div className="dx dx-bare"><JoinHeroCard /></div>
+      <div className="dx dx-bare"><JoinHeroCard text={text} /></div>
     </JoinCtx.Provider>
   );
 }

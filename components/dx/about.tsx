@@ -7,8 +7,7 @@ const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
 const reduced = () => typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** "Rotary is a group of neighbours / friends / leaders / problem-solvers." with one word swapping in place. */
-export function SwapWords() {
-  const words = ["neighbours.", "friends.", "leaders.", "problem-solvers."];
+export function SwapWords({ start, words }: { start: string; words: string[] }) {
   const [cur, setCur] = useState(0);
   const [prev, setPrev] = useState(-1);
   useEffect(() => {
@@ -18,8 +17,8 @@ export function SwapWords() {
   }, [words.length]);
   useEffect(() => { if (prev < 0) return; const t = setTimeout(() => setPrev(-1), 450); return () => clearTimeout(t); }, [prev]);
   return (
-    <p className="swap" aria-label="Rotary is a group of neighbours, friends, leaders and problem-solvers.">
-      Rotary is a group of{" "}
+    <p className="swap" aria-label={`${start} ${words.join(" ")}`}>
+      {start}{" "}
       <span className="swapbox" aria-hidden="true">
         {words.map((w, i) => <span key={w} className={i === cur ? "on" : i === prev ? "off" : ""}>{w}</span>)}
       </span>

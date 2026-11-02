@@ -11,6 +11,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const s = await requireStaff();
   const links = [
     ["/admin", "Dashboard"],
+    ...(canManage(s.role, "pages") ? [["/admin/page-text", "Page text"]] : []),
     ...resources.filter((r) => canManage(s.role, r.key)).map((r) => [`/admin/${r.key}`, r.title]),
     ...(canManage(s.role, "media") ? [["/admin/media", "Media library"]] : []),
     ...(canManage(s.role, "funding_applications") ? [["/admin/funding", "Funding applications"]] : []),

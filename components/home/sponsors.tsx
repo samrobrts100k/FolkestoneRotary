@@ -1,20 +1,21 @@
 import Link from "next/link";
 import { Reveal } from "@/components/motion";
 import type { Sponsor } from "@/lib/types";
+import type { PageText } from "@/lib/page-text";
 
 /** Thank-you row for the businesses behind our events, with an invitation for the next one. */
-export function SponsorRow({ sponsors }: { sponsors: Sponsor[] }) {
+export function SponsorRow({ sponsors, t }: { sponsors: Sponsor[]; t: PageText<"home"> }) {
   const sample = sponsors.some((s) => s.is_sample);
   return (
     <section className="pb-14 sm:pb-20">
       <div className="container">
         <div className="grid gap-8 border-t-2 border-navy pt-10 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
           <Reveal>
-            <h2 className="m-0 text-3xl leading-[1.1] sm:text-4xl">The local businesses behind us</h2>
-            <p className="mb-6 mt-3 text-lg text-slate-700">Sponsors put their name to our events and help them happen. Yours could be on the next one.</p>
+            <h2 className="m-0 text-3xl leading-[1.1] sm:text-4xl">{t.sponsorsTitle}</h2>
+            <p className="mb-6 mt-3 text-lg text-slate-700">{t.sponsorsIntro}</p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <Link href="/contact?subject=Sponsorship" className="inline-block rounded-full bg-rotary px-6 py-3 font-bold text-white no-underline transition duration-200 ease-out-quint hover:-translate-y-0.5 hover:bg-rotary-dark hover:shadow-lift active:scale-[0.97]">Become a sponsor</Link>
-              <Link href="/sponsors" className="font-bold text-rotary underline decoration-2 underline-offset-4 hover:text-navy">See all our sponsors</Link>
+              <Link href="/contact?subject=Sponsorship" className="inline-block rounded-full bg-rotary px-6 py-3 font-bold text-white no-underline transition duration-200 ease-out-quint hover:-translate-y-0.5 hover:bg-rotary-dark hover:shadow-lift active:scale-[0.97]">{t.sponsorsBtn}</Link>
+              <Link href="/sponsors" className="font-bold text-rotary underline decoration-2 underline-offset-4 hover:text-navy">{t.sponsorsLink}</Link>
             </div>
           </Reveal>
           {sponsors.length > 0 && (
