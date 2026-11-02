@@ -4,6 +4,8 @@ import { savePageText } from "@/app/admin/actions";
 import type { TextGroup } from "@/lib/page-text";
 import { Field, Input, Textarea } from "@/components/ui/fields";
 import { Button } from "@/components/ui/button";
+import { ImageField } from "./image-field";
+import { PhotoListField } from "./photo-list-field";
 
 const hintFor = (help?: string, tokens?: boolean) => [help, tokens ? "{meeting} and {venue} fill in the meeting time and place." : ""].filter(Boolean).join(" ") || undefined;
 
@@ -22,6 +24,8 @@ export function PageTextForm({ page, groups, values }: { page: string; groups: r
           <legend className="px-2 text-lg font-bold">{g.title}</legend>
           {Object.entries(g.fields).map(([name, f]) => {
             const v = values[name] ?? f.def;
+            if (f.kind === "photos") return <PhotoListField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
+            if (f.kind === "image") return <ImageField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
             return (
               <div key={name}>
                 <Field label={f.label} name={name} hint={hintFor(f.help, /\{(meeting|venue)\}/.test(f.def))}>

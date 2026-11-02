@@ -5,14 +5,19 @@
  *
  * In any field, {meeting} becomes the meeting time ("2nd and 4th Monday…") and {venue} the meeting place,
  * both from lib/site.ts. On Our impact, {amount} becomes the headline figure.
+ *
+ * `image` fields hold one photo URL; `photos` fields hold a JSON list of { url, alt } (see readPhotos). Both start empty.
  */
-export interface TextField { label: string; def: string; long?: boolean; lines?: boolean; help?: string }
+export interface TextField { label: string; def: string; long?: boolean; lines?: boolean; help?: string; kind?: "image" | "photos" }
 export interface TextGroup { title: string; fields: Record<string, TextField> }
 export interface TextPage { label: string; path: string; groups: TextGroup[] }
 
 const f = (label: string, def: string, extra: Partial<TextField> = {}): TextField => ({ label, def, ...extra });
 const long = (label: string, def: string, extra: Partial<TextField> = {}) => f(label, def, { long: true, ...extra });
 const lines = (label: string, def: string[], extra: Partial<TextField> = {}) => f(label, def.join("\n"), { lines: true, help: "One per line.", ...extra });
+const image = (label: string, help?: string): TextField => ({ label, def: "", kind: "image", help });
+/** A heading plus a set of photos. Nothing shows on the page until a photo is added. */
+const photos = (title: string, help = "Add, remove and reorder photos. The section only appears once it has a photo.") => ({ photosTitle: f("Photos heading", title), photos: { label: "Photos", def: "", kind: "photos", help } as TextField });
 function panel(title: string, text: string, b1: string): { ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField };
 function panel(title: string, text: string, b1: string, b2: string): { ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField; ctaBtn2: TextField };
 function panel(title: string, text: string, b1: string, b2?: string) {
@@ -25,6 +30,7 @@ export const PAGE_TEXT = {
       heroTitle: f("Headline", "Making a difference in Folkestone"),
       heroLead: long("Introduction", "We’re local people who raise money, give time and back the charities, young people and projects that make this town work."),
       heroBtn: f("Gold button", "Join us"), heroLink1: f("First link", "View events"), heroLink2: f("Second link", "Apply for funding"),
+      heroPhoto: image("Background photo", "Shown behind the headline (darkened so the text stays readable). Hero videos, once added, play over it. Wide landscape photos work best."),
     } },
     { title: "What’s on", fields: { eventsTitle: f("Heading", "What’s on"), eventsIntro: long("Introduction", "Come for the fun. The money stays in Folkestone."), eventsLink: f("Link", "See all events") } },
     { title: "News", fields: { newsTitle: f("Heading", "News from the club"), newsLink: f("Link", "All news") } },
@@ -33,6 +39,7 @@ export const PAGE_TEXT = {
       sponsorsIntro: long("Introduction", "Sponsors put their name to our events and help them happen. Yours could be on the next one."),
       sponsorsBtn: f("Button", "Become a sponsor"), sponsorsLink: f("Link", "See all our sponsors"),
     } },
+    { title: "Photos", fields: photos("Folkestone Rotary in action") },
     { title: "Gold guest panel (bottom)", fields: panel("Come to a meeting as our guest", "{meeting}. At {venue}. No obligation.", "Ask to visit") },
   ] },
   about: { label: "About us", path: "/about", groups: [
@@ -45,6 +52,7 @@ export const PAGE_TEXT = {
     { title: "Our story", fields: { storyTitle: f("Heading", "Our story") } },
     { title: "Leadership", fields: { leadersTitle: f("Heading", "Pull up a chair"), leadersSub: long("Introduction", "This is who’s round the table at lunch. Tap a seat to say hello.") } },
     { title: "Rotary International", fields: { worldTitle: f("Heading", "Part of something bigger"), worldText: long("Paragraph", "Rotary International brings over a million Rotarians together on causes including peace, health, education and the environment.") } },
+    { title: "Photos", fields: photos("Life in the club") },
     { title: "Gold panel (bottom)", fields: panel("Come and meet us", "{meeting}, {venue}. Visitors are always welcome.", "Visit as a guest", "Get in touch") },
   ] },
   impact: { label: "Our impact", path: "/impact", groups: [
@@ -61,12 +69,14 @@ export const PAGE_TEXT = {
       timeSub: long("Volunteering text", "Collections, races, school visits and clear-ups. Every hour is given freely by members and friends."),
       timeBtn: f("Volunteering button", "Give some time"),
       galleryTitle: f("Photos heading", "Rotary in action"), reportsTitle: f("Reports heading", "Annual reports"),
+      photos: { label: "Photos", def: "", kind: "photos", help: "Add, remove and reorder photos for the “Rotary in action” section. It only appears once it has a photo." },
     } },
     { title: "Gold panel (bottom)", fields: panel("Help us do even more", "Give, volunteer or ask for funding for a project of your own.", "Apply for funding", "Join us") },
   ] },
   events: { label: "Events", path: "/events", groups: [
     { title: "Top of the page", fields: { heroTitle: f("Headline", "What’s on"), heroLead: long("Introduction", "Races, quizzes, collections and one very good golf day. Every ticket helps someone in Folkestone.") } },
     { title: "Harbour Arm timeline", fields: { yearTitle: f("Heading", "The year at a glance"), yearSub: long("Introduction", "Every date in the diary, flying from the Harbour Arm. Tap a flag for the details, drag along the arm, or use the arrows.") } },
+    { title: "Photos", fields: photos("From past events") },
     { title: "Gold panel (bottom)", fields: panel("Want to sponsor or volunteer at an event?", "Put your business on the programme, or give a morning to help it run.", "Sponsor an event", "Volunteer") },
     { title: "Each event’s own page", fields: {
       evAbout: f("“About” heading", "About this event"), evDay: f("Programme heading", "On the day"), evTickets: f("Tickets heading", "Tickets and entry"),
@@ -114,6 +124,7 @@ export const PAGE_TEXT = {
       fact3: f("Fact 3", "Come as you are"), fact3Sub: f("Fact 3 label", "Dress for your day"),
       fact4: f("Fact 4", "Always welcome"), fact4Sub: f("Fact 4 label", "Guests, no strings"),
     } },
+    { title: "Photos", fields: photos("Lunch with the club") },
     { title: "Questions and closing panel", fields: {
       faqTitle: f("Questions heading", "Questions people ask"),
       ...panel("Your seat’s waiting.", "It takes ten seconds. Pick a lunch date, tell us your name and email, and someone will be in touch.", "Reserve my seat"),
@@ -145,6 +156,7 @@ export const PAGE_TEXT = {
       s3: f("Step 3", "Panel decides"), s3Text: f("Step 3 text", "Approved, declined, or more information needed."),
       s4: f("Step 4", "Funds paid"), s4Text: f("Step 4 text", "Then tell us how it went."),
     } },
+    { title: "Photos", fields: photos("Projects we’ve backed") },
     { title: "Grants, questions and closing panel", fields: {
       grantsTitle: f("Recent grants heading", "Recent grants"), faqTitle: f("Questions heading", "Quick answers"),
       ...panel("Got a project in mind?", "It takes about five minutes, and you can stop and come back whenever you like.", "Start my application"),
@@ -179,6 +191,21 @@ export function mergeText<P extends PageKey>(p: P, saved: Record<string, unknown
   }
   return out as PageText<P>;
 }
+
+export interface PagePhoto { url: string; alt: string }
+const okUrl = (u: unknown): u is string => typeof u === "string" && /^(https:\/\/|\/)[^\s"'<>]*$/.test(u);
+
+/** Reads a `photos` field. Ignores anything that isn't a list of photos with a safe web address. */
+export function readPhotos(v: string | null | undefined): PagePhoto[] {
+  if (!v) return [];
+  try {
+    const list: unknown = JSON.parse(v);
+    if (!Array.isArray(list)) return [];
+    return list.filter((p) => p && okUrl(p.url)).slice(0, 48).map((p) => ({ url: p.url, alt: typeof p.alt === "string" ? p.alt.trim().slice(0, 300) : "" }));
+  } catch { return []; }
+}
+/** Reads an `image` field: the URL if it is safe to show, otherwise empty. */
+export const readImage = (v: string | null | undefined) => (okUrl(v) ? v : "");
 
 /** Turns a one-per-line field into a list, dropping blank lines. */
 export const toLines = (s: string) => s.split(/\r?\n/).map((x) => x.trim()).filter(Boolean);

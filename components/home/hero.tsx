@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { HomeReserveCard, type CardText } from "@/components/dx/join";
-import type { PageText } from "@/lib/page-text";
+import Image from "next/image";
+import { readImage, type PageText } from "@/lib/page-text";
 
 /** Longest a clip plays before the montage cross-fades to the next one. */
 const CLIP_MS = 7000;
@@ -13,11 +14,13 @@ export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
   const TITLE = t.heroTitle;
   const videos = site.heroVideos;
   const hasFilm = Boolean(site.filmUrl);
+  const photo = readImage(t.heroPhoto);
   return (
     <section id="hero" aria-labelledby="hero-title"
       className="on-dark relative isolate flex min-h-[clamp(620px,100svh,900px)] items-end overflow-hidden bg-navy text-white">
       <div aria-hidden className="absolute inset-0 -z-20">
         <div className="hero-poster absolute inset-0 overflow-hidden" />
+        {photo && <Image src={photo} alt="" fill priority sizes="100vw" className="object-cover" />}
         {videos.length > 0 && <Montage clips={videos} />}
       </div>
       <div aria-hidden className="hero-shade pointer-events-none absolute inset-0 -z-10" />

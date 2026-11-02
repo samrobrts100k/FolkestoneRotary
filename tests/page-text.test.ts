@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PAGE_TEXT, fill, isPageKey, mergeText, textFields, toLines, type PageKey } from "@/lib/page-text";
+import { PAGE_TEXT, fill, isPageKey, mergeText, readImage, readPhotos, textFields, toLines, type PageKey } from "@/lib/page-text";
 
 describe("page text", () => {
   const pages = Object.keys(PAGE_TEXT) as PageKey[];
@@ -10,7 +10,7 @@ describe("page text", () => {
       expect(new Set(keys).size, p).toBe(keys.length);
       for (const [k, f] of textFields(p)) {
         expect(f.label.trim(), `${p}.${k}`).not.toBe("");
-        expect(f.def.trim(), `${p}.${k}`).not.toBe("");
+        if (!f.kind) expect(f.def.trim(), `${p}.${k}`).not.toBe("");
       }
     }
   });
@@ -29,6 +29,16 @@ describe("page text", () => {
 
   it("splits one-per-line fields and drops blank lines", () => {
     expect(toLines("a\n\n  b \r\nc\n")).toEqual(["a", "b", "c"]);
+  });
+
+  it("reads photo lists safely", () => {
+    const ok = JSON.stringify([{ url: "https://x.supabase.co/a.jpg", alt: " Golf day " }, { url: "/local.jpg" }]);
+    expect(readPhotos(ok)).toEqual([{ url: "https://x.supabase.co/a.jpg", alt: "Golf day" }, { url: "/local.jpg", alt: "" }]);
+    expect(readPhotos(JSON.stringify([{ url: "javascript:alert(1)" }, { url: "http://insecure/a.jpg" }, { alt: "no url" }, null]))).toEqual([]);
+    expect(readPhotos("not json")).toEqual([]);
+    expect(readPhotos("")).toEqual([]);
+    expect(readImage("https://x.supabase.co/a.jpg")).toBe("https://x.supabase.co/a.jpg");
+    expect(readImage('https://x/a.jpg" onerror="x')).toBe("");
   });
 
   it("only accepts known pages", () => {

@@ -4,8 +4,8 @@ import { getContentItems, getGalleryImages, getPageText, getStats, getStories } 
 import { fill } from "@/lib/page-text";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPhotos } from "@/components/dx/photos";
 import { Huts, Quotes, StoryBento, VolunteerRing } from "@/components/dx/impact";
-import { Photo } from "@/components/ui/photo";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { gbp } from "@/lib/utils";
 import { Counter } from "@/components/motion";
@@ -34,7 +34,7 @@ export default async function ImpactPage() {
       <section className="sec grey" id="projects"><div className="wrap"><h2 className="s">{t.storiesTitle}</h2><p className="sub">{t.storiesSub}</p><StoryBento sample={sample} stories={stories.map((s) => ({ id: s.id, slug: s.slug, title: s.title, organisation: s.organisation, summary: s.summary, outcome: s.outcome, amount: s.amount_awarded, body: s.body }))} /></div></section>
       {testimonials.length > 0 && <section className="sec" id="testimonials"><div className="wrap"><h2 className="s">{t.quotesTitle}</h2><Quotes items={testimonials.map((t) => ({ id: t.id, quote: t.body ?? "", by: t.title }))} /></div></section>}
       <section className="sec grey" id="volunteering"><div className="wrap ringwrap"><VolunteerRing hours={hours} /><div style={{ maxWidth: "30em" }}><h2 className="s">{t.timeTitle}</h2><p className="sub">{t.timeSub}</p><Link className="btn blue" href="/join">{t.timeBtn}</Link></div></div></section>
-      {gallery.length > 0 && <section className="sec" id="gallery"><div className="wrap"><h2 className="s">{t.galleryTitle}</h2><ul className="gal">{gallery.map((g, i) => <li key={i}><Photo src={g.url || null} alt={g.alt || "Folkestone Rotary"} ratio="aspect-square" className="rounded-xl" sizes="(min-width:768px) 25vw, 50vw" /></li>)}</ul></div></section>}
+      <DxPhotos title={t.galleryTitle} value={t.photos} extra={gallery.map((g) => ({ url: g.url, alt: g.alt || "Folkestone Rotary" }))} />
       <section className="sec" id="reports"><div className="wrap"><h2 className="s">{t.reportsTitle}</h2><div style={{ maxWidth: 700, marginTop: 16 }}>{reports.map((r) => <div className="dl" key={r.id}><b>{r.title}</b>{r.url ? <a className="btn blue" href={r.url} download>Download PDF</a> : <span style={{ color: "var(--mute)" }}>PDF to be uploaded</span>}</div>)}</div></div></section>
       <section className="sec"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/funding">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.ctaBtn2}</Link></div></div></div></section>
     </DxRoot>

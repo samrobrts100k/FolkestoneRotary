@@ -4,6 +4,7 @@ import { getContentItems, getPageText, getStats } from "@/lib/content";
 import { toLines } from "@/lib/page-text";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPhotos } from "@/components/dx/photos";
 import { History, RoundTable, SwapWords, WorldNumbers } from "@/components/dx/about";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { site } from "@/lib/site";
@@ -23,6 +24,7 @@ export default async function AboutPage() {
       <section className="sec grey" id="history"><div className="wrap"><h2 className="s">{t.storyTitle}</h2>{sample && <p className="sub">Sample milestones. Replace with the club’s real history.</p>}<History items={timeline.map((t) => ({ id: t.id, title: t.title, body: t.body ?? "" }))} /></div></section>
       <section className="sec" id="leadership"><div className="wrap"><h2 className="s">{t.leadersTitle}</h2><p className="sub">{t.leadersSub}</p><RoundTable leaders={leaders.map((l) => ({ id: l.id, title: l.title, body: l.body }))} /></div></section>
       <section className="sec grey" id="rotary-international"><div className="wrap"><h2 className="s">{t.worldTitle}</h2><WorldNumbers clubGroups={groups} /><p className="sub" style={{ marginTop: 18 }}>{t.worldText} <a href="https://www.rotary.org" target="_blank" rel="noopener noreferrer">Visit rotary.org (opens in a new tab)</a>.</p></div></section>
+      <DxPhotos title={t.photosTitle} value={t.photos} />
       <section className="sec" id="how-we-meet"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/join">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/contact">{t.ctaBtn2}</Link></div></div></div></section>
     </DxRoot>
   );

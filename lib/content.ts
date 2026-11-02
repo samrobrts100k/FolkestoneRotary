@@ -4,7 +4,7 @@ import { createPublicClient } from "./supabase/server";
 import { isSupabaseConfigured } from "./supabase/env";
 import { isUpcoming, isVisible } from "./visibility";
 import type { ContentItem, EventItem, ImpactStory, NewsItem, Sponsor, Stat } from "./types";
-import { fill, mergeText, pageTextSlug, type PageKey, type PageText } from "./page-text";
+import { fill, mergeText, pageTextSlug, textFields, type PageKey, type PageText } from "./page-text";
 import { site } from "./site";
 
 /** Reads a table from Supabase, falling back to seed content when Supabase is not configured or errors. */
@@ -78,6 +78,6 @@ export async function getPageText<P extends PageKey>(p: P): Promise<PageText<P>>
   }
   const merged = mergeText(p, saved) as Record<string, string>;
   const vars = { meeting: site.meeting.when, venue: site.meeting.venue };
-  for (const k in merged) merged[k] = fill(merged[k], vars);
+  for (const [k, fd] of textFields(p)) if (!fd.kind) merged[k] = fill(merged[k], vars);
   return merged as PageText<P>;
 }

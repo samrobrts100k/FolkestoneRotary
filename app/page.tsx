@@ -7,6 +7,7 @@ import { EventTickets } from "@/components/home/tickets";
 import { NewsList } from "@/components/home/news-list";
 import { JoinCta } from "@/components/home/ctas";
 import { SponsorRow } from "@/components/home/sponsors";
+import { HomePhotos } from "@/components/home/photos";
 import { Section, SectionHeading } from "@/components/sections";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { site } from "@/lib/site";
@@ -32,6 +33,7 @@ export default async function HomePage() {
         <NewsList items={news.slice(0, 4)} />
         <p className="mt-7"><Link href="/news" className={moreCls}>{t.newsLink}</Link></p>
       </Section>
+      <HomePhotos title={t.photosTitle} value={t.photos} />
       <SponsorRow sponsors={sponsors} t={t} />
       <JoinCta t={t} />
     </>
