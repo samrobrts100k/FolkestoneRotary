@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   keywords: ["Folkestone Rotary", "Rotary Club Folkestone", "Volunteer Folkestone", "Charity events Folkestone", "Community funding Folkestone", "Folkestone Half Marathon", "Folkestone Rotary Golf Day"],
   openGraph: { siteName: site.name, locale: "en_GB", type: "website" },
   verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } : undefined,
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: [{ url: "/brand/wheel-64.png", type: "image/png" }], apple: "/brand/apple-touch-icon.png" },
 };
 export const viewport: Viewport = { themeColor: "#005DAA", width: "device-width", initialScale: 1 };
 

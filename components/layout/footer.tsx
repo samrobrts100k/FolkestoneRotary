@@ -15,7 +15,7 @@ export function Footer() {
     <footer className="bg-navy text-white/85">
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-4">
-          <Logo light />
+          <Logo light size="footer" />
           <p className="text-sm leading-relaxed">{site.description}</p>
           <ul className="flex gap-2">
             {social.map(({ href, label, Icon }) => (
