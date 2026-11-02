@@ -15,16 +15,21 @@ const BG: Record<string, string> = {
 };
 
 /** Dark hero with the Folkestone skyline. The page header sits transparent on top of it (see Header's `heroPaths`). */
-export function DxHero({ page, title, lead, crumb, extra, aside }: { page: keyof typeof BG; title: string; lead: string; crumb: string; extra?: React.ReactNode; aside?: React.ReactNode }) {
-  const trail = [{ name: "Home", path: "/" }, { name: crumb, path: `/${page}` }];
+export function DxHero({ page, title, lead, crumb, sub, extra, aside }: {
+  page: keyof typeof BG; title: string; lead: string; crumb: string;
+  /** A detail page under this section (an event or article): adds it to the trail and uses a smaller headline. */
+  sub?: { name: string; path: string };
+  extra?: React.ReactNode; aside?: React.ReactNode;
+}) {
+  const trail = [{ name: "Home", path: "/" }, { name: crumb, path: `/${page}` }, ...(sub ? [sub] : [])];
   return (
-    <div className="ph" id="hero" style={{ ["--bg" as string]: BG[page] }}>
+    <div className={`ph${sub ? " phd" : ""}`} id="hero" style={{ ["--bg" as string]: BG[page] }}>
       <div dangerouslySetInnerHTML={{ __html: SKY_DEFS }} />
       <div aria-hidden dangerouslySetInnerHTML={{ __html: SKY_HERO }} />
       <JsonLd data={breadcrumbLd(trail)} />
       <div className="wrap">
         <div>
-          <p className="crumb"><Link href="/">Home</Link> / {crumb}</p>
+          <p className="crumb"><Link href="/">Home</Link> / {sub ? <Link href={`/${page}`}>{crumb}</Link> : crumb}</p>
           <h1 id={`h-${page}`}>{title.split(" ").map((w, i) => <Fragment key={i}><span className="w" style={{ ["--i" as string]: i }}>{w}</span>{" "}</Fragment>)}</h1>
           <p className="lead">{lead}</p>
           {extra}

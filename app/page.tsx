@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getContentItems, getNews, getStats, getUpcomingEvents } from "@/lib/content";
+import { getContentItems, getNews, getSponsors, getStats, getUpcomingEvents } from "@/lib/content";
 import { Hero } from "@/components/home/hero";
 import { StatsBand } from "@/components/home/stats";
 import { EventTickets } from "@/components/home/tickets";
 import { NewsList } from "@/components/home/news-list";
 import { JoinCta } from "@/components/home/ctas";
+import { SponsorRow } from "@/components/home/sponsors";
 import { Section, SectionHeading } from "@/components/sections";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { site } from "@/lib/site";
@@ -16,7 +17,7 @@ export const metadata: Metadata = buildMetadata({ title: `${site.name} – ${sit
 const moreCls = "font-bold text-rotary underline";
 
 export default async function HomePage() {
-  const [stats, events, news, testimonials] = await Promise.all([getStats(), getUpcomingEvents(3), getNews(), getContentItems("testimonial")]);
+  const [stats, events, news, testimonials, sponsors] = await Promise.all([getStats(), getUpcomingEvents(3), getNews(), getContentItems("testimonial"), getSponsors()]);
   return (
     <>
       <Hero />
@@ -31,6 +32,7 @@ export default async function HomePage() {
         <NewsList items={news.slice(0, 4)} />
         <p className="mt-7"><Link href="/news" className={moreCls}>All news</Link></p>
       </Section>
+      <SponsorRow sponsors={sponsors} />
       <JoinCta />
     </>
   );

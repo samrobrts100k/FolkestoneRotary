@@ -42,21 +42,25 @@ export function CookieConsent() {
         </>
       )}
       {!c.decided && (
-        <div role="dialog" aria-modal="false" aria-labelledby="cc-title" className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-card border border-slate-200 bg-white p-5 shadow-lift">
-          <h2 id="cc-title" className="text-lg font-bold">Your privacy choices</h2>
-          <p className="mt-1 text-sm text-slate-700">We use essential cookies to make the site work. With your permission we also use analytics cookies to understand how the site is used. See our <a href="/cookies" className="font-semibold text-rotary underline">Cookie Policy</a>.</p>
+        <div role="dialog" aria-modal="false" aria-labelledby="cc-title" aria-describedby="cc-text" className="fixed inset-x-2 bottom-2 z-50 mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-lift sm:inset-x-3 sm:bottom-3 sm:rounded-card sm:p-5">
+          <h2 id="cc-title" className="sr-only text-lg font-bold sm:not-sr-only">Your privacy choices</h2>
+          <p id="cc-text" className="m-0 text-[14px] leading-snug text-slate-700 sm:mt-1 sm:text-sm">
+            <span className="sm:hidden">Can we use analytics cookies to see how the site is used? </span>
+            <span className="hidden sm:inline">We use essential cookies to make the site work. With your permission we also use analytics cookies to understand how the site is used. </span>
+            <a href="/cookies" className="font-semibold text-rotary underline">Cookie Policy</a>
+          </p>
           {manage && (
             <div className="mt-3 space-y-2 rounded-xl bg-surface p-3 text-sm">
               <label className="flex items-center gap-3"><input type="checkbox" checked disabled className="h-5 w-5" /> <span><strong>Essential</strong> – always on (security, login, this choice)</span></label>
               <label className="flex items-center gap-3"><input type="checkbox" checked={pref} onChange={(e) => setPref(e.target.checked)} className="h-5 w-5 accent-rotary" /> <span><strong>Analytics</strong> – anonymous usage statistics</span></label>
             </div>
           )}
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => save(true)}>Accept All</Button>
-            <Button size="sm" variant="outline" onClick={() => save(false)}>Reject Non-Essential</Button>
+          <div className="mt-2.5 grid grid-cols-[1fr_1fr_auto] items-center gap-2 sm:mt-4 sm:flex sm:flex-wrap">
+            <Button size="sm" className="min-h-11 px-3 sm:min-h-10 sm:px-4" onClick={() => save(true)}><span className="sm:hidden">Accept</span><span className="hidden sm:inline">Accept All</span></Button>
+            <Button size="sm" variant="outline" className="min-h-11 px-3 sm:min-h-10 sm:px-4" onClick={() => save(false)}><span className="sm:hidden">Reject</span><span className="hidden sm:inline">Reject Non-Essential</span></Button>
             {manage
-              ? <Button size="sm" variant="ghost" onClick={() => save(pref)}>Save preferences</Button>
-              : <Button size="sm" variant="ghost" onClick={() => setManage(true)}>Manage Preferences</Button>}
+              ? <Button size="sm" variant="ghost" className="min-h-11 px-2 sm:min-h-10 sm:px-4" onClick={() => save(pref)}><span className="sm:hidden">Save</span><span className="hidden sm:inline">Save preferences</span></Button>
+              : <Button size="sm" variant="ghost" className="min-h-11 px-2 sm:min-h-10 sm:px-4" onClick={() => setManage(true)}><span className="sm:hidden">Options</span><span className="hidden sm:inline">Manage Preferences</span></Button>}
           </div>
         </div>
       )}

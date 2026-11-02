@@ -73,9 +73,10 @@ All forms use a honeypot, a minimum-fill-time check, per-IP rate limiting and (o
 
 ## Design system (the `dx` pages)
 
-The About, Our impact, Events, News, Join, Funding and Contact pages use the Folkestone skyline design from `design-demos/demo-site.html`.
+The About, Our impact, Events, News, Join, Funding and Contact pages, plus each event and news article page, use the Folkestone skyline design from `design-demos/demo-site.html`.
 
 - `app/dx.css` is generated: run `node scripts/port-demo-css.mjs` after changing the demo's CSS. Every rule is scoped under `.dx`, so it cannot affect the rest of the site. Hand-written additions live in `app/dx-extra.css`.
-- `components/dx/*` holds the interactive pieces. `DxRoot` wraps a page and `DxHero` draws the hero and skyline (`lib/skyline.ts`).
+- `components/dx/*` holds the interactive pieces. `DxRoot` wraps a page and `DxHero` draws the hero and skyline (`lib/skyline.ts`); pass `sub` for an event or article page. `components/event-view.tsx` and `components/news-view.tsx` are those pages (the admin Preview uses them too).
+- Pick new class names that don't already exist in `app/dx.css` (for example `.sub`, `.gold`, `.acts`), or they inherit the demo's rules.
 - The forms post to the existing server actions in `app/actions/forms.ts`. Funding and guest-visit enquiries only require the essentials (see `lib/forms/schemas.ts`); everything else is optional.
 - The header turns transparent over a dark hero on the paths listed in `heroPaths` in `components/layout/header.tsx`.

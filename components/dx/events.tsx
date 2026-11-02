@@ -6,11 +6,8 @@ import { googleCalendarUrl } from "@/lib/ics";
 import { formatDate, formatTime } from "@/lib/utils";
 import { site } from "@/lib/site";
 import type { EventItem } from "@/lib/types";
+import { cat } from "@/lib/event-categories";
 
-export const CAT: Record<string, [string, string, boolean]> = {
-  fundraising: ["Fundraising", "#F7A81B", true], community: ["Community", "#005DAA", false], social: ["Social", "#4d93cc", false], business: ["Business", "#0B1F3A", false], youth: ["Youth", "#c9780a", false],
-};
-const cat = (c: string) => CAT[c] ?? [c, "#005DAA", false];
 const D = (iso: string) => new Date(iso);
 const day = (iso: string) => formatDate(iso, { day: "numeric" });
 const mon = (iso: string) => formatDate(iso, { month: "short" });

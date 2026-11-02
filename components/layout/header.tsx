@@ -13,10 +13,12 @@ const H = 72;
 
 /** Pages that open with a dark hero: the header sits transparent on top of it, like the home film. */
 const heroPaths = ["/", "/about", "/impact", "/events", "/news", "/join", "/funding", "/contact"];
+/** Event and article pages open with the same dark hero. */
+const heroPrefixes = ["/events/", "/news/"];
 
 export function Header() {
   const path = usePathname();
-  const isHome = heroPaths.includes(path);
+  const isHome = heroPaths.includes(path) || heroPrefixes.some((p) => path.startsWith(p));
   const [open, setOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const burger = useRef<HTMLButtonElement>(null);
