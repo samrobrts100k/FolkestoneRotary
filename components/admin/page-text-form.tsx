@@ -24,7 +24,7 @@ export function PageTextForm({ page, groups, values }: { page: string; groups: r
           <legend className="px-2 text-lg font-bold">{g.title}</legend>
           {Object.entries(g.fields).map(([name, f]) => {
             const v = values[name] ?? f.def;
-            if (f.kind === "photos") return <PhotoListField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
+            if (f.kind === "photos") return <PhotoListField key={name} name={name} label={f.label} defaultValue={v} help={f.help} decorative={name === "heroPhotos"} />;
             if (f.kind === "image") return <ImageField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
             return (
               <div key={name}>

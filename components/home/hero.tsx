@@ -5,8 +5,10 @@ import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { HomeReserveCard, type CardText } from "@/components/dx/join";
 import Image from "next/image";
-import { readImage, type PageText } from "@/lib/page-text";
+import { readPhotos, type PageText } from "@/lib/page-text";
 
+/** How long each background photo shows before the next one fades in. */
+const SLIDE_MS = 5000;
 /** Longest a clip plays before the montage cross-fades to the next one. */
 const CLIP_MS = 7000;
 
@@ -14,13 +16,28 @@ export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
   const TITLE = t.heroTitle;
   const videos = site.heroVideos;
   const hasFilm = Boolean(site.filmUrl);
-  const photo = readImage(t.heroPhoto);
+  // Videos, once added, take over from the photos.
+  const photos = videos.length ? [] : readPhotos(t.heroPhotos);
+  const [slide, setSlide] = useState(0);
+  const [stopped, setStopped] = useState(false);
+  useEffect(() => { if (matchMedia("(prefers-reduced-motion: reduce)").matches) setStopped(true); }, []);
+  useEffect(() => {
+    if (stopped || photos.length < 2) return;
+    const id = setTimeout(() => setSlide((n) => (n + 1) % photos.length), SLIDE_MS);
+    return () => clearTimeout(id);
+  }, [slide, stopped, photos.length]);
+  const showControls = videos.length > 0 || hasFilm || photos.length > 1;
   return (
     <section id="hero" aria-labelledby="hero-title"
       className="on-dark relative isolate flex min-h-[clamp(620px,100svh,900px)] items-end overflow-hidden bg-navy text-white">
       <div aria-hidden className="absolute inset-0 -z-20">
         <div className="hero-poster absolute inset-0 overflow-hidden" />
-        {photo && <Image src={photo} alt="" fill priority sizes="100vw" className="object-cover" />}
+        {photos.map((p, i) => (
+          <div key={p.url + i} className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${i === slide ? "opacity-100" : "opacity-0"}`}>
+            <Image src={p.url} alt="" fill priority={i === 0} sizes="100vw"
+              className={`object-cover motion-safe:transition-transform motion-safe:duration-[6500ms] motion-safe:ease-linear ${i === slide && !stopped ? "scale-[1.06]" : "scale-100"}`} />
+          </div>
+        ))}
         {videos.length > 0 && <Montage clips={videos} />}
       </div>
       <div aria-hidden className="hero-shade pointer-events-none absolute inset-0 -z-10" />
@@ -40,9 +57,20 @@ export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
             <Link href="/events" className="font-bold text-white underline">{t.heroLink1}</Link>
             <Link href="/funding" className="font-bold text-white underline">{t.heroLink2}</Link>
           </div>
-          {(videos.length > 0 || hasFilm) && (
+          {showControls && (
             <div className="rise mt-10 flex flex-wrap items-center gap-4 border-t border-white/30 pt-5" style={{ "--d": "850ms" } as React.CSSProperties}>
               {videos.length > 0 && <PauseButton />}
+              {photos.length > 1 && (
+                <>
+                  <button type="button" className={pillCls} aria-pressed={stopped} onClick={() => setStopped(!stopped)}>{stopped ? "Play slideshow" : "Pause slideshow"}</button>
+                  <div className="flex items-center gap-1" role="group" aria-label="Background photos">
+                    {photos.map((_, i) => (
+                      <button key={i} type="button" aria-label={`Show photo ${i + 1} of ${photos.length}`} aria-current={i === slide} onClick={() => setSlide(i)}
+                        className="grid h-11 w-7 place-items-center"><span className={`block h-2.5 rounded-full transition-[width,background-color] duration-300 ${i === slide ? "w-6 bg-gold" : "w-2.5 bg-white/60 hover:bg-white"}`} /></button>
+                    ))}
+                  </div>
+                </>
+              )}
               {hasFilm && <FilmButton url={site.filmUrl} />}
             </div>
           )}

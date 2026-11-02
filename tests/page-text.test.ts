@@ -41,6 +41,12 @@ describe("page text", () => {
     expect(readImage('https://x/a.jpg" onerror="x')).toBe("");
   });
 
+  it("carries an earlier single home background photo into the slideshow", () => {
+    expect(readPhotos(mergeText("home", { heroPhoto: "https://x.supabase.co/old.jpg" }).heroPhotos)).toEqual([{ url: "https://x.supabase.co/old.jpg", alt: "" }]);
+    const both = JSON.stringify([{ url: "https://x.supabase.co/new.jpg", alt: "" }]);
+    expect(mergeText("home", { heroPhoto: "https://x.supabase.co/old.jpg", heroPhotos: both }).heroPhotos).toBe(both);
+  });
+
   it("only accepts known pages", () => {
     expect(isPageKey("join")).toBe(true);
     expect(isPageKey("toString")).toBe(false);

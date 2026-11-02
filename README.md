@@ -45,7 +45,7 @@ Sign in and open **/admin**:
 | To change… | Go to |
 |---|---|
 | Headings, introductions, buttons and other wording on Home, About, Our impact, Events, News, Join, Funding and Contact | **Page text** → pick the page. Empty a box (or **Use original**) to go back to the original wording |
-| Page photos (a photo section on Home, About, Our impact, Events, Join and Funding, plus the home page background photo) | **Page text** → pick the page → **Photos**: add several at once, describe each, reorder with Earlier / Later, **Remove**, then **Save** |
+| Page photos (a photo section on Home, About, Our impact, Events, Join and Funding, plus the home page background slideshow, which cross-fades every 5 seconds) | **Page text** → pick the page → **Photos**: add several at once, describe each, reorder with Earlier / Later, **Remove**, then **Save** |
 | Events, news, impact stories, sponsors, galleries | the matching section → **Add** / **Edit** |
 | Homepage numbers | **Homepage statistics** |
 | FAQs, testimonials, timeline, leadership, annual-report PDFs | **FAQs, testimonials & reports** |

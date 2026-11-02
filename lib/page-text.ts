@@ -15,7 +15,8 @@ export interface TextPage { label: string; path: string; groups: TextGroup[] }
 const f = (label: string, def: string, extra: Partial<TextField> = {}): TextField => ({ label, def, ...extra });
 const long = (label: string, def: string, extra: Partial<TextField> = {}) => f(label, def, { long: true, ...extra });
 const lines = (label: string, def: string[], extra: Partial<TextField> = {}) => f(label, def.join("\n"), { lines: true, help: "One per line.", ...extra });
-const image = (label: string, help?: string): TextField => ({ label, def: "", kind: "image", help });
+/** One photo (an `image` field). Not used by any page right now; kept for single-photo slots. */
+export const image = (label: string, help?: string): TextField => ({ label, def: "", kind: "image", help });
 /** A heading plus a set of photos. Nothing shows on the page until a photo is added. */
 const photos = (title: string, help = "Add, remove and reorder photos. The section only appears once it has a photo.") => ({ photosTitle: f("Photos heading", title), photos: { label: "Photos", def: "", kind: "photos", help } as TextField });
 function panel(title: string, text: string, b1: string): { ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField };
@@ -30,7 +31,7 @@ export const PAGE_TEXT = {
       heroTitle: f("Headline", "Making a difference in Folkestone"),
       heroLead: long("Introduction", "We’re local people who raise money, give time and back the charities, young people and projects that make this town work."),
       heroBtn: f("Gold button", "Join us"), heroLink1: f("First link", "View events"), heroLink2: f("Second link", "Apply for funding"),
-      heroPhoto: image("Background photo", "Shown behind the headline (darkened so the text stays readable). Hero videos, once added, play over it. Wide landscape photos work best."),
+      heroPhotos: { label: "Background photos (slideshow)", def: "", kind: "photos", help: "Shown behind the headline, darkened so the text stays readable. With two or more, they cross-fade every 5 seconds. Wide landscape photos work best. Hero videos, once added, play instead." },
     } },
     { title: "What’s on", fields: { eventsTitle: f("Heading", "What’s on"), eventsIntro: long("Introduction", "Come for the fun. The money stays in Folkestone."), eventsLink: f("Link", "See all events") } },
     { title: "News", fields: { newsTitle: f("Heading", "News from the club"), newsLink: f("Link", "All news") } },
@@ -185,6 +186,8 @@ export const textFields = (p: PageKey): [string, TextField][] => (PAGE_TEXT[p].g
 /** Defaults overlaid with saved wording (blank saved values are ignored). */
 export function mergeText<P extends PageKey>(p: P, saved: Record<string, unknown> | null | undefined): PageText<P> {
   const out: Record<string, string> = {};
+  // The home page once had a single background photo; carry it into the slideshow.
+  if (p === "home" && saved && typeof saved.heroPhoto === "string" && saved.heroPhoto && !saved.heroPhotos) saved = { ...saved, heroPhotos: JSON.stringify([{ url: saved.heroPhoto, alt: "" }]) };
   for (const [k, fd] of textFields(p)) {
     const v = saved?.[k];
     out[k] = typeof v === "string" && v.trim() ? v.trim() : fd.def;

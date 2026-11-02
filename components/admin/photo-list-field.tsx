@@ -23,7 +23,7 @@ async function shrink(file: File, max = 2000): Promise<File> {
 const btn = "rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold hover:border-rotary disabled:opacity-40";
 
 /** Add several photos at once, describe each one, put them in order, remove any. Saved with the rest of the page. */
-export function PhotoListField({ name, label, defaultValue, help }: { name: string; label: string; defaultValue: string; help?: string }) {
+export function PhotoListField({ name, label, defaultValue, help, decorative }: { name: string; label: string; defaultValue: string; help?: string; decorative?: boolean }) {
   const [list, setList] = useState<PagePhoto[]>(() => readPhotos(defaultValue));
   const [busy, setBusy] = useState(""), [msg, setMsg] = useState("");
   const move = (i: number, d: number) => setList((l) => { const n = [...l]; [n[i], n[i + d]] = [n[i + d], n[i]]; return n; });
@@ -55,10 +55,10 @@ export function PhotoListField({ name, label, defaultValue, help }: { name: stri
             <li key={p.url + i} className="rounded-xl bg-surface p-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.url} alt="" className="aspect-[4/3] w-full rounded-lg object-cover" />
-              <label className="mt-2 block text-sm font-semibold">Describe this photo
+              <label className="mt-2 block text-sm font-semibold">{decorative ? "Note (optional)" : "Describe this photo"}
                 <Input value={p.alt} placeholder="e.g. Members handing over a cheque at the school" onChange={(e) => setList((l) => l.map((x, k) => (k === i ? { ...x, alt: e.target.value } : x)))} />
               </label>
-              {!p.alt.trim() && <p className="mt-1 text-xs font-medium text-amber-800">Add a description so people using screen readers know what it shows.</p>}
+              {!decorative && !p.alt.trim() && <p className="mt-1 text-xs font-medium text-amber-800">Add a description so people using screen readers know what it shows.</p>}
               <div className="mt-2 flex flex-wrap gap-2">
                 <button type="button" className={btn} disabled={i === 0} onClick={() => move(i, -1)} aria-label={`Move photo ${i + 1} earlier`}>← Earlier</button>
                 <button type="button" className={btn} disabled={i === list.length - 1} onClick={() => move(i, 1)} aria-label={`Move photo ${i + 1} later`}>Later →</button>
