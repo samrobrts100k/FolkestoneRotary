@@ -1,5 +1,7 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
+import wheel from "@/public/brand/wheel-160.png";
 import { useEffect, useRef, useState } from "react";
 import { Counter } from "@/components/motion";
 
@@ -28,7 +30,7 @@ export function SwapWords({ start, words }: { start: string; words: string[] }) 
 
 export interface Milestone { id: string; title: string; body: string }
 
-/** Our story: a line that draws as you scroll, with a little boat riding down it. */
+/** Our story: a line that draws as you scroll, with the Rotary wheel rolling down it. */
 export function History({ items }: { items: Milestone[] }) {
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,6 +39,7 @@ export function History({ items }: { items: Milestone[] }) {
     const upd = () => {
       const r = el.getBoundingClientRect();
       el.style.setProperty("--p", String(clamp((innerHeight * 0.55 - r.top) / r.height)));
+      el.style.setProperty("--h", String(r.height));
       kids.forEach((k) => k.classList.toggle("on", k.getBoundingClientRect().top < innerHeight * 0.62));
     };
     upd();
@@ -46,7 +49,7 @@ export function History({ items }: { items: Milestone[] }) {
   }, [items.length]);
   return (
     <div className="hist" ref={box}>
-      <svg className="boat" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="22" fill="#fff" stroke="#005DAA" strokeWidth="3" /><path d="M12 28h22l-4 6H16z" fill="#0B1F3A" /><path d="M23 10v16M23 12l9 11H23" fill="#F7A81B" stroke="#0B1F3A" strokeWidth="1.5" /></svg>
+      <Image className="hwheel" src={wheel} alt="" aria-hidden="true" unoptimized />
       {items.map((m, i) => {
         const year = /\b(1[89]|20)\d{2}\b/.exec(`${m.title} ${m.body}`)?.[0];
         const last = i === items.length - 1 && items.length > 1;

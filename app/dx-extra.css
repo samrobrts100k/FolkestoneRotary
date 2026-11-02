@@ -63,3 +63,9 @@
 .dx.dx-bare .glass{background:rgba(6,40,84,.55);border-color:rgba(255,255,255,.3)}
 .dx.dx-bare .glass b.t{color:#fff}
 .dx .jf .fine a{text-decoration:underline}.dx .jf .fine a:hover{text-decoration-thickness:3px}
+
+/* Our story: the Rotary wheel rolls down the line as you scroll (replaces the demo's boat). 2.2deg per px = rolling without slipping for a 26px radius. */
+.dx .hwheel{position:absolute;left:50%;top:calc(100%*var(--p));width:52px;height:52px;margin:-26px 0 0 -26px;z-index:2;border-radius:50%;
+  background:radial-gradient(circle,var(--mist) 0 64%,transparent 65%);transform:rotate(calc(var(--p)*var(--h,300)*2.2deg));transition:top .1s linear,transform .1s linear;filter:drop-shadow(0 3px 6px rgba(11,31,58,.18))}
+@media(max-width:900px){.dx .hwheel{left:20px}}
+@media(prefers-reduced-motion:reduce){.dx .hwheel{transform:none;transition:none}}
