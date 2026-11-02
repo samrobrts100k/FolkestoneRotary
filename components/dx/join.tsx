@@ -1,4 +1,6 @@
 "use client";
+import "@/app/dx.css";
+import "@/app/dx-extra.css";
 import Link from "next/link";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { submitMembership } from "@/app/actions/forms";
@@ -169,5 +171,15 @@ export function Table() {
 export function JoinCta() {
   return (
     <div className="jcta" data-rv><div><h2>Your seat’s waiting.</h2><p>It takes ten seconds. Pick a lunch date, tell us your name and email, and someone will be in touch.</p></div><Reserve className="btn gold">Reserve my seat</Reserve></div>
+  );
+}
+
+/** The Join page's "Reserve your seat" card on its own, for the home hero. Brings the dx styles with it. */
+export function HomeReserveCard() {
+  const [sel, setSel] = useState(0);
+  return (
+    <JoinCtx.Provider value={{ open: () => {}, sel, setSel }}>
+      <div className="dx dx-bare"><JoinHeroCard /></div>
+    </JoinCtx.Provider>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/lib/site";
+import { HomeReserveCard } from "@/components/dx/join";
 
 const TITLE = "Making a difference in Folkestone";
 /** Longest a clip plays before the montage cross-fades to the next one. */
@@ -20,26 +21,29 @@ export function Hero() {
       </div>
       <div aria-hidden className="hero-shade pointer-events-none absolute inset-0 -z-10" />
 
-      <div className="container w-full pb-9 pt-32 sm:pt-36">
-        <h1 id="hero-title" aria-label={TITLE} className="hero-title mb-5 max-w-[10em] text-[clamp(44px,6.8vw,92px)] leading-[1.04] text-white" style={{ letterSpacing: "-0.015em" }}>
-          {TITLE.split(" ").map((w, i, all) => (
-            <span key={i} aria-hidden><span className="word-rise" style={{ "--i": i } as React.CSSProperties}>{w}</span>{i < all.length - 1 ? " " : ""}</span>
-          ))}
-        </h1>
-        <p className="rise mb-7 max-w-[32em] text-lg text-[#E1ECF8] sm:text-xl" style={{ "--d": "550ms" } as React.CSSProperties}>
-          We’re local people who raise money, give time and back the charities, young people and projects that make this town work.
-        </p>
-        <div className="rise flex flex-wrap items-center gap-x-7 gap-y-4" style={{ "--d": "700ms" } as React.CSSProperties}>
-          <ButtonLink href="/join" variant="gold" size="lg">Join us</ButtonLink>
-          <Link href="/events" className="font-bold text-white underline">View events</Link>
-          <Link href="/funding" className="font-bold text-white underline">Apply for funding</Link>
-        </div>
-        {(videos.length > 0 || hasFilm) && (
-          <div className="rise mt-10 flex flex-wrap items-center gap-4 border-t border-white/30 pt-5" style={{ "--d": "850ms" } as React.CSSProperties}>
-            {videos.length > 0 && <PauseButton />}
-            {hasFilm && <FilmButton url={site.filmUrl} />}
+      <div className="container grid w-full items-end gap-10 pb-9 pt-32 sm:pt-36 lg:grid-cols-[1.25fr_minmax(0,430px)] lg:gap-14">
+        <div>
+          <h1 id="hero-title" aria-label={TITLE} className="hero-title mb-5 max-w-[10em] text-[clamp(44px,6.8vw,92px)] leading-[1.04] text-white" style={{ letterSpacing: "-0.015em" }}>
+            {TITLE.split(" ").map((w, i, all) => (
+              <span key={i} aria-hidden><span className="word-rise" style={{ "--i": i } as React.CSSProperties}>{w}</span>{i < all.length - 1 ? " " : ""}</span>
+            ))}
+          </h1>
+          <p className="rise mb-7 max-w-[32em] text-lg text-[#E1ECF8] sm:text-xl" style={{ "--d": "550ms" } as React.CSSProperties}>
+            We’re local people who raise money, give time and back the charities, young people and projects that make this town work.
+          </p>
+          <div className="rise flex flex-wrap items-center gap-x-7 gap-y-4" style={{ "--d": "700ms" } as React.CSSProperties}>
+            <ButtonLink href="/join" variant="gold" size="lg">Join us</ButtonLink>
+            <Link href="/events" className="font-bold text-white underline">View events</Link>
+            <Link href="/funding" className="font-bold text-white underline">Apply for funding</Link>
           </div>
-        )}
+          {(videos.length > 0 || hasFilm) && (
+            <div className="rise mt-10 flex flex-wrap items-center gap-4 border-t border-white/30 pt-5" style={{ "--d": "850ms" } as React.CSSProperties}>
+              {videos.length > 0 && <PauseButton />}
+              {hasFilm && <FilmButton url={site.filmUrl} />}
+            </div>
+          )}
+        </div>
+        <div className="rise w-full max-w-[460px]" style={{ "--d": "650ms" } as React.CSSProperties}><HomeReserveCard /></div>
       </div>
     </section>
   );
