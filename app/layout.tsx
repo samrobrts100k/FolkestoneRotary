@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 import { JsonLd } from "@/components/json-ld";
 import { organisationLd } from "@/lib/seo/jsonld";
-import { site } from "@/lib/site";
+import { site, isChristmasSeason } from "@/lib/site";
 
 const sans = Source_Sans_3({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const serif = Source_Serif_4({ subsets: ["latin"], axes: ["opsz"], variable: "--font-serif", display: "swap" });
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-GB" className={`${sans.variable} ${serif.variable}`}>
       <body>
         <a href="#main" className="sr-only z-50 rounded-full bg-gold px-5 py-3 font-bold text-navy focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
-        <Header />
+        <Header christmas={isChristmasSeason()} />
         <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieConsent />

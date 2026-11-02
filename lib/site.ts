@@ -35,6 +35,13 @@ export const site = {
 /** Santa route finder, built and kept up to date by a club member on his own site. Shown in a frame on /christmas. */
 export const santaFinderUrl = "https://kieranosborne.netlify.app/rotary/santa/";
 
+/** The Christmas menu item shows from 1 November to 31 December (UK time) and is gone on 1 January, every year. */
+export const christmasLink = { href: "/christmas", label: "Christmas" } as const;
+export function isChristmasSeason(now = new Date()) {
+  const month = Number(new Intl.DateTimeFormat("en-GB", { month: "numeric", timeZone: "Europe/London" }).format(now));
+  return month === 11 || month === 12;
+}
+
 export const donateHref = site.donateUrl || "/donate";
 export const donateExternal = Boolean(site.donateUrl);
 

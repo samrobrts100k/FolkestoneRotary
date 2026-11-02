@@ -7,7 +7,7 @@ import { SantaFrame } from "@/components/dx/santa-frame";
 import { Photo } from "@/components/ui/photo";
 import { readImage } from "@/lib/page-text";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { donateHref, santaFinderUrl } from "@/lib/site";
+import { donateHref } from "@/lib/site";
 
 export const revalidate = 60;
 export const metadata: Metadata = buildMetadata({ title: "Santa’s sleigh – when is Santa coming to my street?", description: "Find out when Folkestone Rotary’s Santa sleigh reaches your street this Christmas, and help us collect for local families.", path: "/christmas" });
@@ -23,8 +23,7 @@ export default async function ChristmasPage() {
       <section className="sec" id="santa"><div className="wrap">
         <h2 className="s">{t.finderTitle}</h2>
         <p className="sub">{t.finderNote}</p>
-        <SantaFrame title={t.finderTitle} />
-        <p className="santa-alt">Can’t see the route finder? <a href={santaFinderUrl} target="_blank" rel="noopener noreferrer">Open it in a new tab</a>.</p>
+        <SantaFrame title={t.finderTitle} openLabel={t.finderTitle} />
       </div></section>
       <section className="sec" style={{ paddingTop: 0 }}><div className="wrap"><div className="meet" data-rv>
         <h2>{t.ctaTitle}</h2>

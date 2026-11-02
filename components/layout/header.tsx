@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { donateHref, nav } from "@/lib/site";
+import { christmasLink, donateHref, isChristmasSeason, nav } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -16,8 +16,16 @@ const heroPaths = ["/", "/about", "/impact", "/events", "/news", "/join", "/fund
 /** Event and article pages open with the same dark hero. */
 const heroPrefixes = ["/events/", "/news/"];
 
-export function Header() {
+/** The menu, plus Christmas in season. The server's answer is used first; the visitor's clock confirms it, so the item still goes on 1 January even on pages cached before then. */
+function useMenu(christmas: boolean) {
+  const [on, setOn] = useState(christmas);
+  useEffect(() => setOn(isChristmasSeason()), []);
+  return on ? [...nav, christmasLink] : [...nav];
+}
+
+export function Header({ christmas = false }: { christmas?: boolean }) {
   const path = usePathname();
+  const menu = useMenu(christmas);
   const isHome = heroPaths.includes(path) || heroPrefixes.some((p) => path.startsWith(p));
   const [open, setOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
@@ -55,7 +63,7 @@ export function Header() {
     >
       <div className="container flex items-center justify-between gap-4" style={{ height: H }}>
         <Logo light={!solid} />
-        <DesktopNav solid={solid} path={path} />
+        <DesktopNav solid={solid} path={path} items={menu} />
         <div className="flex items-center gap-2.5">
           <ButtonLink href={donateHref} variant="gold" size="sm" onClick={() => track("donate_click", { location: "header" })}>Donate</ButtonLink>
           <ButtonLink href="/login" variant={solid ? "outline" : "outline-light"} size="sm" className="hidden sm:inline-flex">Member Login</ButtonLink>
@@ -76,7 +84,7 @@ export function Header() {
         className={cn("on-dark absolute inset-x-0 top-full bg-navy xl:hidden",
           open ? "visible translate-y-0 opacity-100 transition-[opacity,transform] duration-[250ms] ease-out-quint" : "invisible -translate-y-2 opacity-0 transition-[opacity,transform,visibility] duration-150 ease-in")}>
         <ul className="container flex max-h-[calc(100dvh-72px)] flex-col overflow-y-auto pb-6 pt-2">
-          {nav.map((l) => (
+          {menu.map((l) => (
             <li key={l.href} className="border-b border-white/15 last:border-0">
               <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined}
                 className={cn("block py-3.5 text-lg font-semibold no-underline", isActive(l.href) ? "text-gold" : "text-white")}>{l.label}</Link>
@@ -92,7 +100,7 @@ export function Header() {
 }
 
 /** Desktop links with one gold underline that slides between them; it rests under the current page. */
-function DesktopNav({ solid, path }: { solid: boolean; path: string }) {
+function DesktopNav({ solid, path, items }: { solid: boolean; path: string; items: readonly { href: string; label: string }[] }) {
   const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   const list = useRef<HTMLUListElement>(null);
   const [bar, setBar] = useState<{ x: number; w: number } | null>(null);
@@ -110,14 +118,14 @@ function DesktopNav({ solid, path }: { solid: boolean; path: string }) {
     document.fonts?.ready.then(rest);
     window.addEventListener("resize", rest);
     return () => window.removeEventListener("resize", rest);
-  }, [rest, path]);
+  }, [rest, path, items.length]);
 
   return (
     <nav aria-label="Main" className="relative hidden xl:block">
       <ul ref={list} className="flex items-center gap-5 whitespace-nowrap text-base font-semibold"
         onMouseLeave={rest} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) rest(); }}>
         {/* The logo already links home, so the desktop bar skips "Home" to keep one line. */}
-        {nav.filter((l) => l.href !== "/").map((l) => (
+        {items.filter((l) => l.href !== "/").map((l) => (
           <li key={l.href}>
             <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined}
               onMouseEnter={(e) => moveTo(e.currentTarget)} onFocus={(e) => moveTo(e.currentTarget)}
