@@ -4,6 +4,7 @@ import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 import type { FieldErrors, FormState } from "@/lib/forms/schemas";
+import { useFormText } from "@/components/form-text";
 
 type Action = (s: FormState, fd: FormData) => Promise<FormState>;
 type Ev = Parameters<typeof track>[0];
@@ -13,6 +14,7 @@ export function FormShell({ action, children, submitLabel, successTitle = "Thank
   action: Action; children: (errors: FieldErrors) => React.ReactNode; submitLabel: string; successTitle?: string; trackAs?: Ev; className?: string; successExtra?: React.ReactNode;
 }) {
   const [state, formAction, pending] = useActionState<FormState, FormData>(action, { ok: false });
+  const ft = useFormText();
   const [t, setT] = useState("");
   useEffect(() => setT(String(Date.now())), [state]);
   useEffect(() => { if (state.ok && trackAs) track(trackAs); }, [state.ok, trackAs]);
@@ -51,12 +53,14 @@ export function FormShell({ action, children, submitLabel, successTitle = "Thank
         <p role="alert" className="flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm font-medium text-red-800"><AlertCircle aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />{state.message}</p>
       )}
       <Button type="submit" disabled={pending || !t} size="lg" className="w-full sm:w-auto">
-        {pending && <Loader2 aria-hidden className="h-5 w-5 animate-spin" />}{pending ? "Sending…" : submitLabel}
+        {pending && <Loader2 aria-hidden className="h-5 w-5 animate-spin" />}{pending ? ft.g_sending : submitLabel}
       </Button>
     </form>
   );
 }
 
-export const PrivacyConsent = ({ what }: { what: string }) => (
-  <>I agree to Folkestone Rotary storing my details to {what}, as described in the <a href="/privacy" className="font-semibold text-rotary underline">Privacy Policy</a>.</>
-);
+/** Consent line ending in the privacy policy link. Pass `text` for the full wording, or `what` for the standard sentence. */
+export function PrivacyConsent({ what, text }: { what?: string; text?: string }) {
+  const ft = useFormText();
+  return <>{text ?? `I agree to Folkestone Rotary storing my details to ${what}, as described in the`} <a href="/privacy" className="font-semibold text-rotary underline">{ft.g_privacy}</a>.</>;
+}

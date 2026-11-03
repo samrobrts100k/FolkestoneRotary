@@ -6,11 +6,13 @@ import { Counter } from "@/components/motion";
 import { Fl, OkMark, ServerMessage, emailOk, useSubmit } from "./forms";
 import { reducedMotion } from "./common";
 import { gbp } from "@/lib/utils";
+import { useFormText } from "@/components/form-text";
+import { fill, toLines } from "@/lib/page-text";
 
-const TYPES: [string, string][] = [["Charity", "Charity"], ["School", "School"], ["Community group", "Community group"], ["Something else", "other"]];
-const PPL = ["1 to 10", "11 to 50", "51 to 200", "200 or more"];
-const BY: [string, number][] = [["Within a month", 14], ["In 3 months", 90], ["No rush", 0]];
-const STEPS = ["You", "Your project", "The details"];
+/** What we store for each "Who’s applying?" choice; the wording on the buttons comes from Page text → Forms. The last one is "something else". */
+const TYPES = ["Charity", "School", "Community group", "other"];
+/** Days from today for each "When do you need the money?" choice (no date for the last). */
+const BY_DAYS = [14, 90, 0];
 const KEY = "fr-draft";
 
 interface Draft { step: number; type: string; org: string; name: string; email: string; phone: string; title: string; what: string; amt: number; cost: string; ppl: string; who: string; by: string; num: string; extra: string }
@@ -27,6 +29,9 @@ export function Application() {
   const [saved, setSaved] = useState(false);
   const [dir, setDir] = useState(1);
   const { state, pending, submit, reset } = useSubmit(submitFunding, "funding_application");
+  const ft = useFormText();
+  const STEPS = toLines(ft.f_steps), PPL = toLines(ft.f_ppl), WHEN = toLines(ft.f_when), typeLabels = toLines(ft.f_types);
+  const first = d.name ? `, ${d.name.split(" ")[0]}` : "";
   const body = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -46,15 +51,15 @@ export function Application() {
   const next = () => {
     const b: Record<string, string> = {};
     if (d.step === 0) {
-      if (!d.type) { b.type = "Please pick who’s applying"; }
-      if (d.type === "other") { b.type = "We can’t fund individuals or private businesses. Please talk to us."; }
-      if (!d.org.trim()) b.org = "Tell us the name of your group.";
-      if (!d.name.trim()) b.name = "Please tell us your name.";
-      if (!emailOk(d.email)) b.email = "Enter an email like name@example.com.";
+      if (!d.type) { b.type = ft.f_typeErr; }
+      if (d.type === "other") { b.type = ft.f_otherNote; }
+      if (!d.org.trim()) b.org = ft.f_orgErr;
+      if (!d.name.trim()) b.name = ft.g_nameErr;
+      if (!emailOk(d.email)) b.email = ft.g_emailErr;
     }
     if (d.step === 1) {
-      if (!d.title.trim()) b.title = "Give your project a short name.";
-      if (d.what.trim().length < 20) b.what = "A couple of sentences is plenty (at least 20 characters).";
+      if (!d.title.trim()) b.title = ft.f_titleErr;
+      if (d.what.trim().length < 20) b.what = ft.f_whatErr;
     }
     setBad(b);
     const first = Object.keys(b)[0];
@@ -62,7 +67,7 @@ export function Application() {
     go(d.step + 1);
   };
   const send = () => {
-    const start = BY.find(([l]) => l === d.by)?.[1];
+    const start = BY_DAYS[WHEN.indexOf(d.by)];
     const who = [d.ppl && `About ${d.ppl} people`, d.who.trim()].filter(Boolean).join(": ");
     submit({
       organisation_name: d.org.trim(), contact_name: d.name.trim(), email: d.email.trim(), phone: d.phone.trim(), charity_number: d.num.trim(),
@@ -77,11 +82,11 @@ export function Application() {
     return (
       <div className="fdone" role="status">
         <OkMark />
-        <h3>Thank you{d.name ? `, ${d.name.split(" ")[0]}` : ""}. It’s with us.</h3>
-        {state.reference && <p className="fref">Your reference: <b>{state.reference}</b></p>}
-        <p>You asked for <b>{gbp(d.amt)}</b> for <b>{d.title}</b>. We’ve emailed a confirmation to {d.email}.</p>
-        <ol className="fnx"><li><b>Received</b> Your application is with the funding panel</li><li><b>Under review</b> A panel member reads it and may be in touch</li><li><b>Decision</b> You’ll hear from us by email</li></ol>
-        <div className="acts3"><Link className="btn blue" href="/">Back to the home page</Link><button className="btn ghost" type="button" onClick={clear}>Apply for another project</button></div>
+        <h3>{fill(ft.f_doneTitle, { name: first })}</h3>
+        {state.reference && <p className="fref">{ft.f_ref} <b>{state.reference}</b></p>}
+        <p>{fill(ft.f_doneText, { amount: gbp(d.amt), project: d.title, email: d.email })}</p>
+        <ol className="fnx"><li><b>{ft.f_n1}</b> {ft.f_n1Text}</li><li><b>{ft.f_n2}</b> {ft.f_n2Text}</li><li><b>{ft.f_n3}</b> {ft.f_n3Text}</li></ol>
+        <div className="acts3"><Link className="btn blue" href="/">{ft.f_home}</Link><button className="btn ghost" type="button" onClick={clear}>{ft.f_again}</button></div>
       </div>
     );
   }
@@ -92,50 +97,50 @@ export function Application() {
     <div aria-busy={pending}>
       <div className="fhead">
         <div className="fsteps" aria-hidden="true">{STEPS.map((_, i) => <i key={i} className={i < d.step ? "fsd" : i === d.step ? "on" : ""} />)}</div>
-        <div className="fmeta"><b>Step {d.step + 1} of 3</b><span>{STEPS[d.step]}</span><em aria-live="polite" className={saved ? "on" : ""}>{saved ? "Saved just now" : ""}</em></div>
+        <div className="fmeta"><b>{fill(ft.f_stepOf, { n: String(d.step + 1) })}</b><span>{STEPS[d.step]}</span><em aria-live="polite" className={saved ? "on" : ""}>{saved ? ft.f_saved : ""}</em></div>
       </div>
-      {welcome && <p className="fwelcome">Welcome back{d.name ? `, ${d.name.split(" ")[0]}` : ""}. We kept your answers. <button type="button" onClick={clear}>Start again</button></p>}
+      {welcome && <p className="fwelcome">{fill(ft.f_welcome, { name: first })} <button type="button" onClick={clear}>{ft.f_restart}</button></p>}
       <div className="fbody" ref={body}>
         {d.step === 0 && <>
-          <p className="fq">Who’s applying?</p>
-          {chips("type", TYPES, "two")}
-          {(bad.type || d.type === "other") && <div className="fnote">{d.type === "other" ? <>We can’t fund individuals or private businesses, but there may be another way. <Link href="/contact?subject=Funding">Talk to us.</Link></> : bad.type}</div>}
-          <Fl id="f-org" label="Group or organisation name" value={d.org} onChange={(v) => set("org", v)} auto="organization" bad={bad.org} error={err.organisation_name} />
-          <Fl id="f-name" label="Your name" value={d.name} onChange={(v) => set("name", v)} auto="name" bad={bad.name} error={err.contact_name} />
-          <Fl id="f-email" label="Email" type="email" mode="email" value={d.email} onChange={(v) => set("email", v)} auto="email" bad={bad.email} error={err.email} />
-          <Fl id="f-phone" label="Phone (optional)" type="tel" mode="tel" value={d.phone} onChange={(v) => set("phone", v)} auto="tel" error={err.phone} />
-          <button className="btn gold blk" type="button" onClick={next}>Next: your project</button>
-          <p className="fine">About 5 minutes. Your answers save as you go.</p>
+          <p className="fq">{ft.f_whoQ}</p>
+          {chips("type", TYPES.map((v, i) => [typeLabels[i] ?? v, v] as [string, string]), "two")}
+          {(bad.type || d.type === "other") && <div className="fnote">{d.type === "other" ? <>{ft.f_otherNote} <Link href="/contact?subject=Funding">{ft.f_otherLink}</Link></> : bad.type}</div>}
+          <Fl id="f-org" label={ft.f_org} value={d.org} onChange={(v) => set("org", v)} auto="organization" bad={bad.org} error={err.organisation_name} />
+          <Fl id="f-name" label={ft.g_name} value={d.name} onChange={(v) => set("name", v)} auto="name" bad={bad.name} error={err.contact_name} />
+          <Fl id="f-email" label={ft.g_email} type="email" mode="email" value={d.email} onChange={(v) => set("email", v)} auto="email" bad={bad.email} error={err.email} />
+          <Fl id="f-phone" label={ft.f_phone} type="tel" mode="tel" value={d.phone} onChange={(v) => set("phone", v)} auto="tel" error={err.phone} />
+          <button className="btn gold blk" type="button" onClick={next}>{ft.f_next1}</button>
+          <p className="fine">{ft.f_fine1}</p>
         </>}
         {d.step === 1 && <>
-          <Fl id="f-title" label="Your project in one line" value={d.title} onChange={(v) => set("title", v)} bad={bad.title} error={err.project_name} />
-          <Fl id="f-what" label="What will the money do?" area value={d.what} onChange={(v) => set("what", v)} bad={bad.what} error={err.project_description} />
-          <p className="fq">How much are you asking for?</p>
+          <Fl id="f-title" label={ft.f_title} value={d.title} onChange={(v) => set("title", v)} bad={bad.title} error={err.project_name} />
+          <Fl id="f-what" label={ft.f_what} area value={d.what} onChange={(v) => set("what", v)} bad={bad.what} error={err.project_description} />
+          <p className="fq">{ft.f_amtQ}</p>
           <div className="amt"><b>{gbp(d.amt)}</b><input type="range" min={250} max={10000} step={250} value={d.amt} aria-label="Amount requested in pounds" onChange={(e) => set("amt", +e.target.value)} style={{ ["--v" as string]: (d.amt - 250) / 9750 }} /></div>
           <div className="chps quick">{[500, 1000, 2500, 5000].map((v) => <button key={v} type="button" className={d.amt === v ? "on" : ""} onClick={() => set("amt", v)}>{gbp(v)}</button>)}</div>
           {err.amount_requested && <ServerMessage message={err.amount_requested} />}
-          <p className="fq">Roughly how many people will benefit?</p>
+          <p className="fq">{ft.f_pplQ}</p>
           {chips("ppl", PPL.map((p) => [p, p] as [string, string]), "four")}
-          <Fl id="f-who" label="Who are they? (optional)" value={d.who} onChange={(v) => set("who", v)} />
-          <div className="fnav"><button type="button" className="fback" onClick={() => go(0)}>Back</button><button className="btn gold" type="button" onClick={next}>Next: the details</button></div>
+          <Fl id="f-who" label={ft.f_whoLabel} value={d.who} onChange={(v) => set("who", v)} />
+          <div className="fnav"><button type="button" className="fback" onClick={() => go(0)}>{ft.f_back}</button><button className="btn gold" type="button" onClick={next}>{ft.f_next2}</button></div>
         </>}
         {d.step === 2 && <>
-          <p className="fq">When do you need the money?</p>
-          {chips("by", BY.map(([l]) => [l, l] as [string, string]), "three")}
-          <p className="fq">Got a quote or budget? <span className="opt">Optional, you can send it later</span></p>
+          <p className="fq">{ft.f_whenQ}</p>
+          {chips("by", WHEN.map((l) => [l, l] as [string, string]), "three")}
+          <p className="fq">{ft.f_quoteQ} <span className="opt">{ft.f_quoteOpt}</span></p>
           <label className="drop" onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); setFiles((f) => [...f, ...Array.from(e.dataTransfer.files)]); }}>
             <input type="file" multiple hidden accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp" onChange={(e) => { setFiles((f) => [...f, ...Array.from(e.target.files ?? [])]); e.target.value = ""; }} />
-            <span><b>Add files</b> or drop them here</span>
+            <span><b>{ft.f_drop}</b> {ft.f_dropOr}</span>
           </label>
-          {files.length > 0 && <ul className="fl-files">{files.map((f, i) => <li key={i}>{f.name}<button type="button" aria-label={`Remove ${f.name}`} className="rm" onClick={() => setFiles((x) => x.filter((_, k) => k !== i))}>Remove</button></li>)}</ul>}
-          <Fl id="f-cost" label="Total project cost, if more than you’re asking for (£)" mode="numeric" value={d.cost} onChange={(v) => set("cost", v.replace(/[^0-9.]/g, ""))} error={err.total_project_cost} />
-          <Fl id="f-num" label="Charity number (optional)" value={d.num} onChange={(v) => set("num", v)} />
-          <Fl id="f-extra" label="Anything else we should know? (optional)" area value={d.extra} onChange={(v) => set("extra", v)} />
+          {files.length > 0 && <ul className="fl-files">{files.map((f, i) => <li key={i}>{f.name}<button type="button" aria-label={`Remove ${f.name}`} className="rm" onClick={() => setFiles((x) => x.filter((_, k) => k !== i))}>{ft.f_remove}</button></li>)}</ul>}
+          <Fl id="f-cost" label={ft.f_cost} mode="numeric" value={d.cost} onChange={(v) => set("cost", v.replace(/[^0-9.]/g, ""))} error={err.total_project_cost} />
+          <Fl id="f-num" label={ft.f_num} value={d.num} onChange={(v) => set("num", v)} />
+          <Fl id="f-extra" label={ft.f_extra} area value={d.extra} onChange={(v) => set("extra", v)} />
           {Object.keys(err).length > 0 && !state.ok && <ServerMessage message={Object.values(err)[0]} />}
           <ServerMessage message={!state.ok && !Object.keys(err).length ? state.message : undefined} />
-          <button className="btn gold blk" type="button" onClick={send} disabled={pending}>{pending ? "Sending…" : "Send my application"}</button>
-          <div className="fnav one"><button type="button" className="fback" onClick={() => go(1)}>Back</button></div>
-          <p className="fine">By sending you agree to us storing your details to review your application, as described in the <Link href="/privacy">Privacy Policy</Link>.</p>
+          <button className="btn gold blk" type="button" onClick={send} disabled={pending}>{pending ? ft.g_sending : ft.f_send}</button>
+          <div className="fnav one"><button type="button" className="fback" onClick={() => go(1)}>{ft.f_back}</button></div>
+          <p className="fine">{ft.f_consent} <Link href="/privacy">{ft.g_privacy}</Link>.</p>
         </>}
       </div>
     </div>
@@ -145,6 +150,7 @@ export function Application() {
 /** The sticky bar that returns you to the application once you have scrolled away from it. */
 export function ContinueBar() {
   const [past, setPast] = useState(false);
+  const ft = useFormText();
   useEffect(() => {
     const el = document.getElementById("fhero"); if (!el) return;
     const io = new IntersectionObserver((es) => setPast(es[0].intersectionRatio < 0.35), { threshold: [0, 0.2, 0.35, 0.6, 0.9] });
@@ -153,8 +159,8 @@ export function ContinueBar() {
   }, []);
   return (
     <div className={`jbar${past ? " up" : ""}`} hidden={!past}>
-      <span><em>5-minute application</em></span>
-      <button className="btn gold" type="button" onClick={() => jump()}>Continue</button>
+      <span><em>{ft.f_bar}</em></span>
+      <button className="btn gold" type="button" onClick={() => jump()}>{ft.f_barBtn}</button>
     </div>
   );
 }

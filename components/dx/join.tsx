@@ -10,7 +10,8 @@ import { formatDate } from "@/lib/utils";
 import { googleCalendarUrl } from "@/lib/ics";
 import { meetingEnd, nextMeetings } from "@/lib/meetings";
 import { site } from "@/lib/site";
-import { toLines, type PageText } from "@/lib/page-text";
+import { fill, toLines, type PageText } from "@/lib/page-text";
+import { useFormText } from "@/components/form-text";
 
 /** Wording for the "Reserve your seat" card, from Admin → Page text (Join). */
 export interface CardText { title: string; btn: string; fine: string }
@@ -37,12 +38,13 @@ export function Reserve({ who, children, className }: { who?: string; children: 
 function ReserveForm({ prefix, sel, setSel, who, onDone, text = CARD }: { prefix: string; sel: number; setSel: (n: number) => void; who: string; onDone?: () => void; text?: CardText }) {
   const dates = useDates();
   const { state, pending, submit } = useSubmit(submitMembership, "membership_enquiry");
+  const ft = useFormText();
   const [name, setName] = useState(""); const [email, setEmail] = useState("");
   const [bad, setBad] = useState<{ n?: string; e?: string }>({});
   const day = (d: Date, o: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en-GB", o);
   const send = (e: React.FormEvent) => {
     e.preventDefault();
-    const b = { n: name.trim() ? undefined : "Please tell us your name.", e: emailOk(email) ? undefined : "Enter an email like name@example.com." };
+    const b = { n: name.trim() ? undefined : ft.g_nameErr, e: emailOk(email) ? undefined : ft.g_emailErr };
     setBad(b);
     if (b.n || b.e) { document.getElementById(`${prefix}${b.n ? "n" : "e"}`)?.focus(); return; }
     const when = dates[sel] ? day(dates[sel], { weekday: "long", day: "numeric", month: "long" }) : "the next lunch";
@@ -54,11 +56,11 @@ function ReserveForm({ prefix, sel, setSel, who, onDone, text = CARD }: { prefix
     return (
       <div className="jdone" aria-live="polite">
         <OkMark />
-        <h3>You’re down for {d ? day(d, { weekday: "long", day: "numeric", month: "long" }) : "the next lunch"}, 12:15</h3>
-        <ul><li>Check your inbox for a confirmation.</li><li>Someone will be in touch to arrange your visit.</li><li>Nothing to bring. Come as you are.</li></ul>
+        <h3>{fill(ft.r_doneTitle, { date: d ? day(d, { weekday: "long", day: "numeric", month: "long" }) : "the next lunch" })}</h3>
+        <ul>{toLines(ft.r_donePts).map((x) => <li key={x}>{x}</li>)}</ul>
         <div className="acts3">
-          {d && <a className="btn blue" target="_blank" rel="noopener noreferrer" href={googleCalendarUrl({ title: "Folkestone Rotary lunch (guest)", short_description: "Guest visit", description: "Guest visit", starts_at: d.toISOString(), ends_at: meetingEnd(d).toISOString(), venue_name: site.meeting.venue, slug: "join" } as never, "")}>Add to calendar</a>}
-          <Link className="btn ghost" href="/contact?subject=Membership">Ask us a question</Link>
+          {d && <a className="btn blue" target="_blank" rel="noopener noreferrer" href={googleCalendarUrl({ title: "Folkestone Rotary lunch (guest)", short_description: "Guest visit", description: "Guest visit", starts_at: d.toISOString(), ends_at: meetingEnd(d).toISOString(), venue_name: site.meeting.venue, slug: "join" } as never, "")}>{ft.r_doneCal}</a>}
+          <Link className="btn ghost" href="/contact?subject=Membership">{ft.r_doneAsk}</Link>
         </div>
       </div>
     );
@@ -72,11 +74,11 @@ function ReserveForm({ prefix, sel, setSel, who, onDone, text = CARD }: { prefix
           </button>
         ))}
       </div>
-      <Fl id={`${prefix}n`} label="Your name" value={name} onChange={(v) => { setName(v); setBad((b) => ({ ...b, n: undefined })); }} auto="name" bad={bad.n} error={state.errors?.name} />
-      <Fl id={`${prefix}e`} label="Email" type="email" mode="email" value={email} onChange={(v) => { setEmail(v); setBad((b) => ({ ...b, e: undefined })); }} auto="email" bad={bad.e} error={state.errors?.email} />
+      <Fl id={`${prefix}n`} label={ft.g_name} value={name} onChange={(v) => { setName(v); setBad((b) => ({ ...b, n: undefined })); }} auto="name" bad={bad.n} error={state.errors?.name} />
+      <Fl id={`${prefix}e`} label={ft.g_email} type="email" mode="email" value={email} onChange={(v) => { setEmail(v); setBad((b) => ({ ...b, e: undefined })); }} auto="email" bad={bad.e} error={state.errors?.email} />
       <ServerMessage message={!state.ok ? state.message : undefined} />
-      <button className="btn gold blk" type="submit" disabled={pending}>{pending ? "Sending…" : text.btn}</button>
-      <p className="fine">{text.fine} <Link href="/privacy">Privacy Policy</Link>.</p>
+      <button className="btn gold blk" type="submit" disabled={pending}>{pending ? ft.g_sending : text.btn}</button>
+      <p className="fine">{text.fine} <Link href="/privacy">{ft.g_privacy}</Link>.</p>
     </form>
   );
 }

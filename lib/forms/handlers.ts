@@ -6,6 +6,7 @@ import { sendSafely } from "../email/provider";
 import { templates } from "../email/templates";
 import { checkSpam } from "./spam";
 import { flattenErrors, type FormState } from "./schemas";
+import { getPageText } from "../content";
 
 export function formToObject(fd: FormData) {
   const o: Record<string, FormDataEntryValue> = {};
@@ -26,25 +27,27 @@ interface Options<S extends ZodTypeAny> {
 export async function processForm<S extends ZodTypeAny>(o: Options<S>): Promise<FormState> {
   const spam = await checkSpam(o.fd);
   if (spam) return { ok: false, message: spam };
+  // Wording from Admin → Page text → Forms.
+  const ft = await getPageText("forms");
 
   const parsed = o.schema.safeParse(formToObject(o.fd));
-  if (!parsed.success) return { ok: false, message: "Please fix the highlighted fields.", errors: flattenErrors(parsed.error) };
+  if (!parsed.success) return { ok: false, message: ft.g_fix, errors: flattenErrors(parsed.error) };
   const data = parsed.data as z.infer<S>;
 
   if (!isSupabaseConfigured() || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     console.warn(`[forms] ${o.kind}: Supabase not configured — submission not stored`);
-    return { ok: false, message: "This form isn't connected yet. Please email us directly." };
+    return { ok: false, message: ft.g_notConnected };
   }
   const { consent: _c, ...rest } = data as Record<string, unknown>;
   const row = { ...(o.toRow ? o.toRow(data) : rest), consent_given_at: new Date().toISOString() };
   const { data: inserted, error } = await createAdminClient().from(o.table).insert(row).select("id").single();
   if (error || !inserted) {
     console.error(`[forms] ${o.kind} insert failed`, error);
-    return { ok: false, message: "Sorry, something went wrong saving your submission. Please try again." };
+    return { ok: false, message: ft.g_saveFailed };
   }
   await o.after?.(inserted, data);
   if (o.confirmation) await sendSafely(o.confirmation(data, { ...row, id: inserted.id }));
   const admin = process.env.ADMIN_NOTIFICATION_EMAIL;
   if (admin) await sendSafely({ to: admin, ...templates.adminNotification({ kind: o.kind, fields: o.summary(data) }) });
-  return { ok: true, message: "Thank you — your submission has been received.", reference: inserted.id.slice(0, 8).toUpperCase() };
+  return { ok: true, message: ft.g_received, reference: inserted.id.slice(0, 8).toUpperCase() };
 }

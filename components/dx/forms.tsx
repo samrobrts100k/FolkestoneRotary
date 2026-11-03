@@ -2,6 +2,7 @@
 import { useRef, useState, useTransition } from "react";
 import type { FormState } from "@/lib/forms/schemas";
 import { track } from "@/lib/analytics";
+import { useFormText } from "@/components/form-text";
 
 type Action = (s: FormState, fd: FormData) => Promise<FormState>;
 type Ev = Parameters<typeof track>[0];
@@ -13,6 +14,7 @@ type Ev = Parameters<typeof track>[0];
 export function useSubmit(action: Action, trackAs?: Ev) {
   const [state, setState] = useState<FormState>({ ok: false });
   const [pending, start] = useTransition();
+  const ft = useFormText();
   const t0 = useRef(Date.now());
   const submit = (values: Record<string, string | undefined>, files: File[] = [], fileField = "file_supporting") => {
     const fd = new FormData();
@@ -24,7 +26,7 @@ export function useSubmit(action: Action, trackAs?: Ev) {
         const res = await action({ ok: false }, fd);
         setState(res);
         if (res.ok && trackAs) track(trackAs);
-      } catch { setState({ ok: false, message: "Sorry, something went wrong. Please try again." }); }
+      } catch { setState({ ok: false, message: ft.g_wrong }); }
     });
   };
   const reset = () => { setState({ ok: false }); t0.current = Date.now(); };

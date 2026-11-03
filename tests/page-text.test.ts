@@ -48,7 +48,8 @@ describe("page text", () => {
   });
 
   it("every page can take extra panels", () => {
-    for (const p of pages) expect(textFields(p).some(([k, f]) => k === "panels" && f.kind === "panels"), p).toBe(true);
+    // "forms" holds form wording for every page, so it isn't a page of its own.
+    for (const p of pages.filter((x) => x !== "forms")) expect(textFields(p).some(([k, f]) => k === "panels" && f.kind === "panels"), p).toBe(true);
   });
 
   it("reads extra panels safely", () => {
@@ -74,6 +75,14 @@ describe("page text", () => {
   it("built-in panels show unless switched off", () => {
     expect(mergeText("home", null).ctaShow).toBe("show");
     expect(mergeText("home", { ctaShow: "hide" }).ctaShow).toBe("hide");
+  });
+
+  it("has wording for every contact subject and three funding choices", () => {
+    const t = mergeText("forms", null);
+    expect(toLines(t.f_steps)).toHaveLength(3);
+    expect(toLines(t.f_types)).toHaveLength(4);
+    expect(toLines(t.f_when)).toHaveLength(3);
+    expect(fill(t.f_doneText, { amount: "£500", project: "Lunch club", email: "a@b.org" })).toBe("You asked for £500 for Lunch club. We’ve emailed a confirmation to a@b.org.");
   });
 
   it("only accepts known pages", () => {

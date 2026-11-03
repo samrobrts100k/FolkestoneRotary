@@ -7,6 +7,8 @@ import { CookieConsent } from "@/components/cookie-consent";
 import { JsonLd } from "@/components/json-ld";
 import { organisationLd } from "@/lib/seo/jsonld";
 import { site, isChristmasSeason } from "@/lib/site";
+import { getPageText } from "@/lib/content";
+import { FormTextProvider } from "@/components/form-text";
 
 const sans = Source_Sans_3({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const serif = Source_Serif_4({ subsets: ["latin"], axes: ["opsz"], variable: "--font-serif", display: "swap" });
@@ -22,16 +24,19 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#005DAA", width: "device-width", initialScale: 1 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const formText = await getPageText("forms");
   return (
     <html lang="en-GB" className={`${sans.variable} ${serif.variable}`}>
       <body>
+        <FormTextProvider value={formText}>
         <a href="#main" className="sr-only z-50 rounded-full bg-gold px-5 py-3 font-bold text-navy focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
         <Header christmas={isChristmasSeason()} />
         <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieConsent />
         <JsonLd data={organisationLd()} />
+        </FormTextProvider>
       </body>
     </html>
   );

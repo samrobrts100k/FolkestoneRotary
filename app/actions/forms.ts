@@ -1,5 +1,6 @@
 "use server";
 
+import { getPageText } from "@/lib/content";
 import { createAdminClient } from "@/lib/supabase/server";
 import { processForm } from "@/lib/forms/handlers";
 import { contactSchema, fundingSchema, membershipSchema, newsletterSchema, type FormState } from "@/lib/forms/schemas";
@@ -27,7 +28,7 @@ export async function submitNewsletter(_: FormState, fd: FormData): Promise<Form
     confirmation: (d) => ({ to: d.email, ...templates.newsletterConfirmation({ name: d.first_name }) }),
     summary: (d) => ({ Name: `${d.first_name} ${d.last_name}`, Email: d.email }),
   });
-  return res.ok ? { ...res, message: "You're subscribed — thank you!" } : res;
+  return res.ok ? { ...res, message: (await getPageText("forms")).n_doneText } : res;
 }
 
 const MAX_FILE = 10 * 1024 * 1024;
