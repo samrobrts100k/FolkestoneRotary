@@ -46,6 +46,7 @@ Sign in and open **/admin**:
 |---|---|
 | Headings, introductions, buttons and other wording on Home, About, Our impact, Events, News, Join, Funding and Contact | **Page text** → pick the page. Empty a box (or **Use original**) to go back to the original wording |
 | Page photos (a photo section on Home, About, Our impact, Events, Join and Funding, plus the home page background slideshow, which cross-fades every 5 seconds) | **Page text** → pick the page → **Photos**: add several at once, describe each, reorder with Earlier / Later, **Remove**, then **Save** |
+| Extra panels (gold, blue or navy, under the top section or at the bottom) on any page, and hiding a page’s built-in gold panel | **Page text** → pick the page → **Extra panels**: **+ Add a panel**, fill in heading, text and up to two buttons, choose where and colour; **Show this panel** under the built-in panel’s section |
 | Events, news, impact stories, sponsors, galleries | the matching section → **Add** / **Edit** |
 | Homepage numbers | **Homepage statistics** |
 | FAQs, testimonials, timeline, leadership, annual-report PDFs | **FAQs, testimonials & reports** |

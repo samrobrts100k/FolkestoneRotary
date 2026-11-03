@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PAGE_TEXT, fill, isPageKey, mergeText, readImage, readPhotos, textFields, toLines, type PageKey } from "@/lib/page-text";
+import { PAGE_TEXT, fill, isPageKey, mergeText, okLink, readImage, readPanels, readPhotos, textFields, toLines, type PageKey } from "@/lib/page-text";
 
 describe("page text", () => {
   const pages = Object.keys(PAGE_TEXT) as PageKey[];
@@ -10,7 +10,7 @@ describe("page text", () => {
       expect(new Set(keys).size, p).toBe(keys.length);
       for (const [k, f] of textFields(p)) {
         expect(f.label.trim(), `${p}.${k}`).not.toBe("");
-        if (!f.kind) expect(f.def.trim(), `${p}.${k}`).not.toBe("");
+        if (!f.kind || f.kind === "switch") expect(f.def.trim(), `${p}.${k}`).not.toBe("");
       }
     }
   });
@@ -45,6 +45,35 @@ describe("page text", () => {
     expect(readPhotos(mergeText("home", { heroPhoto: "https://x.supabase.co/old.jpg" }).heroPhotos)).toEqual([{ url: "https://x.supabase.co/old.jpg", alt: "" }]);
     const both = JSON.stringify([{ url: "https://x.supabase.co/new.jpg", alt: "" }]);
     expect(mergeText("home", { heroPhoto: "https://x.supabase.co/old.jpg", heroPhotos: both }).heroPhotos).toBe(both);
+  });
+
+  it("every page can take extra panels", () => {
+    for (const p of pages) expect(textFields(p).some(([k, f]) => k === "panels" && f.kind === "panels"), p).toBe(true);
+  });
+
+  it("reads extra panels safely", () => {
+    const raw = JSON.stringify([
+      { title: " Golf Day ", text: "Tee off", btn: "Book", href: "/events/golf", btn2: "Ask", href2: "mailto:info@example.org", where: "top", tone: "blue" },
+      { title: "Bad links", btn: "Click", href: "javascript:alert(1)", btn2: "Other", href2: "//evil.example" },
+      { title: "", text: "no heading is dropped" },
+      { title: "Odd values", where: "sideways", tone: "pink" },
+    ]);
+    const [a, b, c] = readPanels(raw);
+    expect(a).toEqual({ title: "Golf Day", text: "Tee off", btn: "Book", href: "/events/golf", btn2: "Ask", href2: "mailto:info@example.org", where: "top", tone: "blue" });
+    expect([b.btn, b.href, b.btn2, b.href2]).toEqual(["", "", "", ""]);
+    expect([c.title, c.where, c.tone]).toEqual(["Odd values", "bottom", "gold"]);
+    expect(readPanels(raw)).toHaveLength(3);
+    expect(readPanels("nope")).toEqual([]);
+  });
+
+  it("accepts only safe button links", () => {
+    for (const ok of ["/join", "/events?x=1", "https://rotary.org", "mailto:a@b.org", "tel:01303000000"]) expect(okLink(ok), ok).toBe(true);
+    for (const bad of ["javascript:alert(1)", "//evil.example", "http://insecure", "join", "", 'https://x" onmouseover="y']) expect(okLink(bad), bad).toBe(false);
+  });
+
+  it("built-in panels show unless switched off", () => {
+    expect(mergeText("home", null).ctaShow).toBe("show");
+    expect(mergeText("home", { ctaShow: "hide" }).ctaShow).toBe("hide");
   });
 
   it("only accepts known pages", () => {

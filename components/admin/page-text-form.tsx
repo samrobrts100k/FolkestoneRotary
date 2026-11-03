@@ -6,6 +6,7 @@ import { Field, Input, Textarea } from "@/components/ui/fields";
 import { Button } from "@/components/ui/button";
 import { ImageField } from "./image-field";
 import { PhotoListField } from "./photo-list-field";
+import { PanelListField } from "./panel-list-field";
 
 const hintFor = (help?: string, tokens?: boolean) => [help, tokens ? "{meeting} and {venue} fill in the meeting time and place." : ""].filter(Boolean).join(" ") || undefined;
 
@@ -25,6 +26,14 @@ export function PageTextForm({ page, groups, values }: { page: string; groups: r
           {Object.entries(g.fields).map(([name, f]) => {
             const v = values[name] ?? f.def;
             if (f.kind === "photos") return <PhotoListField key={name} name={name} label={f.label} defaultValue={v} help={f.help} decorative={name === "heroPhotos"} />;
+            if (f.kind === "panels") return <PanelListField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
+            if (f.kind === "switch") return (
+              <label key={name} className="flex items-center gap-3 font-semibold">
+                {/* The checkbox comes first, so a ticked box sends "show"; unticked, the hidden "hide" is sent. */}
+                <input type="checkbox" name={name} value="show" defaultChecked={v !== "hide"} className="h-5 w-5 accent-rotary" />
+                <input type="hidden" name={name} value="hide" />{f.label}
+              </label>
+            );
             if (f.kind === "image") return <ImageField key={name} name={name} label={f.label} defaultValue={v} help={f.help} />;
             return (
               <div key={name}>

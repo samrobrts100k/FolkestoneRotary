@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Facebook, Instagram, Linkedin } from "@/components/icons";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { ContactForm, CopyBtn, NextMeeting } from "@/components/dx/contact";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPageText } from "@/lib/content";
@@ -18,6 +19,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         aside={<div className="glass"><small>{t.glassLabel}</small>
           <div style={{ marginTop: 8 }}><span className="cp">{site.email} <CopyBtn text={site.email} /></span></div>
           <div><span className="cp">{site.phone} <CopyBtn text={site.phone} /></span></div></div>} />
+      <DxPanels value={t.panels} where="top" />
       <section className="sec"><div className="wrap cgrid">
         <div><ContactForm defaultSubject={subject} /></div>
         <aside>
@@ -33,6 +35,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           </ul>
         </aside>
       </div></section>
+      <DxPanels value={t.panels} where="bottom" />
     </DxRoot>
   );
 }

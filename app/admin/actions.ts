@@ -6,7 +6,7 @@ import { createAdminClient, createSessionClient } from "@/lib/supabase/server";
 import { buildRow } from "@/lib/admin/build-row";
 import { fundingStatuses, getResource } from "@/lib/admin/resources";
 import { isRole, canManage } from "@/lib/permissions";
-import { PAGE_TEXT, isPageKey, pageTextSlug, readImage, readPhotos, textFields } from "@/lib/page-text";
+import { PAGE_TEXT, isPageKey, pageTextSlug, readImage, readPanels, readPhotos, textFields } from "@/lib/page-text";
 
 export interface SaveState { errors?: Record<string, string>; message?: string }
 
@@ -115,6 +115,8 @@ export async function savePageText(page: string, _: SaveState, fd: FormData): Pr
     let v = String(fd.get(k) ?? "").replace(/\r\n/g, "\n").trim();
     if (f.kind === "photos") { const list = readPhotos(v); v = list.length ? JSON.stringify(list) : ""; }
     if (f.kind === "image") v = readImage(v);
+    if (f.kind === "panels") { const list = readPanels(v); v = list.length ? JSON.stringify(list) : ""; }
+    if (f.kind === "switch") v = v === "hide" ? "hide" : "show";
     if (v && v !== f.def) body[k] = v;
   }
   const { error } = await (await createSessionClient()).from("pages").upsert(

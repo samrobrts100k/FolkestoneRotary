@@ -3,6 +3,7 @@ import { getContentItems, getPageText } from "@/lib/content";
 import { toLines } from "@/lib/page-text";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { DxPhotos } from "@/components/dx/photos";
 import { Accordion } from "@/components/dx/common";
 import { JoinCta, JoinHeroCard, JoinShell, Personas, Table } from "@/components/dx/join";
@@ -24,12 +25,14 @@ export default async function JoinPage() {
         <DxHero page="join" crumb="Join" title={t.heroTitle} lead={t.heroLead}
           extra={<ul className="nos" aria-label="What to expect">{toLines(t.heroNos).map((x) => <li key={x}>{x}</li>)}</ul>} aside={<JoinHeroCard text={card} />} />
       )}>
+        <DxPanels value={t.panels} where="top" />
         <section className="sec" id="guest"><div className="wrap"><h2 className="s">{t.whoTitle}</h2><p className="sub">{t.whoSub}</p><Personas t={t} /></div></section>
         <section className="sec grey"><div className="wrap"><h2 className="s">{t.tableTitle}</h2><p className="sub">{t.tableSub}</p><Table t={t} /></div></section>
         <section className="sec"><div className="wrap"><div className="facts4">{([[t.fact1, t.fact1Sub], [t.fact2, t.fact2Sub], [t.fact3, t.fact3Sub], [t.fact4, t.fact4Sub]] as const).map(([b, s], i) => <div key={i}><b>{b}</b><span>{s}</span></div>)}</div></div></section>
         <DxPhotos title={t.photosTitle} value={t.photos} />
         {faqs.length > 0 && <section className="sec grey"><div className="wrap" style={{ maxWidth: 820 }}><h2 className="s">{t.faqTitle}</h2><Accordion className="faqs" items={faqs} /></div></section>}
-        <section className="sec"><div className="wrap"><JoinCta t={t} /></div></section>
+        {t.ctaShow !== "hide" && <section className="sec"><div className="wrap"><JoinCta t={t} /></div></section>}
+        <DxPanels value={t.panels} where="bottom" />
       </JoinShell>
     </DxRoot>
   );

@@ -7,8 +7,9 @@
  * both from lib/site.ts. On Our impact, {amount} becomes the headline figure.
  *
  * `image` fields hold one photo URL; `photos` fields hold a JSON list of { url, alt } (see readPhotos). Both start empty.
+ * `panels` fields hold a JSON list of extra panels (see readPanels). `switch` fields are "show" or "hide".
  */
-export interface TextField { label: string; def: string; long?: boolean; lines?: boolean; help?: string; kind?: "image" | "photos" }
+export interface TextField { label: string; def: string; long?: boolean; lines?: boolean; help?: string; kind?: "image" | "photos" | "panels" | "switch" }
 export interface TextGroup { title: string; fields: Record<string, TextField> }
 export interface TextPage { label: string; path: string; groups: TextGroup[] }
 
@@ -19,11 +20,17 @@ const lines = (label: string, def: string[], extra: Partial<TextField> = {}) => 
 export const image = (label: string, help?: string): TextField => ({ label, def: "", kind: "image", help });
 /** A heading plus a set of photos. Nothing shows on the page until a photo is added. */
 const photos = (title: string, help = "Add, remove and reorder photos. The section only appears once it has a photo.") => ({ photosTitle: f("Photos heading", title), photos: { label: "Photos", def: "", kind: "photos", help } as TextField });
-function panel(title: string, text: string, b1: string): { ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField };
-function panel(title: string, text: string, b1: string, b2: string): { ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField; ctaBtn2: TextField };
+/** On/off for a built-in part of a page. */
+const show = (label: string): TextField => ({ label, def: "show", kind: "switch" });
+type Panel = { ctaShow: TextField; ctaTitle: TextField; ctaText: TextField; ctaBtn: TextField };
+function panel(title: string, text: string, b1: string): Panel;
+function panel(title: string, text: string, b1: string, b2: string): Panel & { ctaBtn2: TextField };
 function panel(title: string, text: string, b1: string, b2?: string) {
-  return { ctaTitle: f("Panel heading", title), ctaText: long("Panel text", text), ctaBtn: f("Main button", b1), ...(b2 ? { ctaBtn2: f("Second button", b2) } : {}) };
+  return { ctaShow: show("Show this panel"), ctaTitle: f("Panel heading", title), ctaText: long("Panel text", text), ctaBtn: f("Main button", b1), ...(b2 ? { ctaBtn2: f("Second button", b2) } : {}) };
 }
+
+/** Extra panels admins can add to any page: as many as they like, near the top or at the bottom. */
+const EXTRA_PANELS: TextField = { label: "Extra panels", def: "", kind: "panels", help: "Add your own panels: a heading, a line of text and up to two buttons. Choose where each one goes and its colour. Nothing shows until you add one." };
 
 export const PAGE_TEXT = {
   home: { label: "Home", path: "/", groups: [
@@ -42,6 +49,7 @@ export const PAGE_TEXT = {
     } },
     { title: "Photos", fields: photos("Folkestone Rotary in action") },
     { title: "Gold guest panel (bottom)", fields: panel("Come to a meeting as our guest", "{meeting}. At {venue}. No obligation.", "Ask to visit") },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   about: { label: "About us", path: "/about", groups: [
     { title: "Top of the page", fields: { heroTitle: f("Headline", "Local people. Global network."), heroLead: long("Introduction", "We’re Folkestone’s Rotary club: neighbours who’d rather do something than talk about it."), glassLabel: f("Box heading", "At a glance") } },
@@ -55,6 +63,7 @@ export const PAGE_TEXT = {
     { title: "Rotary International", fields: { worldTitle: f("Heading", "Part of something bigger"), worldText: long("Paragraph", "Rotary International brings over a million Rotarians together on causes including peace, health, education and the environment.") } },
     { title: "Photos", fields: photos("Life in the club") },
     { title: "Gold panel (bottom)", fields: panel("Come and meet us", "{meeting}, {venue}. Visitors are always welcome.", "Visit as a guest", "Get in touch") },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   impact: { label: "Our impact", path: "/impact", groups: [
     { title: "Top of the page", fields: {
@@ -73,6 +82,7 @@ export const PAGE_TEXT = {
       photos: { label: "Photos", def: "", kind: "photos", help: "Add, remove and reorder photos for the “Rotary in action” section. It only appears once it has a photo." },
     } },
     { title: "Gold panel (bottom)", fields: panel("Help us do even more", "Give, volunteer or ask for funding for a project of your own.", "Apply for funding", "Join us") },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   events: { label: "Events", path: "/events", groups: [
     { title: "Top of the page", fields: { heroTitle: f("Headline", "What’s on"), heroLead: long("Introduction", "Races, quizzes, collections and one very good golf day. Every ticket helps someone in Folkestone.") } },
@@ -83,17 +93,19 @@ export const PAGE_TEXT = {
       evAbout: f("“About” heading", "About this event"), evDay: f("Programme heading", "On the day"), evTickets: f("Tickets heading", "Tickets and entry"),
       evTicketsNone: long("When there are no ticket details", "Details coming soon. Ask us and we’ll let you know first."),
       evThanks: f("Sponsors heading", "With thanks to"), evFaq: f("Questions heading", "Questions"),
-      evCtaTitle: f("Gold panel heading", "Help make it happen"), evCtaText: long("Gold panel text", "Put your business on the programme, or give a morning to help it run."),
+      evCtaShow: show("Show the gold panel on event pages"), evCtaTitle: f("Gold panel heading", "Help make it happen"), evCtaText: long("Gold panel text", "Put your business on the programme, or give a morning to help it run."),
       evCtaBtn: f("Gold panel button", "Sponsor this event"), evCtaBtn2: f("Gold panel second button", "Volunteer"),
     } },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   news: { label: "News", path: "/news", groups: [
     { title: "Top of the page", fields: { heroTitle: f("Headline", "News from the club"), heroLead: long("Introduction", "Funding rounds, new members and the odd photo of someone in a hat.") } },
     { title: "Featured story", fields: { featTag: f("Label", "Featured"), featLink: f("Link", "Read the story") } },
     { title: "Each article’s own page", fields: {
       moreTitle: f("“More news” heading", "More from the club"), moreBtn: f("“More news” button", "All news"),
-      artCtaTitle: f("Gold panel heading", "Come to a meeting as our guest"), artCtaText: long("Gold panel text", "{meeting}. At {venue}. No obligation."), artCtaBtn: f("Gold panel button", "Ask to visit"),
+      artCtaShow: show("Show the gold panel on article pages"), artCtaTitle: f("Gold panel heading", "Come to a meeting as our guest"), artCtaText: long("Gold panel text", "{meeting}. At {venue}. No obligation."), artCtaBtn: f("Gold panel button", "Ask to visit"),
     } },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   join: { label: "Join Rotary", path: "/join", groups: [
     { title: "Top of the page", fields: {
@@ -130,6 +142,7 @@ export const PAGE_TEXT = {
       faqTitle: f("Questions heading", "Questions people ask"),
       ...panel("Your seat’s waiting.", "It takes ten seconds. Pick a lunch date, tell us your name and email, and someone will be in touch.", "Reserve my seat"),
     } },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   funding: { label: "Apply for funding", path: "/funding", groups: [
     { title: "Top of the page", fields: {
@@ -162,6 +175,7 @@ export const PAGE_TEXT = {
       grantsTitle: f("Recent grants heading", "Recent grants"), faqTitle: f("Questions heading", "Quick answers"),
       ...panel("Got a project in mind?", "It takes about five minutes, and you can stop and come back whenever you like.", "Start my application"),
     } },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   christmas: { label: "Christmas (Santa’s sleigh)", path: "/christmas", groups: [
     { title: "Top of the page", fields: {
@@ -175,6 +189,7 @@ export const PAGE_TEXT = {
       finderNote: long("Line under the heading", "Routes and times are kept up to date by our route team, so this always shows the latest."),
     } },
     { title: "Gold panel (bottom)", fields: panel("Walk with Santa", "Members and friends walk alongside the sleigh, collecting for local families. Join us for an evening.", "Volunteer", "Donate") },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
   contact: { label: "Contact", path: "/contact", groups: [
     { title: "Top of the page", fields: {
@@ -182,6 +197,7 @@ export const PAGE_TEXT = {
       heroLead: long("Introduction", "Questions about membership, funding, events or sponsorship? A real person will reply."),
       glassLabel: f("Box heading", "Fastest ways to reach us"), nextLabel: f("“Next meeting” label", "Next meeting"),
     } },
+    { title: "Extra panels", fields: { panels: EXTRA_PANELS } },
   ] },
 } as const satisfies Record<string, TextPage>;
 
@@ -222,6 +238,32 @@ export function readPhotos(v: string | null | undefined): PagePhoto[] {
 }
 /** Reads an `image` field: the URL if it is safe to show, otherwise empty. */
 export const readImage = (v: string | null | undefined) => (okUrl(v) ? v : "");
+
+export type PanelTone = "gold" | "blue" | "navy";
+export type PanelWhere = "top" | "bottom";
+export interface PagePanel { title: string; text: string; btn: string; href: string; btn2: string; href2: string; where: PanelWhere; tone: PanelTone }
+export const PANEL_TONES: [PanelTone, string][] = [["gold", "Gold"], ["blue", "Blue"], ["navy", "Navy"]];
+export const PANEL_PLACES: [PanelWhere, string][] = [["bottom", "At the bottom of the page"], ["top", "Under the top section"]];
+/** A button link: a page on this site (/join), a full https address, an email (mailto:) or a phone number (tel:). */
+export const okLink = (u: unknown): u is string => typeof u === "string" && /^(\/(?!\/)|https:\/\/|mailto:|tel:)[^\s"'<>]*$/.test(u);
+const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+/** Reads a `panels` field. Keeps panels with a heading; drops buttons without a label or with an unsafe link. */
+export function readPanels(v: string | null | undefined): PagePanel[] {
+  if (!v) return [];
+  let list: unknown;
+  try { list = JSON.parse(v); } catch { return []; }
+  if (!Array.isArray(list)) return [];
+  return list.filter((p) => p && typeof p === "object").map((p) => {
+    const btn = str(p.btn, 60), href = str(p.href, 500), btn2 = str(p.btn2, 60), href2 = str(p.href2, 500);
+    const ok1 = Boolean(btn && okLink(href)), ok2 = Boolean(btn2 && okLink(href2));
+    return {
+      title: str(p.title, 120), text: str(p.text, 600),
+      btn: ok1 ? btn : "", href: ok1 ? href : "", btn2: ok2 ? btn2 : "", href2: ok2 ? href2 : "",
+      where: p.where === "top" ? "top" : "bottom", tone: p.tone === "blue" || p.tone === "navy" ? p.tone : "gold",
+    } as PagePanel;
+  }).filter((p) => p.title).slice(0, 12);
+}
 
 /** Turns a one-per-line field into a list, dropping blank lines. */
 export const toLines = (s: string) => s.split(/\r?\n/).map((x) => x.trim()).filter(Boolean);

@@ -103,10 +103,12 @@ export async function EventView({ e }: { e: EventItem }) {
         </aside>
       </div></section>
 
+      {t.evCtaShow !== "hide" && (
       <section className="sec" style={{ paddingTop: 0 }}><div className="wrap"><div className="meet" data-rv>
         <h2>{t.evCtaTitle}</h2>
         <div><p>{t.evCtaText}</p><Link className="btn" href="/contact?subject=Sponsorship">{t.evCtaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.evCtaBtn2}</Link></div>
       </div></div></section>
+      )}
     </DxRoot>
   );
 }

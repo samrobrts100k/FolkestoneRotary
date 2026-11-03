@@ -56,10 +56,12 @@ export async function NewsView({ n, related }: { n: NewsItem; related: NewsItem[
         </div></section>
       )}
 
+      {t.artCtaShow !== "hide" && (
       <section className="sec"><div className="wrap"><div className="meet" data-rv>
         <h2>{t.artCtaTitle}</h2>
         <div><p>{t.artCtaText}</p><Link className="btn" href="/join">{t.artCtaBtn}</Link></div>
       </div></div></section>
+      )}
     </DxRoot>
   );
 }

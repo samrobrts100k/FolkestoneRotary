@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPageText, getPastEvents, getUpcomingEvents } from "@/lib/content";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { DxPhotos } from "@/components/dx/photos";
 import { EventsExplorer, EventsTimeline, NextUp } from "@/components/dx/events";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -16,10 +17,12 @@ export default async function EventsPage() {
   return (
     <DxRoot>
       <DxHero page="events" crumb="Events" title={t.heroTitle} lead={t.heroLead} aside={upcoming[0] && <NextUp event={upcoming[0]} />} />
+      <DxPanels value={t.panels} where="top" />
       {upcoming.length > 0 && <section className="sec"><div className="wrap"><h2 className="s">{t.yearTitle}</h2><p className="sub">{t.yearSub}</p><EventsTimeline events={upcoming} /></div></section>}
       <section className="sec grey"><div className="wrap"><EventsExplorer upcoming={upcoming} past={past} categories={eventCategories} /></div></section>
       <DxPhotos title={t.photosTitle} value={t.photos} />
-      <section className="sec"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/contact?subject=Sponsorship">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.ctaBtn2}</Link></div></div></div></section>
+      {t.ctaShow !== "hide" && <section className="sec"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/contact?subject=Sponsorship">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.ctaBtn2}</Link></div></div></div></section>}
+      <DxPanels value={t.panels} where="bottom" />
     </DxRoot>
   );
 }

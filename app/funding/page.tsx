@@ -4,6 +4,7 @@ import { getContentItems, getPageText, getStories } from "@/lib/content";
 import { toLines } from "@/lib/page-text";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { DxPhotos } from "@/components/dx/photos";
 import { Accordion } from "@/components/dx/common";
 import { Application, ContinueBar, FundCards, GrantWall, StartButton, Track } from "@/components/dx/funding";
@@ -24,14 +25,16 @@ export default async function FundingPage() {
       <DxHero page="funding" crumb="Funding" title={t.heroTitle} lead={t.heroLead}
         extra={<ul className="nos" aria-label="What to expect">{toLines(t.heroNos).map((x) => <li key={x}>{x}</li>)}</ul>}
         aside={<div className="glass fhero" id="fhero"><Application /></div>} />
+      <DxPanels value={t.panels} where="top" />
       <section className="sec" id="criteria"><div className="wrap"><h2 className="s">{t.fundTitle}</h2><p className="sub">{t.fundSub}</p><FundCards cards={[[t.c1Title, t.c1Text], [t.c2Title, t.c2Text], [t.c3Title, t.c3Text], [t.c4Title, t.c4Text], [t.c5Title, t.c5Text]]} />
         <div className="fnot" data-rv><b>{t.notTitle}</b><ul>{toLines(t.notList).map((x) => <li key={x}>{x}</li>)}</ul><Link href="/contact?subject=Funding">{t.notLink}</Link></div></div></section>
       <section className="sec grey"><div className="wrap"><h2 className="s">{t.afterTitle}</h2><p className="sub">{t.afterSub}</p><Track steps={[[t.s1, t.s1Text], [t.s2, t.s2Text], [t.s3, t.s3Text], [t.s4, t.s4Text]]} /></div></section>
       {grants.length > 0 && <section className="sec"><div className="wrap"><h2 className="s">{t.grantsTitle}</h2><GrantWall grants={grants} /></div></section>}
       <DxPhotos title={t.photosTitle} value={t.photos} />
       {faqs.length > 0 && <section className="sec grey"><div className="wrap" style={{ maxWidth: 820 }}><h2 className="s">{t.faqTitle}</h2><Accordion items={faqs} /></div></section>}
-      <section className="sec"><div className="wrap"><div className="jcta" data-rv><div><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p></div><StartButton>{t.ctaBtn}</StartButton></div></div></section>
+      {t.ctaShow !== "hide" && <section className="sec"><div className="wrap"><div className="jcta" data-rv><div><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p></div><StartButton>{t.ctaBtn}</StartButton></div></div></section>}
       <ContinueBar />
+      <DxPanels value={t.panels} where="bottom" />
     </DxRoot>
   );
 }

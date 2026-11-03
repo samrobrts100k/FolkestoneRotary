@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getNews, getPageText } from "@/lib/content";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { NewsExplorer } from "@/components/dx/news";
 import { newsCategories } from "@/lib/seed";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -20,8 +21,10 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
     <DxRoot>
       <DxHero page="news" crumb="News" title={t.heroTitle} lead={t.heroLead}
         aside={latest && <div className="glass"><small>Latest · {formatDate(latest.published_at)}</small><Link className="link" href={`/news/${latest.slug}`}>{latest.title}</Link><p style={{ margin: 0, color: "#cfe0f2" }}>{latest.summary}</p></div>} />
+      <DxPanels value={t.panels} where="top" />
       {featured && <section className="sec"><div className="wrap"><Link className="feat" href={`/news/${featured.slug}`}><div className="pic" aria-hidden="true" style={featured.image_url ? { backgroundImage: `url(${featured.image_url})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined} /><div className="tx"><span className="tag">{t.featTag}</span><h2>{featured.title}</h2><p>{featured.summary}</p><span style={{ fontWeight: 700, color: "var(--gold)" }}>{t.featLink}</span></div></Link></div></section>}
       <section className="sec grey"><div className="wrap"><NewsExplorer items={items} categories={newsCategories} initialQ={q} initialCategory={category} /></div></section>
+      <DxPanels value={t.panels} where="bottom" />
     </DxRoot>
   );
 }

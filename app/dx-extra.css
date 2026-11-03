@@ -75,3 +75,11 @@
 .dx .santa-photo{border-radius:24px}
 .dx .santa-alt{margin:12px 0 0;font-size:15px;color:var(--mute)}.dx .santa-alt a{color:var(--blue);font-weight:700}
 .dx .santa-fallback{margin-top:18px;padding:28px;border-radius:18px;background:var(--navy);color:#fff;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}.dx .santa-fallback p{margin:0;font:700 22px/1.25 var(--serif)}
+
+/* Extra panels from Page text: stacked with a gap, in gold (default), blue or navy */
+.dx .xpanels{display:grid;gap:24px}
+.dx .meet.blue{background:var(--blue);color:#fff}.dx .meet.navy{background:var(--navy);color:#fff}
+.dx .meet.blue h2,.dx .meet.navy h2{color:#fff}
+.dx .meet.blue .btn,.dx .meet.navy .btn{background:var(--gold);color:var(--navy)}.dx .meet.blue .btn:hover,.dx .meet.navy .btn:hover{background:#ffb93a}
+.dx .meet.blue .btn.ghost,.dx .meet.navy .btn.ghost{background:transparent;border-color:#fff;color:#fff}.dx .meet.blue .btn.ghost:hover,.dx .meet.navy .btn.ghost:hover{background:rgba(255,255,255,.15)}
+.dx .meet.blue :focus-visible,.dx .meet.navy :focus-visible{outline-color:#fff}

@@ -8,6 +8,7 @@ import { NewsList } from "@/components/home/news-list";
 import { JoinCta } from "@/components/home/ctas";
 import { SponsorRow } from "@/components/home/sponsors";
 import { HomePhotos } from "@/components/home/photos";
+import { HomePanels } from "@/components/home/panels";
 import { Section, SectionHeading } from "@/components/sections";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { site } from "@/lib/site";
@@ -22,6 +23,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero t={t} card={{ title: jt.cardTitle, btn: jt.cardBtn, fine: jt.cardFine }} />
+      <HomePanels value={t.panels} where="top" />
       <StatsBand stats={stats} quote={testimonials[0]} />
       <Section>
         <SectionHeading title={t.eventsTitle} intro={t.eventsIntro} />
@@ -35,7 +37,8 @@ export default async function HomePage() {
       </Section>
       <HomePhotos title={t.photosTitle} value={t.photos} />
       <SponsorRow sponsors={sponsors} t={t} />
-      <JoinCta t={t} />
+      {t.ctaShow !== "hide" && <JoinCta t={t} />}
+      <HomePanels value={t.panels} where="bottom" />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { getContentItems, getGalleryImages, getPageText, getStats, getStories } 
 import { fill } from "@/lib/page-text";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
+import { DxPanels } from "@/components/dx/panels";
 import { DxPhotos } from "@/components/dx/photos";
 import { Huts, Quotes, StoryBento, VolunteerRing } from "@/components/dx/impact";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -30,13 +31,15 @@ export default async function ImpactPage() {
         aside={raised && <div className="glass"><small>{raised.label}{sample ? " (sample)" : ""}</small><b className="big"><Counter value={raised.value} prefix={raised.prefix} suffix={raised.suffix} /></b>
           <div className="segs" aria-hidden="true">{causes.map((c, k) => <i key={c.id} style={{ width: `${(c.value / (total || 1)) * 100}%`, background: SEG[k % 4] }} />)}</div>
           <p style={{ margin: "10px 0 0", color: "#cfe0f2" }}>{t.glassNote}</p><a className="btn gold" href="#where">{t.glassBtn}</a></div>} />
+      <DxPanels value={t.panels} where="top" />
       {causes.length > 0 && <section className="sec" id="where"><div className="wrap"><h2 className="s">{t.hutsTitle}</h2><p className="sub">{t.hutsSub}{sample ? " Sample figures, editable in the admin." : ""}</p><Huts causes={causes} total={total} /></div></section>}
       <section className="sec grey" id="projects"><div className="wrap"><h2 className="s">{t.storiesTitle}</h2><p className="sub">{t.storiesSub}</p><StoryBento sample={sample} stories={stories.map((s) => ({ id: s.id, slug: s.slug, title: s.title, organisation: s.organisation, summary: s.summary, outcome: s.outcome, amount: s.amount_awarded, body: s.body }))} /></div></section>
       {testimonials.length > 0 && <section className="sec" id="testimonials"><div className="wrap"><h2 className="s">{t.quotesTitle}</h2><Quotes items={testimonials.map((t) => ({ id: t.id, quote: t.body ?? "", by: t.title }))} /></div></section>}
       <section className="sec grey" id="volunteering"><div className="wrap ringwrap"><VolunteerRing hours={hours} /><div style={{ maxWidth: "30em" }}><h2 className="s">{t.timeTitle}</h2><p className="sub">{t.timeSub}</p><Link className="btn blue" href="/join">{t.timeBtn}</Link></div></div></section>
       <DxPhotos title={t.galleryTitle} value={t.photos} extra={gallery.map((g) => ({ url: g.url, alt: g.alt || "Folkestone Rotary" }))} />
       <section className="sec" id="reports"><div className="wrap"><h2 className="s">{t.reportsTitle}</h2><div style={{ maxWidth: 700, marginTop: 16 }}>{reports.map((r) => <div className="dl" key={r.id}><b>{r.title}</b>{r.url ? <a className="btn blue" href={r.url} download>Download PDF</a> : <span style={{ color: "var(--mute)" }}>PDF to be uploaded</span>}</div>)}</div></div></section>
-      <section className="sec"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/funding">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.ctaBtn2}</Link></div></div></div></section>
+      {t.ctaShow !== "hide" && <section className="sec"><div className="wrap"><div className="meet" data-rv><h2>{t.ctaTitle}</h2><div><p style={{ margin: "0 0 16px" }}>{t.ctaText}</p><Link className="btn" href="/funding">{t.ctaBtn}</Link>{" "}<Link className="btn ghost" href="/join">{t.ctaBtn2}</Link></div></div></div></section>}
+      <DxPanels value={t.panels} where="bottom" />
     </DxRoot>
   );
 }
