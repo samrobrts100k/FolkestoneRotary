@@ -101,3 +101,15 @@
 @media(max-width:600px){.dx .rt-gal.n3{grid-template-columns:1fr 1fr}}
 .dx .dtl-copy.big>.rtx>p:first-child::first-letter{float:left;font:700 4.1em/.8 var(--serif);color:var(--blue);margin:.08em .1em 0 0}
 .dx .dtl-pic .rt-fig{margin:0}
+
+/* Narrow phones (and iPhones with Display Zoom or larger Safari text, which act like narrower screens):
+   nothing may push past the right edge. */
+.dx .btn{max-width:100%;white-space:normal;text-align:center}
+.dx .dtl-tk .main,.dx .yrdet .main,.dx .tiles>*,.dx .sit,.dx .jbar>span{min-width:0}
+.dx .dtl-tk dd{overflow-wrap:anywhere}
+.dx .jbar .btn{flex-shrink:0}
+@media(max-width:420px){.dx .cd{max-width:100%}.dx .cd div,.dx .yrdet .cd.sm div{min-width:0;flex:1 1 0}.dx .cd b{font-size:clamp(20px,6.5vw,30px)}}
+@media(max-width:400px){.dx .dtl-tk{grid-template-columns:78px 1fr}.dx .dtl-tk .stub b{font-size:38px}.dx .dtl-tk .main{padding:18px 16px 20px}}
+@media(max-width:380px){.dx .tile span{padding:12px 6px;font-size:15px}}
+@media(max-width:360px){.dx .trow{gap:2px}.dx .sit .av{width:40px;font-size:18px}.dx .sit b{font-size:11px;hyphens:auto;overflow-wrap:anywhere}}
+.dx .facts4>div{min-width:0;overflow-wrap:anywhere}

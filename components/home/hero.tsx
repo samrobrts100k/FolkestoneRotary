@@ -43,8 +43,8 @@ export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
       <div aria-hidden className="hero-shade pointer-events-none absolute inset-0 -z-10" />
 
       <div className="container grid w-full items-end gap-10 pb-9 pt-32 sm:pt-36 lg:grid-cols-[1.25fr_minmax(0,430px)] lg:gap-14">
-        <div>
-          <h1 id="hero-title" aria-label={TITLE} className="hero-title mb-5 max-w-[10em] text-[clamp(44px,6.8vw,92px)] leading-[1.04] text-white" style={{ letterSpacing: "-0.015em" }}>
+        <div className="min-w-0">
+          <h1 id="hero-title" aria-label={TITLE} className="hero-title mb-5 max-w-[10em] text-[clamp(34px,11.5vw,44px)] sm:text-[clamp(44px,6.8vw,92px)] leading-[1.04] text-white" style={{ letterSpacing: "-0.015em" }}>
             {TITLE.split(" ").map((w, i, all) => (
               <span key={i} aria-hidden><span className="word-rise" style={{ "--i": i } as React.CSSProperties}>{w}</span>{i < all.length - 1 ? " " : ""}</span>
             ))}
@@ -75,7 +75,7 @@ export function Hero({ t, card }: { t: PageText<"home">; card: CardText }) {
             </div>
           )}
         </div>
-        <div className="rise w-full max-w-[460px]" style={{ "--d": "650ms" } as React.CSSProperties}><HomeReserveCard text={card} /></div>
+        <div className="rise w-full min-w-0 max-w-[460px]" style={{ "--d": "650ms" } as React.CSSProperties}><HomeReserveCard text={card} /></div>
       </div>
     </section>
   );

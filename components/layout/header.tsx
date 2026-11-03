@@ -61,10 +61,10 @@ export function Header({ christmas = false }: { christmas?: boolean }) {
       className={cn("sticky top-0 z-40 transition-[background-color,box-shadow] duration-200", solid ? "bg-white shadow-[0_1px_0_#D9E2EC]" : "on-dark bg-transparent")}
       style={isHome ? { marginBottom: -H } : undefined}
     >
-      <div className="container flex items-center justify-between gap-4" style={{ height: H }}>
+      <div className="container flex items-center justify-between gap-2 sm:gap-4" style={{ height: H }}>
         <Logo light={!solid} />
         <DesktopNav solid={solid} path={path} items={menu} />
-        <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
           <ButtonLink href={donateHref} variant="gold" size="sm" onClick={() => track("donate_click", { location: "header" })}>Donate</ButtonLink>
           <ButtonLink href="/login" variant={solid ? "outline" : "outline-light"} size="sm" className="hidden sm:inline-flex">Member Login</ButtonLink>
           <button ref={burger} type="button" onClick={() => setOpen((o) => !o)}
