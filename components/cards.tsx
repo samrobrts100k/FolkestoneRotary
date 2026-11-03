@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { EventActions } from "@/components/event-actions";
-import { categoryName, formatDate, formatTime, gbp } from "@/lib/utils";
+import { categoryName, formatDate, gbp } from "@/lib/utils";
+import { eventTime } from "@/lib/event-time";
 import { eventCategories, newsCategories } from "@/lib/seed";
 
 import type { EventItem, ImpactStory, NewsItem } from "@/lib/types";
@@ -17,7 +18,7 @@ export function EventCard({ event: e, showTime = false }: { event: EventItem; sh
       <CardBody className="flex flex-1 flex-col">
         <div className="flex flex-wrap items-center gap-2"><Badge>{categoryName(eventCategories, e.category)}</Badge></div>
         <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-rotary"><CalendarDays aria-hidden className="h-4 w-4" /><time dateTime={e.starts_at}>{formatDate(e.starts_at, { weekday: "short", day: "numeric", month: "long", year: "numeric" })}</time></p>
-        {showTime && <p className="mt-1 flex items-center gap-2 text-sm text-slate-blue"><Clock aria-hidden className="h-4 w-4" />{formatTime(e.starts_at)}{e.ends_at ? ` – ${formatTime(e.ends_at)}` : ""}</p>}
+        {showTime && <p className="mt-1 flex items-center gap-2 text-sm text-slate-blue"><Clock aria-hidden className="h-4 w-4" />{eventTime(e)}</p>}
         <h3 className="mt-2 text-xl"><Link href={`/events/${e.slug}`} className="hover:text-rotary">{e.title}</Link></h3>
         <p className="mt-1 flex items-center gap-2 text-sm text-slate-blue"><MapPin aria-hidden className="h-4 w-4 shrink-0" />{e.venue_name}</p>
         <p className="mt-3 flex-1 text-slate-700">{e.short_description}</p>

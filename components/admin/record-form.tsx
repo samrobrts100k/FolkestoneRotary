@@ -6,8 +6,16 @@ import { Field, Input, Select, Textarea } from "@/components/ui/fields";
 import { Button } from "@/components/ui/button";
 import { ImageField } from "./image-field";
 import { STATUSES } from "@/lib/types";
+import { isoToLocalInput, londonParts } from "@/lib/event-time";
 
-const toLocal = (iso?: string | null) => { if (!iso) return ""; const d = new Date(iso); const p = (n: number) => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
+/** Dates and times in the form are UK time, matching how they are saved. */
+const toLocal = isoToLocalInput;
+/** Fills a date + optional time pair. 00:00 on a start and 23:59 on an end mean "no time given". */
+const whenParts = (iso: unknown, isEnd: boolean) => {
+  if (typeof iso !== "string" || !iso) return { date: "", time: "" };
+  const p = londonParts(iso);
+  return { date: p.date, time: p.time === (isEnd ? "23:59" : "00:00") ? "" : p.time };
+};
 
 export function RecordForm({ resource, id, record }: { resource: Resource; id: string; record: Record<string, unknown> | null }) {
   const [state, action, pending] = useActionState(saveRecord.bind(null, resource.key, id), {});
@@ -19,6 +27,20 @@ export function RecordForm({ resource, id, record }: { resource: Resource; id: s
       {resource.fields.map((f) => {
         const v = val(f.name);
         if (f.type === "image" || f.type === "file") return <ImageField key={f.name} name={f.name} label={f.label} defaultValue={v as string} accept={f.type === "image" ? "image" : "file"} help={f.help} />;
+        if (f.type === "when") {
+          const w = whenParts(v, Boolean(f.after));
+          return (
+            <fieldset key={f.name} className="space-y-1" aria-describedby={f.help ? `${f.name}-help` : undefined}>
+              <legend className="text-sm font-semibold">{f.label}{f.required && <span className="text-red-700"> *</span>}</legend>
+              <div className="flex flex-wrap gap-3">
+                <label className="text-sm">Date<Input type="date" name={`${f.name}__date`} defaultValue={w.date} required={f.required} aria-invalid={Boolean(e[f.name])} /></label>
+                <label className="text-sm">Time <span className="text-slate-blue">(optional)</span><Input type="time" name={`${f.name}__time`} defaultValue={w.time} aria-invalid={Boolean(e[f.name])} /></label>
+              </div>
+              {f.help && <p id={`${f.name}-help`} className="text-sm text-slate-blue">{f.help}</p>}
+              {e[f.name] && <p role="alert" className="text-sm font-medium text-red-700">{e[f.name]}</p>}
+            </fieldset>
+          );
+        }
         if (f.type === "checkbox") return <label key={f.name} className="flex items-center gap-3 font-semibold"><input type="checkbox" name={f.name} defaultChecked={Boolean(v)} className="h-5 w-5 accent-rotary" />{f.label}</label>;
         const dv = f.type === "datetime" ? toLocal(v as string) : f.type === "tags" ? ((v as string[]) ?? []).join(", ") : f.type === "json" ? JSON.stringify(v ?? [], null, 2) : (v ?? "");
         return (

@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Accordion, Cd, Pills, reducedMotion } from "./common";
 import { googleCalendarUrl } from "@/lib/ics";
-import { formatDate, formatTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { eventTime } from "@/lib/event-time";
 import { site } from "@/lib/site";
 import type { EventItem } from "@/lib/types";
 import { cat } from "@/lib/event-categories";
@@ -104,7 +105,7 @@ export function EventsTimeline({ events }: { events: EventItem[] }) {
         <div className="main">
           <span className="tag">{cn}</span>
           <h3>{e.title}</h3>
-          <p className="meta">{formatTime(e.starts_at)} · {e.venue_name}</p>
+          <p className="meta">{eventTime(e)} · {e.venue_name}</p>
           <p>{e.short_description}</p>
           <Cd to={e.starts_at} small label={`Time until ${e.title}`} />
           <div className="acts3">
@@ -126,7 +127,7 @@ function ECard({ e }: { e: EventItem }) {
       <div className="bd">
         <span className="tag">{cn}</span>
         <h3><Link href={`/events/${e.slug}`}>{e.title}</Link></h3>
-        <p className="meta"><time dateTime={e.starts_at}>{formatDate(e.starts_at, { weekday: "short", day: "numeric", month: "short" })}, {formatTime(e.starts_at)}</time> · {e.venue_name}</p>
+        <p className="meta"><time dateTime={e.starts_at}>{formatDate(e.starts_at, { weekday: "short", day: "numeric", month: "short" })}, {eventTime(e)}</time> · {e.venue_name}</p>
         <p className="ds">{e.short_description}</p>
         <div className="acts2">
           {e.book_url ? <a href={e.book_url} target="_blank" rel="noopener noreferrer">Book tickets</a> : <Link href={`/events/${e.slug}`}>Find out more</Link>}

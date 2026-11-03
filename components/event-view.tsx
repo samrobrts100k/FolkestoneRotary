@@ -9,7 +9,9 @@ import { eventLd, faqLd } from "@/lib/seo/jsonld";
 import type { EventItem } from "@/lib/types";
 import { cat } from "@/lib/event-categories";
 import { googleCalendarUrl, mapsUrl } from "@/lib/ics";
-import { formatDate, formatTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { eventTime } from "@/lib/event-time";
+import { isUpcoming } from "@/lib/visibility";
 import { site } from "@/lib/site";
 import { getPageText } from "@/lib/content";
 
@@ -19,10 +21,12 @@ export async function EventView({ e }: { e: EventItem }) {
   // Christmas collections point people to the Santa route finder.
   const santa = /christmas|santa/i.test(`${e.slug} ${e.title}`);
   const url = `${site.url}/events/${e.slug}`;
-  const future = new Date(e.starts_at) > new Date();
+  // An all-day event is still on until the end of its day.
+  const future = isUpcoming(e);
+  const notStarted = new Date(e.starts_at) > new Date();
   const [cn, col, light] = cat(e.category);
   const embed = e.lat != null && e.lng != null ? `${e.lat},${e.lng}` : [e.venue_name, e.address, e.postcode].filter(Boolean).join(", ");
-  const when = `${formatTime(e.starts_at)}${e.ends_at ? ` – ${formatTime(e.ends_at)}` : ""}`;
+  const when = eventTime(e);
   const book = e.book_url ? { href: e.book_url, label: "Book tickets" } : e.enter_url ? { href: e.enter_url, label: "Enter the race" } : null;
   return (
     <DxRoot>
@@ -33,7 +37,7 @@ export async function EventView({ e }: { e: EventItem }) {
           <div className="glass">
             <small>{formatDate(e.starts_at, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</small>
             <b className="t">{when} · {e.venue_name}</b>
-            {future && e.show_countdown !== false && <Cd to={e.starts_at} small label={`Time until ${e.title}`} />}
+            {notStarted && e.show_countdown !== false && <Cd to={e.starts_at} small label={`Time until ${e.title}`} />}
             {!future && <p style={{ margin: 0, color: "var(--on-dark)" }}>This event has finished. Thank you to everyone who came.</p>}
             {future && (book
               ? <a className="btn gold" href={book.href} target="_blank" rel="noopener noreferrer">{book.label}</a>

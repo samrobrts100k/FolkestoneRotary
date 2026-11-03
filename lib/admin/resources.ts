@@ -1,8 +1,10 @@
 import type { Role } from "../permissions";
 import { resourceRoles } from "../permissions";
 
-export type FieldType = "text" | "textarea" | "number" | "date" | "datetime" | "select" | "checkbox" | "image" | "file" | "tags" | "json" | "url";
-export interface FieldDef { name: string; label: string; type: FieldType; required?: boolean; help?: string; options?: { value: string; label: string }[]; rows?: number }
+/** `when` = a date box plus an optional time box (UK time). No time means all day for a start, or the end of that day for an end. */
+export type FieldType = "text" | "textarea" | "number" | "date" | "datetime" | "when" | "select" | "checkbox" | "image" | "file" | "tags" | "json" | "url";
+export interface FieldDef { name: string; label: string; type: FieldType; required?: boolean; help?: string; options?: { value: string; label: string }[]; rows?: number;
+  /** For a `when` end: the start field whose date is used if only an end time is given, and which it must not be before. */ after?: string }
 export interface Resource {
   key: string; table: string; title: string; singular: string; roles: Role[];
   fields: FieldDef[]; columns: string[]; orderBy: string; ascending?: boolean;
@@ -23,7 +25,8 @@ export const resources: Resource[] = [
     fields: [
       t("title", "Title", { required: true }), t("slug", "URL slug", { help: "Leave blank to create from the title." }),
       { name: "category", label: "Category", type: "select", options: eventCats, required: true },
-      { name: "starts_at", label: "Starts", type: "datetime", required: true }, { name: "ends_at", label: "Ends", type: "datetime" },
+      { name: "starts_at", label: "Date", type: "when", required: true, help: "Leave the time empty for all-day events or staggered starts. The site then shows “All day”." },
+      { name: "ends_at", label: "Ends (optional)", type: "when", after: "starts_at", help: "For events that run over several days, or to show a finish time. A time on its own means the same day." },
       t("short_description", "Short description", { required: true }), { name: "description", label: "Full description", type: "textarea", rows: 8, help: "Separate paragraphs with a blank line." },
       t("venue_name", "Venue name", { required: true }), t("address", "Address"), t("postcode", "Postcode"), { name: "lat", label: "Latitude", type: "number" }, { name: "lng", label: "Longitude", type: "number" },
       { name: "image_url", label: "Event image", type: "image" }, t("image_alt", "Image description (alt text)"),

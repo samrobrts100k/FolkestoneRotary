@@ -1,3 +1,4 @@
+import { isAllDay, londonParts } from "../event-time";
 import { site } from "../site";
 import type { EventItem, NewsItem } from "../types";
 
@@ -12,7 +13,8 @@ export const organisationLd = () => ({
 
 export const eventLd = (e: EventItem) => ({
   "@context": "https://schema.org", "@type": "Event", name: e.title, description: e.short_description,
-  startDate: e.starts_at, endDate: e.ends_at ?? undefined, eventStatus: "https://schema.org/EventScheduled",
+  // All-day events give dates only, as schema.org expects.
+  startDate: isAllDay(e.starts_at) ? londonParts(e.starts_at).date : e.starts_at, endDate: e.ends_at ? (isAllDay(e.starts_at) ? londonParts(e.ends_at).date : e.ends_at) : undefined, eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: abs(`/events/${e.slug}`),
   image: e.image_url ?? undefined,
   location: { "@type": "Place", name: e.venue_name, address: { "@type": "PostalAddress", streetAddress: e.address, postalCode: e.postcode, addressLocality: "Folkestone", addressCountry: "GB" } },

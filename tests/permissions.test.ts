@@ -37,7 +37,7 @@ describe("CMS record building", () => {
   });
   it("rejects invalid JSON and non-http links", () => {
     const ev = getResource("events")!;
-    const e = { title: "E", category: "social", starts_at: "2030-01-01T10:00", short_description: "s", venue_name: "v", status: "draft" };
+    const e = { title: "E", category: "social", starts_at__date: "2030-01-01", starts_at__time: "10:00", short_description: "s", venue_name: "v", status: "draft" };
     expect(buildRow(ev, fd({ ...e, faq: "{oops" })).ok).toBe(false);
     expect(buildRow(ev, fd({ ...e, book_url: "javascript:alert(1)" })).ok).toBe(false);
     expect(buildRow(ev, fd(e)).ok).toBe(true);
