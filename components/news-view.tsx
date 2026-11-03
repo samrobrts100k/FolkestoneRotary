@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
-import { Photo } from "@/components/ui/photo";
+import { RichText, UncutPhoto } from "@/components/rich-text";
+import { plainText } from "@/lib/rich-text";
 import { ShareButtons } from "@/components/share-buttons";
 import { JsonLd } from "@/components/json-ld";
 import { articleLd } from "@/lib/seo/jsonld";
@@ -11,7 +12,7 @@ import { site } from "@/lib/site";
 import type { NewsItem } from "@/lib/types";
 import { getPageText } from "@/lib/content";
 
-const mins = (b: string) => Math.max(1, Math.round(b.split(/\s+/).length / 200));
+const mins = (b: string) => Math.max(1, Math.round(plainText(b).split(/\s+/).length / 200));
 
 /** One article, in the seafront design: hero with the summary, a comfortable reading column, then more news. */
 export async function NewsView({ n, related }: { n: NewsItem; related: NewsItem[] }) {
@@ -33,8 +34,8 @@ export async function NewsView({ n, related }: { n: NewsItem; related: NewsItem[
 
       <section className="sec"><div className="wrap">
         <article className="artx">
-          {n.image_url && <Photo src={n.image_url} alt={n.image_alt || n.title} ratio="aspect-[16/9]" className="dtl-pic" priority sizes="(min-width:800px) 760px, 100vw" />}
-          <div className="dtl-copy big">{n.body.split(/\n\n+/).map((p, i) => <p key={i}>{p}</p>)}</div>
+          {n.image_url && <div className="dtl-pic"><UncutPhoto img={{ url: n.image_url, alt: n.image_alt || n.title }} caption={false} priority sizes="(min-width:800px) 760px, 100vw" /></div>}
+          <div className="dtl-copy big"><RichText text={n.body} /></div>
           {n.tags.length > 0 && <ul className="dtl-chips" aria-label="Tags">{n.tags.map((tag) => <li key={tag}><Link href={`/news?tag=${encodeURIComponent(tag)}`}>{tag}</Link></li>)}</ul>}
           <div className="dtl-share"><ShareButtons url={`${site.url}/news/${n.slug}`} title={n.title} /></div>
         </article>

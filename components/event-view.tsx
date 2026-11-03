@@ -3,6 +3,7 @@ import { DxRoot } from "@/components/dx/dx-root";
 import { DxHero } from "@/components/dx/hero";
 import { Accordion, Cd } from "@/components/dx/common";
 import { Photo } from "@/components/ui/photo";
+import { RichText, UncutPhoto } from "@/components/rich-text";
 import { ShareButtons } from "@/components/share-buttons";
 import { JsonLd } from "@/components/json-ld";
 import { eventLd, faqLd } from "@/lib/seo/jsonld";
@@ -47,9 +48,9 @@ export async function EventView({ e }: { e: EventItem }) {
 
       <section className="sec"><div className="wrap dtl">
         <div className="dtl-main">
-          {e.image_url && <Photo src={e.image_url} alt={e.image_alt || e.title} ratio="aspect-[16/9]" className="dtl-pic" priority sizes="(min-width:1000px) 720px, 100vw" />}
+          {e.image_url && <div className="dtl-pic"><UncutPhoto img={{ url: e.image_url, alt: e.image_alt || e.title }} caption={false} priority sizes="(min-width:1000px) 720px, 100vw" /></div>}
           <h2 className="s">{t.evAbout}</h2>
-          <div className="dtl-copy">{e.description.split(/\n\n+/).map((p, i) => <p key={i}>{p}</p>)}</div>
+          <div className="dtl-copy"><RichText text={e.description} /></div>
 
           {e.programme?.length ? (<>
             <h2 className="s">{t.evDay}</h2>

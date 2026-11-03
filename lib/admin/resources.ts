@@ -2,7 +2,7 @@ import type { Role } from "../permissions";
 import { resourceRoles } from "../permissions";
 
 /** `when` = a date box plus an optional time box (UK time). No time means all day for a start, or the end of that day for an end. */
-export type FieldType = "text" | "textarea" | "number" | "date" | "datetime" | "when" | "select" | "checkbox" | "image" | "file" | "tags" | "json" | "url";
+export type FieldType = "text" | "textarea" | "rich" | "number" | "date" | "datetime" | "when" | "select" | "checkbox" | "image" | "file" | "tags" | "json" | "url";
 export interface FieldDef { name: string; label: string; type: FieldType; required?: boolean; help?: string; options?: { value: string; label: string }[]; rows?: number;
   /** For a `when` end: the start field whose date is used if only an end time is given, and which it must not be before. */ after?: string }
 export interface Resource {
@@ -27,7 +27,7 @@ export const resources: Resource[] = [
       { name: "category", label: "Category", type: "select", options: eventCats, required: true },
       { name: "starts_at", label: "Date", type: "when", required: true, help: "Leave the time empty for all-day events or staggered starts. The site then shows “All day”." },
       { name: "ends_at", label: "Ends (optional)", type: "when", after: "starts_at", help: "For events that run over several days, or to show a finish time. A time on its own means the same day." },
-      t("short_description", "Short description", { required: true }), { name: "description", label: "Full description", type: "textarea", rows: 8, help: "Separate paragraphs with a blank line." },
+      t("short_description", "Short description", { required: true }), { name: "description", label: "Full description", type: "rich", rows: 10 },
       t("venue_name", "Venue name", { required: true }), t("address", "Address"), t("postcode", "Postcode"), { name: "lat", label: "Latitude", type: "number" }, { name: "lng", label: "Longitude", type: "number" },
       { name: "image_url", label: "Event image", type: "image" }, t("image_alt", "Image description (alt text)"),
       { name: "book_url", label: "Booking link", type: "url", help: "Shows a Book button." }, { name: "enter_url", label: "Entry link", type: "url", help: "Shows an Enter button." },
@@ -42,8 +42,10 @@ export const resources: Resource[] = [
     fields: [
       t("title", "Headline", { required: true }), t("slug", "URL slug", { help: "Leave blank to create from the headline." }),
       { name: "category", label: "Category", type: "select", options: newsCats, required: true }, { name: "published_at", label: "Article date", type: "datetime", required: true },
-      t("author", "Author"), t("summary", "Summary", { required: true }), { name: "body", label: "Article", type: "textarea", rows: 12, help: "Separate paragraphs with a blank line." },
-      { name: "tags", label: "Tags (comma separated)", type: "tags" }, { name: "image_url", label: "Image", type: "image" }, t("image_alt", "Image description (alt text)"), { name: "featured", label: "Featured article", type: "checkbox" },
+      t("author", "Author"), t("summary", "Summary", { required: true }),
+      { name: "image_url", label: "Main photo", type: "image", help: "Shown in full at the top of the article (never cut off) and on the News page when the article is featured." }, t("image_alt", "Describe the main photo (for screen readers)"),
+      { name: "body", label: "Article", type: "rich", rows: 16, help: "Add more photos anywhere in the article with + Photos." },
+      { name: "tags", label: "Tags (comma separated)", type: "tags" }, { name: "featured", label: "Featured article", type: "checkbox" },
     ] }),
   r({ key: "impact_stories", table: "impact_stories", title: "Impact stories", singular: "story", workflow: true, slugFrom: "title", previewKind: "story", orderBy: "created_at", ascending: false, columns: ["title", "organisation", "amount_awarded"],
     fields: [t("title", "Project title", { required: true }), t("slug", "URL slug"), t("organisation", "Organisation supported", { required: true }), t("summary", "Short description", { required: true }), t("outcome", "Outcome"),

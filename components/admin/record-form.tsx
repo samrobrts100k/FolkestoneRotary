@@ -5,6 +5,7 @@ import type { Resource } from "@/lib/admin/resources";
 import { Field, Input, Select, Textarea } from "@/components/ui/fields";
 import { Button } from "@/components/ui/button";
 import { ImageField } from "./image-field";
+import { RichTextField } from "./rich-text-field";
 import { STATUSES } from "@/lib/types";
 import { isoToLocalInput, londonParts } from "@/lib/event-time";
 
@@ -27,6 +28,7 @@ export function RecordForm({ resource, id, record }: { resource: Resource; id: s
       {resource.fields.map((f) => {
         const v = val(f.name);
         if (f.type === "image" || f.type === "file") return <ImageField key={f.name} name={f.name} label={f.label} defaultValue={v as string} accept={f.type === "image" ? "image" : "file"} help={f.help} />;
+        if (f.type === "rich") return <div key={f.name}><RichTextField name={f.name} label={f.label} defaultValue={(v as string) ?? ""} help={f.help} rows={f.rows} required={f.required} />{e[f.name] && <p role="alert" className="mt-1 text-sm font-medium text-red-700">{e[f.name]}</p>}</div>;
         if (f.type === "when") {
           const w = whenParts(v, Boolean(f.after));
           return (

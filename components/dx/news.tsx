@@ -3,9 +3,10 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Pills, reducedMotion } from "./common";
 import { formatDate } from "@/lib/utils";
+import { plainText } from "@/lib/rich-text";
 
 export interface NewsRow { id: string; slug: string; title: string; summary: string; body: string; category: string; published_at: string }
-const mins = (b: string) => Math.max(1, Math.round(b.split(/\s+/).length / 200));
+const mins = (b: string) => Math.max(1, Math.round(plainText(b).split(/\s+/).length / 200));
 const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
 const hi = (s: string, q: string) => (q ? esc(s).replace(new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig"), "<mark>$1</mark>") : esc(s));
 

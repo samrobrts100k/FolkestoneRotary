@@ -83,3 +83,21 @@
 .dx .meet.blue .btn,.dx .meet.navy .btn{background:var(--gold);color:var(--navy)}.dx .meet.blue .btn:hover,.dx .meet.navy .btn:hover{background:#ffb93a}
 .dx .meet.blue .btn.ghost,.dx .meet.navy .btn.ghost{background:transparent;border-color:#fff;color:#fff}.dx .meet.blue .btn.ghost:hover,.dx .meet.navy .btn.ghost:hover{background:rgba(255,255,255,.15)}
 .dx .meet.blue :focus-visible,.dx .meet.navy :focus-visible{outline-color:#fff}
+
+/* Article text from the toolbar editor (components/rich-text.tsx) */
+.dx .rtx h2{font:700 clamp(26px,3.2vw,34px)/1.15 var(--serif);color:var(--navy);margin:1.6em 0 .5em}
+.dx .rtx h3{font:700 22px/1.25 var(--serif);color:var(--navy);margin:1.4em 0 .4em}
+.dx .rtx ul,.dx .rtx ol{margin:0 0 1em;padding-left:1.4em;max-width:38em}.dx .rtx ul{list-style:disc}.dx .rtx ol{list-style:decimal}.dx .rtx li{margin:.3em 0;font-size:inherit;line-height:1.6}
+.dx .rtx ul li::marker{color:var(--gold)}.dx .rtx ol li::marker{color:var(--blue);font-weight:700}
+.dx .rtx blockquote{margin:1.4em 0;padding:4px 0 4px 22px;border-left:4px solid var(--gold)}.dx .rtx blockquote p{font:600 clamp(20px,2.4vw,24px)/1.45 var(--serif);color:var(--navy);margin:0}
+.dx .rtx hr{border:0;height:2px;background:var(--line);margin:2em 0}
+.dx .rtx a{color:var(--blue);font-weight:600;text-decoration:underline}.dx .rtx a:hover{color:var(--navy);text-decoration-thickness:3px}
+/* Whole photo, never cropped: full width for wide shots, and tall ones capped at 80% of the screen, centred. */
+.dx .rt-fig{margin:1.6em 0}.dx .rt-fig img{display:block;width:auto;max-width:100%;height:auto;max-height:80vh;margin:0 auto;border-radius:16px;background:var(--mist)}
+.dx .rt-fig figcaption{text-align:center}.dx .rt-gal .rt-fig figcaption{text-align:left}
+.dx .rt-fig figcaption{margin-top:8px;font-size:15px;color:var(--mute)}
+.dx .rt-gal{display:grid;gap:14px;margin:1.6em 0;align-items:start}.dx .rt-gal .rt-fig{margin:0}
+.dx .rt-gal.n2{grid-template-columns:1fr 1fr}.dx .rt-gal.n3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:600px){.dx .rt-gal.n3{grid-template-columns:1fr 1fr}}
+.dx .dtl-copy.big>.rtx>p:first-child::first-letter{float:left;font:700 4.1em/.8 var(--serif);color:var(--blue);margin:.08em .1em 0 0}
+.dx .dtl-pic .rt-fig{margin:0}

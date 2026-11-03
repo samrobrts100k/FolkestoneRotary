@@ -12,7 +12,8 @@ export function ImageField({ name, label, defaultValue, accept = "image", help }
   const [url, setUrl] = useState(defaultValue ?? "");
   const [src, setSrc] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [ratio, setRatio] = useState<Ratio>("16:10");
+  // Start uncropped, so the whole photo is kept unless someone chooses a shape.
+  const [ratio, setRatio] = useState<Ratio>("Original");
   const [zoom, setZoom] = useState(1);
   const [px, setPx] = useState(50), [py, setPy] = useState(50);
   const [busy, setBusy] = useState(false), [msg, setMsg] = useState("");

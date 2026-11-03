@@ -49,6 +49,7 @@ Sign in and open **/admin**:
 | Extra panels (gold, blue or navy, under the top section or at the bottom) on any page, and hiding a page’s built-in gold panel | **Page text** → pick the page → **Extra panels**: **+ Add a panel**, fill in heading, text and up to two buttons, choose where and colour; **Show this panel** under the built-in panel’s section |
 | Form labels, buttons, hints, error messages and thank-you messages (Reserve a seat, Contact, the Funding application, the footer newsletter) | **Page text** → **Forms (labels and messages)** |
 | Events, news, impact stories, sponsors, galleries | the matching section → **Add** / **Edit** |
+| News articles and event descriptions: headings, bold, italic, links, lists, quotes, dividing lines and photos anywhere in the text (several in a row make a gallery) | the article box toolbar; **Preview** shows the result before saving. Photos are always shown whole, never cropped |
 | Homepage numbers | **Homepage statistics** |
 | FAQs, testimonials, timeline, leadership, annual-report PDFs | **FAQs, testimonials & reports** |
 | Photos and PDFs | any image field lets you upload, preview, **crop**, and remove; **Media library** lists everything |
